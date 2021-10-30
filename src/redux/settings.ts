@@ -7,7 +7,7 @@ import {
   saveNetwork,
 } from '../handlers/localstorage/globalSettings';
 import { web3SetHttpProvider } from '../handlers/web3';
-import networkTypes, { Network } from '../helpers/networkTypes';
+import { Network } from '../helpers/networkTypes';
 import { updateLanguage } from '../languages';
 
 import { ethereumUtils } from '../utils';
@@ -161,7 +161,7 @@ export const INITIAL_STATE: SettingsState = {
   chainId: 1,
   language: 'en',
   nativeCurrency: NativeCurrencyKeys.USD,
-  network: networkTypes.mainnet,
+  network: Network.mainnet,
 };
 
 export default (state = INITIAL_STATE, action: SettingsStateUpdateAction) => {
