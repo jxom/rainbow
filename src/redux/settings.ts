@@ -1,20 +1,20 @@
 import { Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { NativeCurrencyKeys } from '../entities/nativeCurrencyTypes';
+import { updateLanguage } from '../languages';
 import {
   getNativeCurrency,
   getNetwork,
   saveLanguage,
   saveNativeCurrency,
   saveNetwork,
-} from '../handlers/localstorage/globalSettings';
-import { web3SetHttpProvider } from '../handlers/web3';
-import { Network } from '../helpers/networkTypes';
-import { updateLanguage } from '../languages';
-import { ethereumUtils } from '../utils';
-import { dataResetState } from './data';
-import { explorerClearState, explorerInit } from './explorer';
-import { AppState } from './store';
+} from '@rainbow-me/handlers/localstorage/globalSettings';
+import { web3SetHttpProvider } from '@rainbow-me/handlers/web3';
+import { Network } from '@rainbow-me/helpers/networkTypes';
+import { dataResetState } from '@rainbow-me/redux/data';
+import { explorerClearState, explorerInit } from '@rainbow-me/redux/explorer';
+import { AppState } from '@rainbow-me/redux/store';
+import { ethereumUtils } from '@rainbow-me/utils';
 import logger from 'logger';
 
 // -- Constants ------------------------------------------------------------- //
