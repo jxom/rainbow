@@ -1,13 +1,18 @@
-import { VibrancyView } from '@react-native-community/blur';
+import { BlurView } from '@react-native-community/blur';
 import c from 'chroma-js';
 import React, {
   Fragment,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { Linking, Share } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 import styled from 'styled-components';
 import useWallets from '../../hooks/useWallets';
 import { lightModeThemeColors } from '../../styles/colors';
@@ -38,6 +43,7 @@ import {
   useAccountProfile,
   useAccountSettings,
   useDimensions,
+  usePersistentDominantColorFromImage,
   useShowcaseTokens,
 } from '@rainbow-me/hooks';
 import { ImgixImage } from '@rainbow-me/images';
@@ -62,10 +68,9 @@ const TokenHistoryExpandedStateSection = styled(ExpandedStateSection).attrs({
   isTokenHistory: true,
 })``;
 
-const BackgroundBlur = styled(VibrancyView).attrs({
+const BackgroundBlur = styled(BlurView).attrs({
   blurAmount: 100,
   blurType: 'light',
-  overlayColor: 'transparent',
 })`
   ${position.cover};
 `;
@@ -75,6 +80,17 @@ const BackgroundImage = styled.View`
   height: ${({ deviceHeight }) => deviceHeight};
   position: absolute;
   width: ${({ deviceWidth }) => deviceWidth};
+`;
+
+const BlurWrapper = styled.View.attrs({
+  shouldRasterizeIOS: true,
+})`
+  height: ${({ height }) => height};
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  width: ${({ width }) => width};
+  ${android && 'border-top-left-radius: 30; border-top-right-radius: 30;'}
 `;
 
 const SheetDivider = styled(Row)`
@@ -90,18 +106,12 @@ const Spacer = styled.View`
   height: ${safeAreaInsetValues.bottom + 20};
 `;
 
-const UniqueTokenExpandedState = ({
-  aspectRatio,
-  asset,
-  imageColor,
-  external,
-  lowResUrl,
-}) => {
+const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
   const { accountAddress, accountENS } = useAccountProfile();
   const { nativeCurrency, network } = useAccountSettings();
   const { height: deviceHeight, width: deviceWidth } = useDimensions();
   const { navigate } = useNavigation();
-  const { colors } = useTheme();
+  const { colors, isDarkMode } = useTheme();
   const { isReadOnlyWallet } = useWallets();
 
   const {
@@ -120,13 +130,18 @@ const UniqueTokenExpandedState = ({
     showcaseTokens,
   } = useShowcaseTokens();
 
-  const [fallbackImageColor, setFallbackImageColor] = useState(null);
-  const [textColor, setTextColor] = useState('#FFFFFF');
   const [floorPrice, setFloorPrice] = useState(null);
   const [lastSalePrice, setLastSalePrice] = useState(null);
   const [currentPrice, setCurrentPrice] = useState(null);
   const [showCurrentPriceInEth, setShowCurrentPriceInEth] = useState(true);
   const [showFloorInEth, setShowFloorInEth] = useState(true);
+  const animationProgress = useSharedValue(0);
+  const opacityStyle = useAnimatedStyle(() => ({
+    opacity: 1 - animationProgress.value,
+  }));
+  const sheetHandleStyle = useAnimatedStyle(() => ({
+    opacity: 1 - animationProgress.value,
+  }));
 
   const isShowcaseAsset = useMemo(() => showcaseTokens.includes(uniqueId), [
     showcaseTokens,
@@ -134,8 +149,9 @@ const UniqueTokenExpandedState = ({
   ]);
   const isSVG = isSupportedUriExtension(lowResUrl, ['.svg']);
 
-  const imageColorWithFallback =
-    imageColor || fallbackImageColor || colors.paleBlue;
+  const imageColor =
+    usePersistentDominantColorFromImage(asset.image_url).result ||
+    colors.paleBlue;
 
   // if (lastSalePrice != 'None') {
   //   lastSalePrice = handleSignificantDecimals(parseFloat(lastPrice), 5);
@@ -143,24 +159,15 @@ const UniqueTokenExpandedState = ({
   
   const priceOfEth = ethereumUtils.getEthPriceUnit();
 
-  useEffect(() => {
-    getDominantColorFromImage(lowResUrl, '#333333').then(result => {
-      setFallbackImageColor(result);
-    });
-  }, [lowResUrl]);
-
-  useEffect(() => {
-    const contrastWithWhite = c.contrast(
-      imageColorWithFallback,
-      colors.whiteLabel
-    );
+  const textColor = useMemo(() => {
+    const contrastWithWhite = c.contrast(imageColor, colors.whiteLabel);
 
     if (contrastWithWhite < 2.125) {
-      setTextColor(lightModeThemeColors.dark);
+      return lightModeThemeColors.dark;
     } else {
-      setTextColor(colors.whiteLabel);
+      return colors.whiteLabel;
     }
-  }, [colors.whiteLabel, imageColorWithFallback]);
+  }, [colors.whiteLabel, imageColor]);
 
   useEffect(() => {
     apiGetUniqueTokenFloorPrice(network, urlSuffixForAsset).then((result) => setFloorPrice(result));
@@ -189,6 +196,7 @@ const UniqueTokenExpandedState = ({
 
   const handlePressShare = useCallback(() => {
     Share.share({
+      message: buildRainbowUrl(asset, accountENS, accountAddress),
       title: `Share ${buildUniqueTokenName(asset)} Info`,
       url: buildRainbowUrl(asset, accountENS, accountAddress),
     });
@@ -207,101 +215,109 @@ const UniqueTokenExpandedState = ({
     [showFloorInEth, setShowFloorInEth]
   );
 
+  const sheetRef = useRef();
+  const yPosition = useSharedValue(0);
+
   return (
     <Fragment>
-      <BackgroundImage deviceWidth={deviceWidth} deviceHeight={deviceHeight}>
-        {isSVG ? (
-          <UniqueTokenImage
-            backgroundColor={asset.background}
-            imageUrl={lowResUrl}
-            item={asset}
-            size={deviceHeight}
-          />
-        ) : (
-          <ImgixImage
-            resizeMode="cover"
-            source={{ uri: lowResUrl }}
-            style={{ height: deviceHeight, width: deviceWidth }}
-          />
-        )}
-        <BackgroundBlur />
-      </BackgroundImage>
+      <BlurWrapper height={deviceHeight} width={deviceWidth}>
+        <BackgroundImage deviceWidth={deviceWidth} deviceHeight={deviceHeight}>
+          {isSVG ? (
+            <UniqueTokenImage
+              backgroundColor={asset.background}
+              imageUrl={lowResUrl}
+              item={asset}
+              size={deviceHeight}
+            />
+          ) : (
+            <ImgixImage
+              resizeMode="cover"
+              source={{ uri: lowResUrl }}
+              style={{ height: deviceHeight, width: deviceWidth }}
+            />
+          )}
+          <BackgroundBlur />
+        </BackgroundImage>
+      </BlurWrapper>
       <SlackSheet
-        backgroundColor="rgba(26, 26, 26, 0.4)"
+        backgroundColor={
+          isDarkMode ? 'rgba(22, 22, 22, 0.4)' : 'rgba(26, 26, 26, 0.4)'
+        }
         bottomInset={42}
         hideHandle
         {...(ios
           ? { height: '100%' }
-          : { additionalTopPadding: true, contentHeight: deviceHeight - 80 })}
+          : { additionalTopPadding: true, contentHeight: deviceHeight })}
+        ref={sheetRef}
         scrollEnabled
+        yPosition={yPosition}
       >
         <Centered paddingBottom={30} paddingTop={33}>
-          <SheetHandle color={colors.alpha(colors.whiteLabel, 0.24)} />
+          <Animated.View style={sheetHandleStyle}>
+            <SheetHandle color={colors.alpha(colors.whiteLabel, 0.24)} />
+          </Animated.View>
         </Centered>
         <UniqueTokenExpandedStateContent
-          aspectRatio={aspectRatio}
+          animationProgress={animationProgress}
           asset={asset}
-          imageColor={imageColorWithFallback}
+          imageColor={imageColor}
           lowResUrl={lowResUrl}
+          sheetRef={sheetRef}
+          yPosition={yPosition}
         />
-        <Row justify="space-between" marginTop={14} paddingHorizontal={19}>
-          <ButtonPressAnimation
-            onPress={handlePressShowcase}
-            padding={5}
-            scaleTo={0.88}
-          >
-            <Text
-              color={imageColorWithFallback}
-              lineHeight="loosest"
-              size="lmedium"
-              weight="heavy"
+        <Animated.View style={opacityStyle}>
+          <Row justify="space-between" marginTop={14} paddingHorizontal={19}>
+            <ButtonPressAnimation
+              onPress={handlePressShowcase}
+              padding={5}
+              scaleTo={0.88}
             >
-              {isShowcaseAsset ? '􀫝 In Showcase' : '􀐇 Showcase'}
-            </Text>
-          </ButtonPressAnimation>
-          <ButtonPressAnimation
-            onPress={handlePressShare}
-            padding={5}
-            scaleTo={0.88}
-          >
-            <Text
-              align="right"
-              color={imageColorWithFallback}
-              lineHeight="loosest"
-              size="lmedium"
-              weight="heavy"
+              <Text
+                color={imageColor}
+                lineHeight="loosest"
+                size="lmedium"
+                weight="heavy"
+              >
+                {isShowcaseAsset ? '􀫝 In Showcase' : '􀐇 Showcase'}
+              </Text>
+            </ButtonPressAnimation>
+            <ButtonPressAnimation
+              onPress={handlePressShare}
+              padding={5}
+              scaleTo={0.88}
             >
-              􀈂 Share
-            </Text>
-          </ButtonPressAnimation>
-        </Row>
-        <UniqueTokenExpandedStateHeader
-          asset={asset}
-          imageColor={imageColorWithFallback}
-        />
-        <SheetActionButtonRow
-          ignorePaddingTop
-          paddingBottom={24}
-          paddingHorizontal={16.5}
-        >
-          <SheetActionButton
-            color={imageColorWithFallback}
-            label={
-              !external && !isReadOnlyWallet && isSendable
-                ? '􀮶 OpenSea'
-                : '􀮶 View on OpenSea'
-            }
-            nftShadows
-            onPress={handlePressOpensea}
-            textColor={textColor}
-            weight="heavy"
+              <Text
+                align="right"
+                color={imageColor}
+                lineHeight="loosest"
+                size="lmedium"
+                weight="heavy"
+              >
+                􀈂 Share
+              </Text>
+            </ButtonPressAnimation>
+          </Row>
+          <UniqueTokenExpandedStateHeader
+            asset={asset}
+            imageColor={imageColor}
           />
-          {!external && !isReadOnlyWallet && isSendable ? (
-            <SendActionButton
-              asset={asset}
-              color={imageColorWithFallback}
+          <SheetActionButtonRow
+            ignorePaddingTop
+            paddingBottom={24}
+            paddingHorizontal={16.5}
+          >
+            <SheetActionButton
+              color={imageColor}
+              fullWidth={external || isReadOnlyWallet || !isSendable}
+              label={
+                !external && !isReadOnlyWallet && isSendable
+                  ? '􀮶 OpenSea'
+                  : '􀮶 View on OpenSea'
+              }
               nftShadows
+              onPress={handlePressOpensea}
               textColor={textColor}
+              weight="heavy"
             />
           ) : null}
         </SheetActionButtonRow>
@@ -409,9 +425,6 @@ const UniqueTokenExpandedState = ({
         </Column>
         <Spacer />
       </SlackSheet>
-      {/* <HeaderBlurContainer>
-        <HeaderBlur />
-      </HeaderBlurContainer> */}
       <ToastPositionContainer>
         <ToggleStateToast
           addCopy="Added to showcase"

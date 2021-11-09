@@ -7,7 +7,13 @@ import { buildUniqueTokenName } from '../../../helpers/assets';
 import { ButtonPressAnimation } from '../../animations';
 import { Column, ColumnWithMargins, Row, RowWithMargins } from '../../layout';
 import { Text, TruncatedText } from '../../text';
-import { useAccountProfile, useDimensions } from '@rainbow-me/hooks';
+import saveToCameraRoll from './saveToCameraRoll';
+import isSupportedUriExtension from '@rainbow-me/helpers/isSupportedUriExtension';
+import {
+  useAccountProfile,
+  useClipboard,
+  useDimensions,
+} from '@rainbow-me/hooks';
 import { ImgixImage } from '@rainbow-me/images';
 import { padding, position } from '@rainbow-me/styles';
 import {
@@ -15,14 +21,31 @@ import {
   magicMemo,
   showActionSheetWithOptions,
 } from '@rainbow-me/utils';
-import logger from 'logger';
 
 const AssetActionsEnum = {
+  copyTokenID: 'copyTokenID',
+  download: 'download',
   etherscan: 'etherscan',
   rainbowWeb: 'rainbowWeb',
 };
 
 const AssetActions = {
+  [AssetActionsEnum.copyTokenID]: {
+    actionKey: AssetActionsEnum.copyTokenID,
+    actionTitle: 'Copy Token ID',
+    icon: {
+      iconType: 'SYSTEM',
+      iconValue: 'square.on.square',
+    },
+  },
+  [AssetActionsEnum.download]: {
+    actionKey: AssetActionsEnum.download,
+    actionTitle: 'Save to Photos',
+    icon: {
+      iconType: 'SYSTEM',
+      iconValue: 'photo.on.rectangle.angled',
+    },
+  },
   [AssetActionsEnum.etherscan]: {
     actionKey: AssetActionsEnum.etherscan,
     actionTitle: 'View on Etherscan',
@@ -134,8 +157,8 @@ const HeadingColumn = styled(ColumnWithMargins).attrs({
 
 const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
   const { accountAddress, accountENS } = useAccountProfile();
+  const { setClipboard } = useClipboard();
   const { width: deviceWidth } = useDimensions();
-
   const { colors } = useTheme();
 
   const formattedCollectionUrl = useMemo(() => {
@@ -168,6 +191,8 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
     };
   }, [asset, formattedCollectionUrl]);
 
+  const isSVG = isSupportedUriExtension(asset.image_url, ['.svg']);
+
   const assetMenuConfig = useMemo(() => {
     return {
       menuItems: [
@@ -178,10 +203,22 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
         {
           ...AssetActions[AssetActionsEnum.etherscan],
         },
+        ...(!isSVG
+          ? [
+              {
+                ...AssetActions[AssetActionsEnum.download],
+              },
+            ]
+          : []),
+        {
+          ...AssetActions[AssetActionsEnum.copyTokenID],
+          discoverabilityTitle:
+            asset.id.length > 15 ? `${asset.id.slice(0, 15)}...` : asset.id,
+        },
       ],
       menuTitle: '',
     };
-  }, []);
+  }, [asset.id, isSVG]);
 
   const handlePressFamilyMenuItem = useCallback(
     ({ nativeEvent: { actionKey } }) => {
@@ -215,36 +252,93 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
         );
       } else if (actionKey === AssetActionsEnum.rainbowWeb) {
         Linking.openURL(buildRainbowUrl(asset, accountENS, accountAddress));
+      } else if (actionKey === AssetActionsEnum.copyTokenID) {
+        setClipboard(asset.id);
+      } else if (actionKey === AssetActionsEnum.download) {
+        saveToCameraRoll(asset.image_url);
       }
     },
-    [accountAddress, accountENS, asset]
+    [accountAddress, accountENS, asset, setClipboard]
   );
 
-  const onPressAndroid = useCallback(() => {
-    const blockExplorerText = 'View on Etherscan';
+  const onPressAndroidFamily = useCallback(() => {
     const androidContractActions = [
-      'Copy Contract Address',
-      blockExplorerText,
-      'Cancel',
+      'View Collection',
+      'Collection Website',
+      'Twitter',
+      'Discord',
     ];
 
     showActionSheetWithOptions(
       {
-        cancelButtonIndex: 2,
         options: androidContractActions,
         showSeparators: true,
         title: '',
       },
       idx => {
         if (idx === 0) {
-          logger.log('menu0');
+          Linking.openURL(
+            'https://opensea.io/collection/' +
+              asset.collection.slug +
+              '?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW'
+          );
         }
         if (idx === 1) {
-          logger.log('menu1');
+          Linking.openURL(asset.external_link || asset.collection.external_url);
+        }
+        if (idx === 2) {
+          Linking.openURL(
+            'https://twitter.com/' + asset.collection.twitter_username
+          );
+        }
+        if (idx === 3) {
+          Linking.openURL(asset.collection.discord_url);
         }
       }
     );
-  }, []);
+  }, [
+    asset.collection.discord_url,
+    asset.collection.external_url,
+    asset.collection.slug,
+    asset.collection.twitter_username,
+    asset.external_link,
+  ]);
+
+  const onPressAndroidAsset = useCallback(() => {
+    const androidContractActions = [
+      'View On Web',
+      'View on Etherscan',
+      'Save to Photos',
+      'Copy Token ID',
+    ];
+
+    showActionSheetWithOptions(
+      {
+        options: androidContractActions,
+        showSeparators: true,
+        title: '',
+      },
+      idx => {
+        if (idx === 0) {
+          Linking.openURL(buildRainbowUrl(asset, accountENS, accountAddress));
+        }
+        if (idx === 1) {
+          Linking.openURL(
+            'https://etherscan.io/token/' +
+              asset.asset_contract.address +
+              '?a=' +
+              asset.id
+          );
+        }
+        if (idx === 2) {
+          saveToCameraRoll(asset.image_url);
+        }
+        if (idx === 3) {
+          setClipboard(asset.id);
+        }
+      }
+    );
+  }, [accountAddress, accountENS, asset, setClipboard]);
 
   return (
     <Container>
@@ -256,9 +350,9 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
             </Text>
           </Column>
           <ContextMenuButton
-            activeOpacity={0}
+            activeOpacity={1}
             menuConfig={assetMenuConfig}
-            {...(android ? { onPress: onPressAndroid } : {})}
+            {...(android ? { onPress: onPressAndroidAsset } : {})}
             isMenuPrimaryAction
             onPressMenuItem={handlePressAssetMenuItem}
             useActionSheetFallback={false}
@@ -274,14 +368,14 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
         <ContextMenuButton
           activeOpacity={0}
           menuConfig={familyMenuConfig}
-          {...(android ? { onPress: onPressAndroid } : {})}
+          {...(android ? { onPress: onPressAndroidFamily } : {})}
           isMenuPrimaryAction
           onPressMenuItem={handlePressFamilyMenuItem}
           useActionSheetFallback={false}
           wrapNativeComponent={false}
         >
           <ButtonPressAnimation scaleTo={0.88}>
-            <Row>
+            <Row align="center" marginTop={android ? -10 : 0}>
               {asset.familyImage ? (
                 <FamilyImageWrapper>
                   <FamilyImage
