@@ -76,15 +76,13 @@ const BackgroundBlur = styled(BlurView).attrs({
 `;
 
 const BackgroundImage = styled.View`
-  background: black;
-  height: ${({ deviceHeight }) => deviceHeight};
-  position: absolute;
-  width: ${({ deviceWidth }) => deviceWidth};
+  ${position.cover};
 `;
 
 const BlurWrapper = styled.View.attrs({
   shouldRasterizeIOS: true,
 })`
+  background-color: ${({ theme: { colors } }) => colors.trueBlack};
   height: ${({ height }) => height};
   left: 0;
   overflow: hidden;
@@ -116,9 +114,11 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
 
   const {
     collection: { description: familyDescription, external_link: familyLink },
+    currentPrice,
     description,
     familyName,
     isSendable,
+    lastPrice,
     traits,
     uniqueId,
     urlSuffixForAsset,
@@ -157,6 +157,7 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
   //   lastSalePrice = handleSignificantDecimals(parseFloat(lastPrice), 5);
   // }
   
+  const lastSalePrice = lastPrice || 'None';
   const priceOfEth = ethereumUtils.getEthPriceUnit();
 
   const textColor = useMemo(() => {
@@ -221,7 +222,7 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
   return (
     <Fragment>
       <BlurWrapper height={deviceHeight} width={deviceWidth}>
-        <BackgroundImage deviceWidth={deviceWidth} deviceHeight={deviceHeight}>
+        <BackgroundImage>
           {isSVG ? (
             <UniqueTokenImage
               backgroundColor={asset.background}
@@ -263,6 +264,7 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
           imageColor={imageColor}
           lowResUrl={lowResUrl}
           sheetRef={sheetRef}
+          textColor={textColor}
           yPosition={yPosition}
         />
         <Animated.View style={opacityStyle}>
@@ -319,111 +321,110 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
               textColor={textColor}
               weight="heavy"
             />
-          ) : null}
-        </SheetActionButtonRow>
-        <TokenInfoSection isNft>
-          <TokenInfoRow>
-            <TokenInfoItem
-              color={
-                lastSalePrice === 'None' && currentPrice === 'None'
-                  ? colors.alpha(colors.whiteLabel, 0.5)
-                  : colors.whiteLabel
-              }
-              isNft
-              loading={!lastSalePrice}
-              onPress={toggleCurrentPriceDisplayCurrency}
-              size="big"
-              title={currentPrice !== 'None' ? '􀋢 For sale' : 'Last sale price'}
-              weight={
-                lastSalePrice === 'None' && !currentPrice ? 'bold' : 'heavy'
-              }
-            >
-              {showCurrentPriceInEth ||
-              nativeCurrency === 'ETH' ||
-              currentPrice !== 'None'
-                ? (currentPrice === 'None' ? lastSalePrice : currentPrice)
-                : convertAmountToNativeDisplay(
-                    parseFloat(currentPrice) * priceOfEth,
-                    nativeCurrency
-                  )}
-            </TokenInfoItem>
-            <TokenInfoItem
-              align="right"
-              color={
-                floorPrice === 'None'
-                  ? colors.alpha(colors.whiteLabel, 0.5)
-                  : colors.whiteLabel
-              }
-              isNft
-              loading={!floorPrice}
-              onInfoPress={handlePressCollectionFloor}
-              onPress={toggleFloorDisplayCurrency}
-              showInfoButton
-              size="big"
-              title="Collection floor"
-              weight={floorPrice === 'None' ? 'bold' : 'heavy'}
-            >
-              {showFloorInEth ||
-              nativeCurrency === 'ETH' ||
-              floorPrice === 'None'
-                ? floorPrice
-                : convertAmountToNativeDisplay(
-                    parseFloat(floorPrice) * priceOfEth,
-                    nativeCurrency
-                  )}
-            </TokenInfoItem>
-          </TokenInfoRow>
-        </TokenInfoSection>
-        <Fragment>
-            <SheetDivider deviceWidth={deviceWidth} />
-            <TokenHistoryExpandedStateSection title="📍 History">
-              <TokenHistory 
-                contractAndToken={urlSuffixForAsset}
-                color={imageColorWithFallback}
+            {!external && !isReadOnlyWallet && isSendable ? (
+              <SendActionButton
+                asset={asset}
+                color={imageColor}
+                nftShadows
+                textColor={textColor}
               />
-            </TokenHistoryExpandedStateSection>
-          </Fragment>
-        <Column>
-          
-          {!!description && (
-            <Fragment>
-              <SheetDivider deviceWidth={deviceWidth} />
-              <NftExpandedStateSection title="Description">
-                {description}
-              </NftExpandedStateSection>
-            </Fragment>
-          )}
-          {!!traits.length && (
-            <Fragment>
-              <SheetDivider deviceWidth={deviceWidth} />
-              <NftExpandedStateSection title="Properties">
-                <UniqueTokenAttributes
-                  {...asset}
-                  color={imageColorWithFallback}
-                  slug={asset.collection.slug}
-                />
-              </NftExpandedStateSection>
-            </Fragment>
-          )}
-          {!!familyDescription && (
-            <Fragment>
-              <SheetDivider deviceWidth={deviceWidth} />
-              <NftExpandedStateSection title={`About ${familyName}`}>
-                <Column>
-                  <MarkdownText
-                    color={colors.alpha(colors.whiteLabel, 0.5)}
-                    lineHeight="big"
-                    size="large"
-                  >
-                    {familyDescription}
-                  </MarkdownText>
-                  {familyLink && <Link url={familyLink} />}
-                </Column>
-              </NftExpandedStateSection>
-            </Fragment>
-          )}
-        </Column>
-        <Spacer />
+            ) : null}
+          </SheetActionButtonRow>
+          <TokenInfoSection isNft>
+            <TokenInfoRow>
+              <TokenInfoItem
+                color={
+                  lastSalePrice === 'None' && !currentPrice
+                    ? colors.alpha(colors.whiteLabel, 0.5)
+                    : colors.whiteLabel
+                }
+                enableHapticFeedback={!!currentPrice}
+                isNft
+                onPress={toggleCurrentPriceDisplayCurrency}
+                size="big"
+                title={currentPrice ? '􀋢 For sale' : 'Last sale price'}
+                weight={
+                  lastSalePrice === 'None' && !currentPrice ? 'bold' : 'heavy'
+                }
+              >
+                {showCurrentPriceInEth ||
+                nativeCurrency === 'ETH' ||
+                !currentPrice
+                  ? currentPrice || lastSalePrice
+                  : convertAmountToNativeDisplay(
+                      parseFloat(currentPrice) * priceOfEth,
+                      nativeCurrency
+                    )}
+              </TokenInfoItem>
+              <TokenInfoItem
+                align="right"
+                color={
+                  floorPrice === 'None'
+                    ? colors.alpha(colors.whiteLabel, 0.5)
+                    : colors.whiteLabel
+                }
+                enableHapticFeedback={floorPrice !== 'None'}
+                isNft
+                loading={!floorPrice}
+                onInfoPress={handlePressCollectionFloor}
+                onPress={toggleFloorDisplayCurrency}
+                showInfoButton
+                size="big"
+                title="Collection floor"
+                weight={floorPrice === 'None' ? 'bold' : 'heavy'}
+              >
+                {showFloorInEth ||
+                nativeCurrency === 'ETH' ||
+                floorPrice === 'None'
+                  ? floorPrice
+                  : convertAmountToNativeDisplay(
+                      parseFloat(floorPrice) * priceOfEth,
+                      nativeCurrency
+                    )}
+              </TokenInfoItem>
+            </TokenInfoRow>
+          </TokenInfoSection>
+          <Column>
+            {!!description && (
+              <Fragment>
+                <SheetDivider deviceWidth={deviceWidth} />
+                <NftExpandedStateSection title="Description">
+                  {description}
+                </NftExpandedStateSection>
+              </Fragment>
+            )}
+            {!!traits.length && (
+              <Fragment>
+                <SheetDivider deviceWidth={deviceWidth} />
+                <NftExpandedStateSection title="Properties">
+                  <UniqueTokenAttributes
+                    {...asset}
+                    color={imageColor}
+                    slug={asset.collection.slug}
+                  />
+                </NftExpandedStateSection>
+              </Fragment>
+            )}
+            {!!familyDescription && (
+              <Fragment>
+                <SheetDivider deviceWidth={deviceWidth} />
+                <NftExpandedStateSection title={`About ${familyName}`}>
+                  <Column>
+                    <MarkdownText
+                      color={colors.alpha(colors.whiteLabel, 0.5)}
+                      lineHeight="big"
+                      size="large"
+                    >
+                      {familyDescription}
+                    </MarkdownText>
+                    {familyLink && <Link url={familyLink} />}
+                  </Column>
+                </NftExpandedStateSection>
+              </Fragment>
+            )}
+          </Column>
+          <Spacer />
+        </Animated.View>
       </SlackSheet>
       <ToastPositionContainer>
         <ToggleStateToast

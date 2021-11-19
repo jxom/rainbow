@@ -147,16 +147,15 @@ export const apiGetUniqueTokenFloorPrice = async (
       timeout: 5000, // 5 secs
     });
 
-    const temp_price = collectionData?.data?.collection?.stats?.floor_price;
+    const tempPrice = collectionData?.data?.collection?.stats?.floor_price;
 
-    if (parseFloat(temp_price) === 0) {
+    if (parseFloat(tempPrice) === 0 || !tempPrice) {
       return 'None';
     }
 
-    const temp_floor_price = handleSignificantDecimals(temp_price, 5);
+    const tempFloorPrice = handleSignificantDecimals(tempPrice, 5);
 
-    const floor_price = temp_floor_price + ' ETH';
-    return floor_price;
+    return parseFloat(tempFloorPrice) + ' ETH';
   } catch (error) {
     logger.debug('FLOOR PRICE ERROR', error);
     throw error;

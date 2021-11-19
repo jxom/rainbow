@@ -1,3 +1,4 @@
+import { toLower } from 'lodash';
 import React, { useCallback } from 'react';
 import { Linking } from 'react-native';
 import { ContextMenuButton } from 'react-native-ios-context-menu';
@@ -15,6 +16,7 @@ import {
   useDimensions,
 } from '@rainbow-me/hooks';
 import { ImgixImage } from '@rainbow-me/images';
+import { ENS_NFT_CONTRACT_ADDRESS } from '@rainbow-me/references';
 import { padding, position } from '@rainbow-me/styles';
 import {
   buildRainbowUrl,
@@ -192,7 +194,10 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
   }, [asset, formattedCollectionUrl]);
 
   const isSVG = isSupportedUriExtension(asset.image_url, ['.svg']);
+  const isENS =
+    toLower(asset.asset_contract.address) === toLower(ENS_NFT_CONTRACT_ADDRESS);
 
+  const isPhotoDownloadAvailable = !isSVG && !isENS;
   const assetMenuConfig = useMemo(() => {
     return {
       menuItems: [
@@ -203,7 +208,7 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
         {
           ...AssetActions[AssetActionsEnum.etherscan],
         },
-        ...(!isSVG
+        ...(isPhotoDownloadAvailable
           ? [
               {
                 ...AssetActions[AssetActionsEnum.download],
@@ -218,7 +223,7 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
       ],
       menuTitle: '',
     };
-  }, [asset.id, isSVG]);
+  }, [asset.id, isPhotoDownloadAvailable]);
 
   const handlePressFamilyMenuItem = useCallback(
     ({ nativeEvent: { actionKey } }) => {
@@ -262,16 +267,26 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
   );
 
   const onPressAndroidFamily = useCallback(() => {
-    const androidContractActions = [
+    const hasWebsite = !!(asset.external_link || asset.collection.external_url);
+    const hasTwitter = !!asset.collection.twitter_username;
+    const hasDiscord = !!asset.collection.discord_url;
+    const baseActions = [
       'View Collection',
       'Collection Website',
       'Twitter',
       'Discord',
     ];
 
+    const twitterIndex = 2 - (!hasWebsite && 1);
+    const discordIndex = 3 - (!hasWebsite && 1) - (!hasTwitter && 1);
+
+    if (!hasWebsite) baseActions.splice(1, 1);
+    if (!hasTwitter) baseActions.splice(twitterIndex, 1);
+    if (!hasDiscord) baseActions.splice(discordIndex, 1);
+
     showActionSheetWithOptions(
       {
-        options: androidContractActions,
+        options: baseActions,
         showSeparators: true,
         title: '',
       },
@@ -284,12 +299,30 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
           );
         }
         if (idx === 1) {
-          Linking.openURL(asset.external_link || asset.collection.external_url);
+          if (hasWebsite) {
+            Linking.openURL(
+              asset.external_link || asset.collection.external_url
+            );
+          } else if (hasTwitter && twitterIndex === 1) {
+            Linking.openURL(
+              'https://twitter.com/' + asset.collection.twitter_username
+            );
+          } else if (hasDiscord && discordIndex === 1) {
+            Linking.openURL(
+              'https://twitter.com/' + asset.collection.twitter_username
+            );
+          }
         }
         if (idx === 2) {
-          Linking.openURL(
-            'https://twitter.com/' + asset.collection.twitter_username
-          );
+          if (hasTwitter && twitterIndex === 2) {
+            Linking.openURL(
+              'https://twitter.com/' + asset.collection.twitter_username
+            );
+          } else if (hasDiscord && discordIndex === 2) {
+            Linking.openURL(
+              'https://twitter.com/' + asset.collection.twitter_username
+            );
+          }
         }
         if (idx === 3) {
           Linking.openURL(asset.collection.discord_url);
@@ -308,7 +341,7 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
     const androidContractActions = [
       'View On Web',
       'View on Etherscan',
-      'Save to Photos',
+      ...(isPhotoDownloadAvailable ? ['Save to Photos'] : []),
       'Copy Token ID',
     ];
 
@@ -321,24 +354,27 @@ const UniqueTokenExpandedStateHeader = ({ asset, imageColor }) => {
       idx => {
         if (idx === 0) {
           Linking.openURL(buildRainbowUrl(asset, accountENS, accountAddress));
-        }
-        if (idx === 1) {
+        } else if (idx === 1) {
           Linking.openURL(
             'https://etherscan.io/token/' +
               asset.asset_contract.address +
               '?a=' +
               asset.id
           );
-        }
-        if (idx === 2) {
-          saveToCameraRoll(asset.image_url);
-        }
-        if (idx === 3) {
+        } else if (isPhotoDownloadAvailable ? idx === 3 : idx === 2) {
           setClipboard(asset.id);
+        } else if (idx === 2) {
+          saveToCameraRoll(asset.image_url);
         }
       }
     );
-  }, [accountAddress, accountENS, asset, setClipboard]);
+  }, [
+    accountAddress,
+    accountENS,
+    asset,
+    isPhotoDownloadAvailable,
+    setClipboard,
+  ]);
 
   return (
     <Container>
