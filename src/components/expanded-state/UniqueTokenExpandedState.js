@@ -36,7 +36,7 @@ import {
   UniqueTokenExpandedStateContent,
   UniqueTokenExpandedStateHeader,
 } from './unique-token';
-import { apiGetUniqueTokenFloorPrice, apiGetUniqueTokenLastSaleOrListPrice } from '@rainbow-me/handlers/opensea-api';
+import { apiGetUniqueTokenFloorPrice } from '@rainbow-me/handlers/opensea-api';
 import { buildUniqueTokenName } from '@rainbow-me/helpers/assets';
 import isSupportedUriExtension from '@rainbow-me/helpers/isSupportedUriExtension';
 import {
@@ -50,22 +50,16 @@ import { ImgixImage } from '@rainbow-me/images';
 import { useNavigation } from '@rainbow-me/navigation';
 import Routes from '@rainbow-me/routes';
 import { position } from '@rainbow-me/styles';
-import { convertAmountToNativeDisplay, handleSignificantDecimals } from '@rainbow-me/utilities';
+import { convertAmountToNativeDisplay } from '@rainbow-me/utilities';
 import {
   buildRainbowUrl,
   ethereumUtils,
-  getDominantColorFromImage,
-  logger,
   magicMemo,
   safeAreaInsetValues,
 } from '@rainbow-me/utils';
 
 const NftExpandedStateSection = styled(ExpandedStateSection).attrs({
   isNft: true,
-})``;
-
-const TokenHistoryExpandedStateSection = styled(ExpandedStateSection).attrs({
-  isTokenHistory: true,
 })``;
 
 const BackgroundBlur = styled(BlurView).attrs({
@@ -131,8 +125,6 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
   } = useShowcaseTokens();
 
   const [floorPrice, setFloorPrice] = useState(null);
-  const [lastSalePrice, setLastSalePrice] = useState(null);
-  const [currentPrice, setCurrentPrice] = useState(null);
   const [showCurrentPriceInEth, setShowCurrentPriceInEth] = useState(true);
   const [showFloorInEth, setShowFloorInEth] = useState(true);
   const animationProgress = useSharedValue(0);
@@ -156,7 +148,7 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
   // if (lastSalePrice != 'None') {
   //   lastSalePrice = handleSignificantDecimals(parseFloat(lastPrice), 5);
   // }
-  
+
   const lastSalePrice = lastPrice || 'None';
   const priceOfEth = ethereumUtils.getEthPriceUnit();
 
@@ -171,10 +163,10 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
   }, [colors.whiteLabel, imageColor]);
 
   useEffect(() => {
-    apiGetUniqueTokenFloorPrice(network, urlSuffixForAsset).then((result) => setFloorPrice(result));
-    apiGetUniqueTokenLastSaleOrListPrice(accountAddress, network, urlSuffixForAsset, true).then((result) => setCurrentPrice(result.trim()));
-    apiGetUniqueTokenLastSaleOrListPrice(accountAddress, network, urlSuffixForAsset, false).then((result) => setLastSalePrice(result.trim()));
-  }, [urlSuffixForAsset]);
+    apiGetUniqueTokenFloorPrice(network, urlSuffixForAsset).then(result =>
+      setFloorPrice(result)
+    );
+  }, [network, urlSuffixForAsset]);
 
   const handlePressCollectionFloor = useCallback(() => {
     navigate(Routes.EXPLAIN_SHEET, {
@@ -385,6 +377,15 @@ const UniqueTokenExpandedState = ({ asset, external, lowResUrl }) => {
             </TokenInfoRow>
           </TokenInfoSection>
           <Column>
+            <Fragment>
+              <SheetDivider deviceWidth={deviceWidth} />
+              <NftExpandedStateSection isTokenHistory title="📍 History">
+                <TokenHistory
+                  contractAndToken={urlSuffixForAsset}
+                  network={network}
+                />
+              </NftExpandedStateSection>
+            </Fragment>
             {!!description && (
               <Fragment>
                 <SheetDivider deviceWidth={deviceWidth} />

@@ -1,22 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useDimensions } from '@rainbow-me/hooks';
-import { View } from "react-native";
-import { Column, Row } from '../../layout';
+import { View } from 'react-native';
 import RadialGradient from 'react-native-radial-gradient';
+import styled from 'styled-components';
+import { Column, Row } from '../../layout';
+import { useDimensions } from '@rainbow-me/hooks';
 
 const Container = styled(Row)`
   width: ${({ width }) => width};
   height: 57;
-  background-color: #FFFFFF00; 
+  background-color: #ffffff00;
 `;
 
-const FakeDate = styled(RadialGradient).attrs(
-  ({ theme: { colors } }) => ({
-    center: [0, 0],
-    colors:  [colors.whiteLabel, '#FFFFFF00']
-  })
-)`
+const FakeDate = styled(RadialGradient).attrs(({ theme: { colors } }) => ({
+  center: [0, 0],
+  colors: [colors.whiteLabel, '#FFFFFF00'],
+}))`
   border-radius: 5;
   width: 60;
   height: 11;
@@ -25,12 +23,10 @@ const FakeDate = styled(RadialGradient).attrs(
   margin-bottom: 9;
 `;
 
-const FakeEvent = styled(RadialGradient).attrs(
-  ({ theme: { colors } }) => ({
-    center: [0, 0],
-    colors:  [colors.whiteLabel, '#FFFFFF00']
-  })
-)`
+const FakeEvent = styled(RadialGradient).attrs(({ theme: { colors } }) => ({
+  center: [0, 0],
+  colors: [colors.whiteLabel, '#FFFFFF00'],
+}))`
   border-radius: 5;
   width: 130;
   height: 11;
@@ -38,12 +34,10 @@ const FakeEvent = styled(RadialGradient).attrs(
   opacity: 0.1;
 `;
 
-const LeftmostEvent = styled(RadialGradient).attrs(
-  ({ theme: { colors } }) => ({
-    center: [0, 0],
-    colors:  [colors.whiteLabel, '#FFFFFF00']
-  })
-)`
+const LeftmostEvent = styled(RadialGradient).attrs(({ theme: { colors } }) => ({
+  center: [0, 0],
+  colors: [colors.whiteLabel, '#FFFFFF00'],
+}))`
   border-radius: 5;
   width: 39;
   height: 11;
@@ -52,7 +46,7 @@ const LeftmostEvent = styled(RadialGradient).attrs(
 
 const LeftmostLine = styled(View)`
   height: 3;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   opacity: 0.1;
   border-radius: 1.5;
   width: 76;
@@ -62,25 +56,25 @@ const LeftmostLine = styled(View)`
 
 const Line = styled(View)`
   height: 3;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   opacity: 0.1;
   border-radius: 1.5;
   width: 132;
   margin-top: 3.5;
 `;
 
-
 const RowWithMargins = styled(Row)`
   margin-left: 6;
 `;
 
-const Gradient = styled(RadialGradient).attrs(
-  ({ theme: { colors } }) => ({
-    center: [0, 0],
-    colors:  [colors.alpha(colors.whiteLabel, 0.2), colors.alpha(colors.whiteLabel, 0.06)],
-    radius: 10
-  })
-)`
+const Gradient = styled(RadialGradient).attrs(({ theme: { colors } }) => ({
+  center: [0, 0],
+  colors: [
+    colors.alpha(colors.whiteLabel, 0.2),
+    colors.alpha(colors.whiteLabel, 0.06),
+  ],
+  radius: 10,
+}))`
   border-radius: 5;
   width: 10;
   height: 10;
@@ -90,17 +84,16 @@ const Gradient = styled(RadialGradient).attrs(
   overflow: hidden;
 `;
 
-
 export default function TokenHistoryLoader() {
   const { width } = useDimensions();
   const { colors } = useTheme();
   return (
-    <Container width={width} colors={colors}>
+    <Container colors={colors} width={width}>
       <Column>
         <LeftmostLine />
         <LeftmostEvent colors={colors} />
       </Column>
-        
+
       <Column>
         <Row>
           <Gradient colors={colors} />
@@ -108,7 +101,7 @@ export default function TokenHistoryLoader() {
         </Row>
 
         <RowWithMargins>
-         <FakeDate colors={colors} />
+          <FakeDate colors={colors} />
         </RowWithMargins>
 
         <RowWithMargins>
@@ -121,14 +114,13 @@ export default function TokenHistoryLoader() {
           <Gradient colors={colors} />
         </Row>
         <RowWithMargins>
-         <FakeDate colors={colors} />
+          <FakeDate colors={colors} />
         </RowWithMargins>
 
         <RowWithMargins>
           <FakeEvent colors={colors} />
         </RowWithMargins>
       </Column>
-
-    </Container> 
+    </Container>
   );
 }

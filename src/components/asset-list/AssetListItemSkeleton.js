@@ -54,7 +54,6 @@ const Wrapper = styled(RowWithMargins).attrs({
   justify: 'space-between',
   margin: 10,
 })`
-
   ${({ ignorePaddingHorizontal }) =>
     padding(
       9,

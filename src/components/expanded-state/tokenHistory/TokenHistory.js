@@ -1,5 +1,5 @@
 import MaskedView from '@react-native-community/masked-view';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import RadialGradient from 'react-native-radial-gradient';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ import TokenHistoryLoader from './TokenHistoryLoader';
 import { useTheme } from '@rainbow-me/context/ThemeContext';
 import { apiGetTokenHistory } from '@rainbow-me/handlers/opensea-api';
 import { getHumanReadableDateWithoutOn } from '@rainbow-me/helpers/transactions';
-import { useAccountProfile, useDimensions, useAccountSettings } from '@rainbow-me/hooks';
+import { useAccountProfile, useAccountSettings } from '@rainbow-me/hooks';
 import { useNavigation } from '@rainbow-me/navigation';
 import Routes from '@rainbow-me/routes';
 import logger from 'logger';
@@ -73,7 +73,6 @@ const EmptyView = styled(View)`
   margin-top: 4;
 `;
 
-
 const LineView = styled(View)`
   height: 3;
   background-color: ${({ color }) => color};
@@ -97,8 +96,7 @@ const TokenHistory = ({ contractAndToken, color }) => {
   const [tokenID, setTokenID] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const { colors } = useTheme();
-  const { width } = useDimensions();
-  const { accountAddress, accountENS } = useAccountProfile();
+  const { accountAddress } = useAccountProfile();
   const { network } = useAccountSettings();
   const { navigate } = useNavigation();
 
@@ -109,24 +107,35 @@ const TokenHistory = ({ contractAndToken, color }) => {
   });
 
   //Query opensea using the contract address + tokenID
-  useEffect(async() => {
-      const results = await apiGetTokenHistory(network, contractAddress, tokenID, accountAddress);
+  useEffect(() => {
+    async function fetch() {
+      const results = await apiGetTokenHistory(
+        network,
+        contractAddress,
+        tokenID,
+        accountAddress
+      );
       setTokenHistory(results);
       if (results.length <= 2) {
         setTokenHistoryShort(true);
       }
-      setIsLoading(false);
-    
-    }, [contractAddress, tokenID]);
+    }
+    setIsLoading(true);
+    fetch();
+    setIsLoading(false);
+  }, [accountAddress, contractAddress, network, tokenID]);
 
-  const handlePress = useCallback(address => {
-    navigate(Routes.SHOWCASE_SHEET, {
-      address: address,
-    });
-  });
+  const handlePress = useCallback(
+    address => {
+      navigate(Routes.SHOWCASE_SHEET, {
+        address: address,
+      });
+    },
+    [navigate]
+  );
 
   const renderItem = ({ item, index }) => {
-    let isFirst = (index == 0);
+    let isFirst = index === 0;
     let label;
     let icon;
     let suffix = ``;
@@ -135,9 +144,9 @@ const TokenHistory = ({ contractAndToken, color }) => {
 
     switch (item?.event_type) {
       case EventEnum.DELIST.type:
-          label = EventEnum.DELIST.label;
-          icon = EventEnum.DELIST.icon;
-          break;
+        label = EventEnum.DELIST.label;
+        icon = EventEnum.DELIST.icon;
+        break;
 
       case EventEnum.ENS.type:
         label = EventEnum.ENS.label;
@@ -163,24 +172,25 @@ const TokenHistory = ({ contractAndToken, color }) => {
 
       case EventEnum.TRANSFER.type:
         suffix = `${item.to_account}`;
-        isClickable = (accountAddress.toLowerCase() !== item.to_account_eth_address)
+        isClickable =
+          accountAddress.toLowerCase() !== item.to_account_eth_address;
         label = EventEnum.TRANSFER.label;
         icon = EventEnum.TRANSFER.icon;
         break;
-      
-      default: 
+
+      default:
         logger.debug('default');
         break;
     }
 
     return renderHistoryDescription({
+      icon,
       isClickable,
       isFirst,
       item,
       label,
       suffix,
       suffixIcon,
-      icon,
     });
   };
 
@@ -206,21 +216,17 @@ const TokenHistory = ({ contractAndToken, color }) => {
 
         <Column style={{ paddingRight: 24 }}>
           <Row style={{ marginBottom: 3 }}>
-            <AccentText color={color}>
-              {date}
-            </AccentText>
+            <AccentText color={color}>{date}</AccentText>
           </Row>
 
           <ButtonPressAnimation
-            hapticType="selection"
             disabled={!isClickable}
+            hapticType="selection"
             onPress={() => handlePress(item.to_account_eth_address)}
             scaleTo={0.92}
           >
             <Row>
-              <AccentText color={color}>
-                {icon}
-              </AccentText>
+              <AccentText color={color}>{icon}</AccentText>
 
               <AccentText color={colors.whiteLabel}>
                 {' '}
@@ -228,7 +234,6 @@ const TokenHistory = ({ contractAndToken, color }) => {
                 {suffix}
                 {isClickable ? suffixIcon : ''}
               </AccentText>
-                
             </Row>
           </ButtonPressAnimation>
         </Column>
@@ -240,7 +245,11 @@ const TokenHistory = ({ contractAndToken, color }) => {
     return (
       <View style={{ marginLeft: 24 }}>
         <Row>
-          { tokenHistory.length === 2 ? renderItem({ index: 1, item: tokenHistory[1] }) : <View /> }
+          {tokenHistory.length === 2 ? (
+            renderItem({ index: 1, item: tokenHistory[1] })
+          ) : (
+            <View />
+          )}
           {renderItem({ index: 0, item: tokenHistory[0] })}
         </Row>
       </View>
@@ -267,7 +276,8 @@ const TokenHistory = ({ contractAndToken, color }) => {
   return (
     <View>
       {isLoading && <TokenHistoryLoader />}
-      {!isLoading && (tokenHistoryShort ? renderTwoOrLessDataItems() : renderFlatlist())}
+      {!isLoading &&
+        (tokenHistoryShort ? renderTwoOrLessDataItems() : renderFlatlist())}
     </View>
   );
 };

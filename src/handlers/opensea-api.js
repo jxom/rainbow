@@ -1,17 +1,17 @@
+import { Contract } from '@ethersproject/contracts';
 import { OPENSEA_API_KEY, OPENSEA_RINKEBY_API_KEY } from 'react-native-dotenv';
 import { rainbowFetch } from '../rainbow-fetch';
+import { web3Provider } from './web3';
+import { FormatAssetForDisplay } from '@rainbow-me/helpers';
+import NetworkTypes from '@rainbow-me/networkTypes';
+import { parseAccountUniqueTokens } from '@rainbow-me/parsers';
 import {
   ENS_NFT_CONTRACT_ADDRESS,
   REVERSE_RECORDS_MAINNET_ADDRESS,
   reverseRecordsABI,
 } from '@rainbow-me/references';
-import { Contract } from '@ethersproject/contracts';
-import { web3Provider } from './web3';
-import { abbreviations } from '@rainbow-me/utils';
-import { FormatAssetForDisplay } from '@rainbow-me/helpers';
-import NetworkTypes from '@rainbow-me/networkTypes';
-import { parseAccountUniqueTokens } from '@rainbow-me/parsers';
 import { handleSignificantDecimals } from '@rainbow-me/utilities';
+import { abbreviations } from '@rainbow-me/utils';
 import logger from 'logger';
 
 export const UNIQUE_TOKENS_LIMIT_PER_PAGE = 50;
@@ -243,20 +243,17 @@ async function GetAddresses(addressArray) {
       reverseRecordsABI,
       web3Provider
     );
-  
+
     const result = await reverseRecordContract.getNames(addressArray);
-  
+
     return result;
-  }
-  catch(error) {
+  } catch (error) {
     logger.debug('CONTRACT ERROR:', error);
   }
-  
 }
 
-
 const filterAndMapData = async (contractAddress, array) => {
-  let addressArray = new Array();
+  let addressArray = [];
   const events = await array
     .filter(
       ({ event_type }) =>
@@ -353,13 +350,12 @@ const filterAndMapData = async (contractAddress, array) => {
     });
 
   const allNames = await GetAddresses(addressArray);
-  
-  await events.map(function(uniqueEvent, index) {
-    if (allNames[index] != '') {
+
+  events.forEach((uniqueEvent, index) => {
+    if (allNames[index] !== '') {
       const abbrevENS = abbreviations.formatAddressForDisplay(allNames[index]);
       uniqueEvent.to_account = abbrevENS;
-    }
-    else {
+    } else {
       const abbrevAddress = abbreviations.address(uniqueEvent.to_account, 2);
       uniqueEvent.to_account = abbrevAddress;
     }
@@ -367,6 +363,3 @@ const filterAndMapData = async (contractAddress, array) => {
 
   return events;
 };
-
-
-
