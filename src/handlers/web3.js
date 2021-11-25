@@ -2,7 +2,7 @@ import { getAddress } from '@ethersproject/address';
 import { BigNumber } from '@ethersproject/bignumber';
 import { isHexString as isEthersHexString } from '@ethersproject/bytes';
 import { isValidMnemonic as ethersIsValidMnemonic } from '@ethersproject/hdnode';
-import { JsonRpcProvider } from '@ethersproject/providers';
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { parseEther } from '@ethersproject/units';
 import UnstoppableResolution from '@unstoppabledomains/resolution';
 import { get, startsWith } from 'lodash';
@@ -18,6 +18,8 @@ import {
 import { isNativeAsset } from './assets';
 import { AssetTypes } from '@rainbow-me/entities';
 import NetworkTypes from '@rainbow-me/helpers/networkTypes';
+// eslint-disable-next-line import/no-cycle
+import { isUnstoppableAddressFormat } from '@rainbow-me/helpers/validators';
 
 import {
   addBuffer,
@@ -55,14 +57,7 @@ export let web3Provider = null;
  * @param {String} network
  */
 export const web3SetHttpProvider = async network => {
-  if (network.startsWith('http://')) {
-    web3Provider = new JsonRpcProvider(network, 'any');
-    // override mainnet for hardhat
-    networkProviders[NetworkTypes.mainnet] = web3Provider;
-  } else {
-    web3Provider = new JsonRpcProvider(rpcEndpoints[network]);
-  }
-  return web3Provider.ready;
+  web3Provider = await getProviderForNetwork(network);
 };
 
 /**
@@ -78,6 +73,14 @@ export const isL2Network = network => {
     default:
       return false;
   }
+};
+
+/**
+ * @desc returns whether current provider is hardhat
+ * @param {String} providerUrl
+ */
+export const isHardHat = providerUrl => {
+  return providerUrl?.startsWith('http://') && providerUrl?.endsWith('8545');
 };
 
 /**
@@ -105,9 +108,12 @@ export const getProviderForNetwork = async (network = NetworkTypes.mainnet) => {
     return networkProviders[network];
   }
   if (network.startsWith('http://')) {
-    return new JsonRpcProvider(network, NetworkTypes.mainnet);
+    const provider = new StaticJsonRpcProvider(network, NetworkTypes.mainnet);
+    networkProviders[NetworkTypes.mainnet] = provider;
+    return provider;
   } else {
-    const provider = new JsonRpcProvider(rpcEndpoints[network]);
+    const chainId = ethereumUtils.getChainIdFromNetwork(network);
+    const provider = new StaticJsonRpcProvider(rpcEndpoints[network], chainId);
     if (!networkProviders[network]) {
       networkProviders[network] = provider;
     }
@@ -308,13 +314,13 @@ export const resolveUnstoppableDomain = async domain => {
     .then(address => {
       return address;
     })
-    .catch(logger.error);
+    .catch(error => logger.error(error));
   return res;
 };
 
 export const resolveNameOrAddress = async (nameOrAddress, provider) => {
   if (!isHexString(nameOrAddress)) {
-    if (/^([\w-]+\.)+(crypto)$/.test(nameOrAddress)) {
+    if (isUnstoppableAddressFormat(nameOrAddress)) {
       return resolveUnstoppableDomain(nameOrAddress);
     }
     const p = provider || web3Provider;
@@ -437,15 +443,17 @@ export const getDataForNftTransfer = (from, to, asset) => {
 };
 
 /**
- * @desc estimate gas limit
- * @param {Object} [{selected, address, recipient, amount, gasPrice}]
+ * @desc build transaction object
+ * @param {Object} [{address, amount, asset, gasLimit, recipient}]
+ * @param {Provider} provider
+ * @param {String} network
  * @return {String}
  */
-export const estimateGasLimit = async (
-  { asset, address, recipient, amount },
-  addPadding = false,
-  provider = null,
-  network = NetworkTypes.mainnet
+
+export const buildTransaction = async (
+  { address, amount, asset, gasLimit, recipient },
+  provider,
+  network
 ) => {
   const _amount =
     amount && Number(amount)
@@ -453,7 +461,7 @@ export const estimateGasLimit = async (
       : estimateAssetBalancePortion(asset);
   const value = _amount.toString();
   const _recipient = await resolveNameOrAddress(recipient, provider);
-  let estimateGasData = {
+  let txData = {
     data: '0x',
     from: address,
     to: _recipient,
@@ -462,20 +470,39 @@ export const estimateGasLimit = async (
   if (asset.type === AssetTypes.nft) {
     const contractAddress = get(asset, 'asset_contract.address');
     const data = getDataForNftTransfer(address, _recipient, asset);
-    estimateGasData = {
+    txData = {
       data,
       from: address,
       to: contractAddress,
     };
   } else if (!isNativeAsset(asset.address, network)) {
     const transferData = getDataForTokenTransfer(value, _recipient);
-    estimateGasData = {
+    txData = {
       data: transferData,
       from: address,
       to: asset.address,
       value: '0x0',
     };
   }
+  return { ...txData, gasLimit };
+};
+
+/**
+ * @desc estimate gas limit
+ * @param {Object} [{ address, amount, asset, recipient }]
+ * @return {String}
+ */
+export const estimateGasLimit = async (
+  { address, amount, asset, recipient },
+  addPadding = false,
+  provider = null,
+  network = NetworkTypes.mainnet
+) => {
+  const estimateGasData = await buildTransaction(
+    { address, amount, asset, recipient },
+    provider,
+    network
+  );
   if (addPadding) {
     return estimateGasWithPadding(estimateGasData, null, null, provider);
   } else {
