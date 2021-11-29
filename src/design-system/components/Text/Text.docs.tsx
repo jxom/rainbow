@@ -5,8 +5,8 @@ import { AccentColorProvider } from '../../color/AccentColorContext';
 import { ColorModeProvider } from '../../color/ColorMode';
 import { palettes } from '../../color/palettes';
 import { CustomColor } from '../../color/useForegroundColor';
-import { Docs } from '../../playground/Docs';
 import { Guide } from '../../playground/Guide';
+import { Docs } from '../../types';
 import { fontWeights } from '../../typography/fontWeights';
 import { Inline } from '../Inline/Inline';
 import { Stack } from '../Stack/Stack';
@@ -80,24 +80,25 @@ const docs: Docs = {
     {
       name: 'With emoji',
       Example: () => (
-        <>
+        <View>
           <Guide />
           <Text containsEmoji>Text with emoji 🌈</Text>
           <Guide />
-        </>
+        </View>
       ),
     },
     {
       name: 'With truncation',
       Example: () => (
-        <>
+        <View>
           <Guide />
-          <Text numberOfLines={1}>
+          <Text size="16px" weight="bold">
             Truncated text truncated text truncated text truncated text
-            truncated text truncated text
+            truncated text truncated text Truncated text truncated text
+            truncated text truncated text truncated text truncated text
           </Text>
           <Guide />
-        </>
+        </View>
       ),
     },
     {

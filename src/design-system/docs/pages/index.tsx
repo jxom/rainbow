@@ -1,143 +1,103 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import React, { Children, Fragment, ReactNode } from 'react';
-import { backgroundColors, foregroundColors } from '../../color/palettes';
-import { fontWeights } from '../../typography/fontWeights';
-import { typeHierarchy } from '../../typography/typeHierarchy';
-import { Radii, Space, sprinkles } from '../styles/sprinkles.css';
+import React from 'react';
 
-const GRID_SPACING: Space = '16px';
-const CARD_GUTTER: Space = '32px';
-const CARD_RADIUS: Radii = '16px';
+import { Docs } from '../../types';
+import DocsAccordion from '../components/DocsAccordion';
+import Blockquote from '../components/system/Blockquote';
+import Stack from '../components/system/Stack';
+import Text from '../components/system/Text';
+import Title from '../components/system/Title';
+import * as docs from '../docs';
+import { sprinkles } from '../styles/sprinkles.css';
 
-const fontWeightFromString = {
-  '400': 400,
-  '500': 500,
-  '600': 600,
-  '700': 700,
-  '800': 800,
-} as const;
+// const fontWeightFromString = {
+//   '400': 400,
+//   '500': 500,
+//   '600': 600,
+//   '700': 700,
+//   '800': 800,
+// } as const;
 
-const Title = ({ children }: { children: ReactNode }) => (
-  <h1
-    className={sprinkles({
-      color: 'primary',
-      fontSize: '23px',
-      fontWeight: 800,
-    })}
-  >
-    {children}
-  </h1>
-);
-
-const Heading = ({ children }: { children: ReactNode }) => (
-  <h2
-    className={sprinkles({
-      color: 'secondary',
-      fontSize: '23px',
-      fontWeight: 700,
-    })}
-  >
-    {children}
-  </h2>
-);
-
-const Stack = ({ space, children }: { space: Space; children: ReactNode }) => (
-  <div
-    className={sprinkles({
-      display: 'flex',
-      flexDirection: 'column',
-      gap: space,
-    })}
-  >
-    {children}
-  </div>
-);
-
-const Columns = ({
-  space,
-  children,
-}: {
-  space: Space;
-  children: ReactNode;
-}) => (
-  <div
-    className={sprinkles({
-      display: 'flex',
-      flexDirection: 'row',
-      gap: space,
-      width: '100%',
-    })}
-  >
-    {Children.map(children, child => (
-      <div
-        className={sprinkles({
-          flexBasis: 0,
-          flexGrow: 1,
-          flexShrink: 1,
-        })}
-      >
-        {child}
-      </div>
-    ))}
-  </div>
-);
-
-const Card = ({
-  backgroundColor = 'white',
-  height,
-  children,
-}: {
-  backgroundColor?: string;
-  height?: 'full';
-  children: ReactNode;
-}) => (
-  <div
-    className={sprinkles({
-      borderRadius: CARD_RADIUS,
-      height: height === 'full' ? '100%' : undefined,
-      padding: CARD_GUTTER,
-      paddingVertical: CARD_GUTTER,
-    })}
-    style={{ backgroundColor }}
-  >
-    {children}
-  </div>
-);
+const categoryOrder = ['Layout', 'Content'];
 
 const Home: NextPage = () => {
+  const categories = Object.values(docs).reduce(
+    (currentCategories: { [key: string]: Docs[] }, { default: doc }) => {
+      return {
+        ...currentCategories,
+        [doc.category]: [...(currentCategories[doc.category] || []), doc],
+      };
+    },
+    {}
+  );
+
   return (
-    <>
-      <Head>
-        <title>Rainbow Design System Cheat Sheet</title>
-        <link href="/favicon.ico" rel="icon" />
-      </Head>
-      <div
-        className={sprinkles({
-          display: 'flex',
-          flexDirection: 'column',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          maxWidth: '1020px',
-          paddingBottom: '48px',
-          paddingLeft: GRID_SPACING,
-          paddingRight: GRID_SPACING,
-          paddingTop: '48px',
-        })}
-      >
-        <Stack space="64px">
-          <Stack space="24px">
+    <div
+      className={sprinkles({
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        maxWidth: '768px',
+        paddingBottom: '48px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
+        paddingTop: '48px',
+      })}
+    >
+      <Stack space="48px">
+        <Title fontSize="32px">
+          🌈🎨 Rainbow Design System Cheat Sheet 🎨🌈
+        </Title>
+        <Stack space="24px">
+          <Text>
+            The goal of Rainbow Design System is to make it fast and easy to
+            build and maintain standard Rainbow designs. As much as possible,
+            component APIs at the screen level should be high level, reading the
+            way a designer would describe them.
+          </Text>
+          <Text>
+            You ideally shouldn't have to write a bunch of low-level styling or
+            manually adjust padding and margins on individual components to
+            create visual balance. To achieve this, we need to start at the
+            foundations and build up in layers.
+          </Text>
+          <Blockquote>
+            <Stack space="16px">
+              <Text>
+                This document is not currently intended to be exhaustive,
+                instead providing an overview of the core parts of the system.
+                This is still a work in progress. APIs are incomplete and likely
+                to change.
+              </Text>
+              <Text>
+                It's recommended that all code importing from
+                `@rainbow-me/design-system` is written in TypeScript so that API
+                changes are picked up.
+              </Text>
+            </Stack>
+          </Blockquote>
+        </Stack>
+        {categoryOrder.map((categoryName, i) => (
+          <Stack key={i} space="16px">
+            <Title>{categoryName}</Title>
+            {categories[categoryName].map((docs, i) => {
+              return <DocsAccordion key={i} {...docs} />;
+            })}
+          </Stack>
+        ))}
+        {/* <Stack space="24px">
             <Stack space="12px">
               <Title>Typography</Title>
-              <Columns space={GRID_SPACING}>
+              <Columns space="16px">
                 <Heading>Heading Sizes</Heading>
                 <Heading>Text Sizes</Heading>
                 <Heading>Font Weights</Heading>
               </Columns>
             </Stack>
-            <Columns space={GRID_SPACING}>
+            <Columns space="16px">
               <Card height="full">
-                <Stack space={CARD_GUTTER}>
+                <Stack space="32px">
                   {Object.entries(typeHierarchy.heading).map(
                     (
                       [sizeName, { fontSize, lineHeight, letterSpacing }],
@@ -170,7 +130,7 @@ const Home: NextPage = () => {
               </Card>
 
               <Card height="full">
-                <Stack space={CARD_GUTTER}>
+                <Stack space="32px">
                   {Object.entries(typeHierarchy.text).map(
                     (
                       [sizeName, { fontSize, lineHeight, letterSpacing }],
@@ -226,24 +186,24 @@ const Home: NextPage = () => {
           <Stack space="24px">
             <Stack space="12px">
               <Title>Background Colors</Title>
-              <Columns space={GRID_SPACING}>
+              <Columns space="16px">
                 <Heading>Light Mode</Heading>
                 <Heading>Dark Mode</Heading>
               </Columns>
             </Stack>
-            <Stack space={GRID_SPACING}>
+            <Stack space="16px">
               {Object.entries(backgroundColors).map(
                 ([backgroundName, background], i) => (
-                  <Columns key={i} space={GRID_SPACING}>
+                  <Columns key={i} space="16px">
                     {('color' in background
                       ? [background, background]
                       : [background.light, background.dark]
                     ).map(({ color: backgroundColor, mode }, index) => (
                       <div
                         className={sprinkles({
-                          borderRadius: CARD_RADIUS,
+                          borderRadius: '16px',
                           color: mode === 'light' ? 'primary' : 'white',
-                          padding: CARD_GUTTER,
+                          padding: '32px',
                         })}
                         key={index}
                         style={{ backgroundColor }}
@@ -283,7 +243,7 @@ const Home: NextPage = () => {
           <Stack space="24px">
             <Stack space="12px">
               <Title>Foreground Colors</Title>
-              <Columns space={GRID_SPACING}>
+              <Columns space="16px">
                 <Heading>Light Mode</Heading>
                 <Heading>Light Tinted Mode</Heading>
                 <Heading>Dark Mode</Heading>
@@ -293,7 +253,7 @@ const Home: NextPage = () => {
             <Stack space="none">
               {Object.entries(foregroundColors).map(
                 ([foregroundName, foreground], colorIndex, arr) => (
-                  <Columns key={colorIndex} space={GRID_SPACING}>
+                  <Columns key={colorIndex} space="16px">
                     {(typeof foreground === 'string'
                       ? ([
                           [foreground, 'bodyLight'],
@@ -321,14 +281,12 @@ const Home: NextPage = () => {
                               ? backgroundColor
                               : undefined,
                           borderBottomRadius:
-                            colorIndex === arr.length - 1
-                              ? CARD_RADIUS
-                              : undefined,
+                            colorIndex === arr.length - 1 ? '16px' : undefined,
                           borderTopRadius:
-                            colorIndex === 0 ? CARD_RADIUS : undefined,
+                            colorIndex === 0 ? '16px' : undefined,
                           height: '100%',
-                          padding: CARD_GUTTER,
-                          paddingTop: colorIndex === 0 ? CARD_GUTTER : 'none',
+                          padding: '32px',
+                          paddingTop: colorIndex === 0 ? '32px' : 'none',
                         })}
                         key={index}
                         style={
@@ -365,10 +323,9 @@ const Home: NextPage = () => {
                 )
               )}
             </Stack>
-          </Stack>
-        </Stack>
-      </div>
-    </>
+          </Stack> */}
+      </Stack>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import { Docs } from '../../playground/Docs';
 import { Placeholder } from '../../playground/Placeholder';
+import { Docs } from '../../types';
 import { Inset } from '../Inset/Inset';
 import { Stack } from '../Stack/Stack';
 import { Bleed } from './Bleed';

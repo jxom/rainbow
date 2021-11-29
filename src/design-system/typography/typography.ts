@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import { precomputeValues } from '@capsizecss/core';
 import { mapValues, pick } from 'lodash';
-import { PixelRatio } from 'react-native';
+import { PixelRatio, Platform } from 'react-native';
 import { ForegroundColor } from './../color/palettes';
 import { fontWeights } from './fontWeights';
 import { typeHierarchy } from './typeHierarchy';
@@ -101,6 +101,9 @@ const createTextSize = ({
 
   const marginCorrectionForPlatform = marginCorrection[ios ? 'ios' : 'android'];
 
+  if (Platform.OS === 'web') {
+    return styles;
+  }
   return {
     ...styles,
     marginTop: PixelRatio.roundToNearestPixel(

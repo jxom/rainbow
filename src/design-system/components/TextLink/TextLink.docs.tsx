@@ -1,6 +1,6 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import { Docs } from '../../playground/Docs';
+import { Docs } from '../../types';
 import { Text } from '../Text/Text';
 import { TextLink } from './TextLink';
 

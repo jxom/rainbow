@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react';
 import { View } from 'react-native';
 import { ColorModeProvider } from '../../color/ColorMode';
 import { palettes } from '../../color/palettes';
-import { Docs } from '../../playground/Docs';
 import { Guide } from '../../playground/Guide';
+import { Docs } from '../../types';
 import { Inline } from '../Inline/Inline';
 import { Stack } from '../Stack/Stack';
 import { Heading, HeadingProps } from './Heading';
@@ -75,24 +75,24 @@ const docs: Docs = {
     {
       name: 'With emoji',
       Example: () => (
-        <>
+        <View>
           <Guide />
           <Heading containsEmoji>Heading with emoji 🌈</Heading>
           <Guide />
-        </>
+        </View>
       ),
     },
     {
       name: 'With truncation',
       Example: () => (
-        <>
+        <View>
           <Guide />
           <Heading numberOfLines={1}>
             Truncated text truncated text truncated text truncated text
             truncated text truncated text
           </Heading>
           <Guide />
-        </>
+        </View>
       ),
     },
     {

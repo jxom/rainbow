@@ -7,7 +7,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { ColorModeProvider, useColorMode } from '../../color/ColorMode';
-import { Docs } from '../../playground/Docs';
+import { Docs } from '../../types';
 import { Columns } from '../Columns/Columns';
 import { Inset } from '../Inset/Inset';
 import { Stack } from '../Stack/Stack';

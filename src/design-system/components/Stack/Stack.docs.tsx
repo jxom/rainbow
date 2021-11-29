@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import { View } from 'react-native';
-import { Docs } from '../../playground/Docs';
+import { Docs } from '../../types';
 import { Placeholder } from '../../playground/Placeholder';
 import { Text } from '../Text/Text';
 import { Stack } from './Stack';

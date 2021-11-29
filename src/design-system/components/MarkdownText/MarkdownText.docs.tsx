@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import { Docs } from '../../playground/Docs';
 import { Guide } from '../../playground/Guide';
+import { Docs } from '../../types';
 import { MarkdownText } from './MarkdownText';
 
 const loremIpsum =
