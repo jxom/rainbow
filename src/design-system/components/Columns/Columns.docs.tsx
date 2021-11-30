@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import { Docs } from '../../types';
 import { Placeholder } from '../../playground/Placeholder';
+import { Docs } from '../../types';
 import { Stack } from '../Stack/Stack';
 import { Text } from '../Text/Text';
 import { Column, Columns } from './Columns';
