@@ -1,11 +1,12 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { AccentColorProvider } from '../../color/AccentColorContext';
 import { ColorModeProvider } from '../../color/ColorMode';
 import { palettes } from '../../color/palettes';
 import { CustomColor } from '../../color/useForegroundColor';
 import { Guide } from '../../playground/Guide';
+import { MockBadge } from '../../playground/MockBadge';
 import { Docs } from '../../types';
 import { fontWeights } from '../../typography/fontWeights';
 import { Inline } from '../Inline/Inline';
@@ -18,23 +19,6 @@ const textExamples: Required<Pick<TextProps, 'size' | 'weight'>>[] = [
   { size: '14px', weight: 'bold' },
   { size: '11px', weight: 'bold' },
 ];
-
-const MockBadge = ({ children }: { children: ReactNode }) => (
-  <View style={{ display: 'flex', flexDirection: 'row' }}>
-    <View
-      style={{
-        backgroundColor: 'rgba(255,0,0,0.2)',
-        borderRadius: 999,
-        display: 'flex',
-        justifyContent: 'center',
-        paddingHorizontal: 18,
-        paddingVertical: 6,
-      }}
-    >
-      {children}
-    </View>
-  </View>
-);
 
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';

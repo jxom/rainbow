@@ -1,8 +1,10 @@
+import lzString from 'lz-string';
 import React from 'react';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 // @ts-expect-error
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
+import { Inline } from '../../../components/Inline/Inline';
 import { Docs } from '../../../types';
 import Heading from '../../components/system/Heading';
 import Stack from '../../components/system/Stack';
@@ -77,13 +79,25 @@ const ExamplePreview = ({ name, Example }: Docs['examples'][0]) => {
               </SyntaxHighlighter>
             </div>
           )}
-          <button
-            onClick={() => setShowCode(showCode => !showCode)}
-            style={{ textAlign: 'right' }}
-            type="button"
-          >
-            <Text color="action">{showCode ? 'Hide' : 'Show'} code</Text>
-          </button>
+          <Inline alignHorizontal="right" space="24px">
+            <a
+              href={`http://localhost:9000/?code=${lzString.compressToEncodedURIComponent(
+                JSON.stringify({ code: jsxString })
+              )}`}
+              rel="noreferrer"
+              style={{ textAlign: 'right' }}
+              target="_blank"
+            >
+              <Text color="action">Playroom</Text>
+            </a>
+            <button
+              onClick={() => setShowCode(showCode => !showCode)}
+              style={{ textAlign: 'right' }}
+              type="button"
+            >
+              <Text color="action">{showCode ? 'Hide' : 'Show'} code</Text>
+            </button>
+          </Inline>
         </>
       )}
     </Stack>

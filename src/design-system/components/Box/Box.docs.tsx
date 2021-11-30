@@ -6,38 +6,13 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { ColorModeProvider, useColorMode } from '../../color/ColorMode';
+import { ColorModeProvider } from '../../color/ColorMode';
+import { BackgroundDemo } from '../../playground/BackgroundDemo';
 import { Docs } from '../../types';
 import { Columns } from '../Columns/Columns';
-import { Inset } from '../Inset/Inset';
 import { Stack } from '../Stack/Stack';
 import { Text } from '../Text/Text';
 import { Box } from './Box';
-
-function BackgroundDemo() {
-  const { backgroundColors } = useColorMode();
-
-  return (
-    <>
-      {(Object.keys(backgroundColors) as (keyof typeof backgroundColors)[])
-        .sort()
-        .map(color => (
-          <Box background={color} key={color}>
-            <Inset space="19px">
-              <Stack space="10px">
-                <Text color="primary" weight="bold">
-                  {color}
-                </Text>
-                <Text color="secondary50" weight="bold">
-                  {color}
-                </Text>
-              </Stack>
-            </Inset>
-          </Box>
-        ))}
-    </>
-  );
-}
 
 const docs: Docs = {
   name: 'Box',
