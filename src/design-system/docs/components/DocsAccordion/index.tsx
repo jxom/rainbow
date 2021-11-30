@@ -108,7 +108,11 @@ const ExamplePreview = ({
           )}
           <Inline alignHorizontal="right" space="24px">
             <a
-              href={`http://localhost:9000/?code=${lzString.compressToEncodedURIComponent(
+              href={`${
+                process.env.NODE_ENV === 'production'
+                  ? `${window.location.href}playroom`
+                  : 'http://localhost:9000/'
+              }?code=${lzString.compressToEncodedURIComponent(
                 JSON.stringify({ code: jsxString })
               )}`}
               rel="noreferrer"

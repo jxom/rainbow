@@ -1,13 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  baseUrl: '.playroom/',
+  baseUrl: '/playroom/',
   components: './.playroom/components.ts',
   exampleCode: ``,
   frameComponent: './.playroom/FrameComponent.js',
   iframeSandbox: 'allow-scripts',
   openBrowser: true,
-  outputPath: './public/playroom',
+  outputPath: './out/playroom',
   paramType: 'search',
   port: 9000,
   title: 'Rainbow Playroom',

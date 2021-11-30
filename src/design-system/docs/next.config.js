@@ -16,6 +16,9 @@ const nextConfig = {
     externalDir: true, // https://github.com/vercel/next.js/pull/22867
   },
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = withPlugins(
