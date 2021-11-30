@@ -11,7 +11,7 @@ const Text = ({
   children,
   color = 'primary',
   fontSize = '18px',
-  fontWeight = 500,
+  fontWeight = 400,
 }: {
   children: ReactNode;
   color?: TextColor;

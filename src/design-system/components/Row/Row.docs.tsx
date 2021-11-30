@@ -3,11 +3,26 @@ import React from 'react';
 import { View } from 'react-native';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
+import { Text } from '../Text/Text';
 import { Row } from './Row';
 
 const docs: Docs = {
   name: 'Row',
   category: 'Layout',
+  description: [
+    <Text key="1">
+      Arranges child nodes{' '}
+      <Text weight="bold">horizontally without wrapping</Text>, with equal
+      spacing between them, plus an optional{' '}
+      <Text weight="bold">separator</Text> element. Items can be aligned with
+      <Text weight="bold"> alignHorizontal</Text> and{' '}
+      <Text weight="bold">alignVertical</Text>.
+    </Text>,
+    <Text key="2">
+      If there is only a single child node, no space or separators will be
+      rendered.
+    </Text>,
+  ],
   examples: [
     {
       name: 'Basic usage',

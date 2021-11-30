@@ -21,7 +21,7 @@ const loremIpsum =
 
 const docs: Docs = {
   name: 'Heading',
-  category: 'Content',
+  category: 'Typography',
   examples: [
     ...headingExamples.map(({ size, weight }) => ({
       name: `${size} (${weight})`,

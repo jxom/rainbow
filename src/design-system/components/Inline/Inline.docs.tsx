@@ -2,11 +2,24 @@
 import React from 'react';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
+import { Text } from '../Text/Text';
 import { Inline } from './Inline';
 
 const docs: Docs = {
   name: 'Inline',
   category: 'Layout',
+  description: [
+    <Text key="1">
+      Arranges child nodes{' '}
+      <Text weight="bold">
+        horizontally, wrapping to multiple lines if needed
+      </Text>
+      , with equal spacing between items.
+    </Text>,
+    <Text key="2">
+      If there is only a single child node, no space will be rendered.
+    </Text>,
+  ],
   examples: [
     {
       name: 'Basic usage',
@@ -46,6 +59,7 @@ const docs: Docs = {
 
     {
       name: 'Different space on each axis',
+      description: <Text>Space can also be customized per axis.</Text>,
       Example: () => (
         <Inline horizontalSpace="19px" verticalSpace="12px">
           <Placeholder height={40} width={40} />

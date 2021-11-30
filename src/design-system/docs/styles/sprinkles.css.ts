@@ -16,6 +16,21 @@ const space = {
 
 export type Space = keyof typeof space;
 
+const negativeSpace = {
+  auto: 'auto', // eslint-disable-line prettier/prettier
+  none: '0', // eslint-disable-line prettier/prettier
+  '-4px': '-4px',
+  '-8px': '-8px',
+  '-12px': '-12px',
+  '-16px': '-16px',
+  '-24px': '-24px',
+  '-32px': '-32px',
+  '-48px': '-48px',
+  '-64px': '-64px',
+};
+
+export type NegativeSpace = keyof typeof negativeSpace;
+
 const textColors = {
   white: 'white',
   action: palettes.light.foregroundColors.action,
@@ -27,6 +42,7 @@ const textColors = {
 export type TextColor = keyof typeof textColors;
 
 const backgroundColors = {
+  docs: '#e9f2ff',
   actionDark: palettes.dark.backgroundColors.action.color,
   actionLight: palettes.light.backgroundColors.action.color,
   bodyDark: palettes.dark.backgroundColors.body.color,
@@ -50,7 +66,7 @@ export type Radii = keyof typeof radii;
 const properties = defineProperties({
   properties: {
     display: ['flex'],
-    position: ['absolute', 'relative'],
+    position: ['absolute', 'relative', 'sticky'],
     flexDirection: ['row', 'column'],
     flexBasis: [0] as const,
     flexGrow: [1] as const,
@@ -68,8 +84,8 @@ const properties = defineProperties({
     width: ['100%'],
     height: ['100%'],
     maxWidth: ['768px'],
-    marginLeft: ['auto'],
-    marginRight: ['auto'],
+    marginLeft: negativeSpace,
+    marginRight: negativeSpace,
     paddingTop: space,
     paddingBottom: space,
     paddingLeft: space,
@@ -77,6 +93,7 @@ const properties = defineProperties({
     gap: space,
     color: textColors,
     backgroundColor: backgroundColors,
+    zIndex: [1],
   },
   shorthands: {
     padding: ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'],

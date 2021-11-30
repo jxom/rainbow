@@ -12,6 +12,15 @@ const loremIpsum =
 const docs: Docs = {
   name: 'Columns',
   category: 'Layout',
+  description: (
+    <Stack space="24px">
+      <Text>
+        Renders children <Text weight="bold">horizontally</Text> in equal-width
+        columns by default, with consistent spacing between them.
+      </Text>
+      <Text>If there is only a single column, no space will be rendered.</Text>
+    </Stack>
+  ),
   examples: [
     {
       name: 'Basic usage',
@@ -35,6 +44,31 @@ const docs: Docs = {
 
     {
       name: 'Custom widths',
+      description: (
+        <Stack space="24px">
+          <Text>
+            You can optionally control column widths by manually rendering a
+            <Text weight="bold"> Column</Text> as a direct child of{' '}
+            <Text weight="bold">Columns</Text>, which allows you to set an
+            explicit <Text weight="bold">width</Text> prop.
+          </Text>
+          <Text>
+            A common usage of this is to make a column shrink to the width of
+            its content. This can be achieved by setting the column{' '}
+            <Text weight="bold">width</Text> prop to{' '}
+            <Text weight="bold">"content"</Text>. Any columns without an
+            explicit width will share the remaining space equally.
+          </Text>
+          <Text>
+            The following fractional widths are also available:{' '}
+            <Text weight="bold">1/2</Text>, <Text weight="bold">1/3</Text>,{' '}
+            <Text weight="bold">2/3</Text>, <Text weight="bold">1/4</Text>,{' '}
+            <Text weight="bold">3/4</Text>, <Text weight="bold">1/5</Text>,{' '}
+            <Text weight="bold">2/5</Text>, <Text weight="bold">3/5</Text>,{' '}
+            <Text weight="bold">4/5</Text>.
+          </Text>
+        </Stack>
+      ),
       Example: () => (
         <Stack space="19px">
           <Columns space="19px">
@@ -222,6 +256,20 @@ const docs: Docs = {
 
     {
       name: 'Center-aligned horizontally',
+      description: (
+        <Stack space="24px">
+          <Text>
+            Columns can optionally be aligned horizontally and/or vertically,
+            but note that this only affects the column containers themselves,
+            not the content within them.
+          </Text>
+          <Text>
+            To align content within a column, you'll need to nest another layout
+            component inside it, such as a <Text weight="bold">Stack</Text> with
+            <Text weight="bold"> alignHorizontal</Text>.
+          </Text>
+        </Stack>
+      ),
       Example: () => (
         <Columns alignHorizontal="center" space="19px">
           <Column width="1/4">

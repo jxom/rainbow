@@ -13,14 +13,25 @@ import Title from '../../components/system/Title';
 import { sprinkles } from '../../styles/sprinkles.css';
 import codeTheme from '../../utils/code-theme';
 
-const DocsAccordion = ({ name: componentName, examples }: Docs) => {
+const DocsAccordion = ({
+  name: componentName,
+  description,
+  examples,
+}: Docs) => {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <Stack space="12px">
+    <Stack space="16px">
       <button
+        className={sprinkles({
+          backgroundColor: 'docs',
+          marginLeft: '-32px',
+          paddingVertical: '8px',
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+        })}
         onClick={() => setOpen(open => !open)}
-        style={{ marginLeft: '-32px' }}
         type="button"
       >
         <Title color="action">
@@ -30,8 +41,14 @@ const DocsAccordion = ({ name: componentName, examples }: Docs) => {
       </button>
       {open && (
         <Stack space="24px">
-          {examples.map(({ name, Example }, index) => (
-            <ExamplePreview Example={Example} key={index} name={name} />
+          {description}
+          {examples.map(({ name, description, Example }, index) => (
+            <ExamplePreview
+              Example={Example}
+              description={description}
+              key={index}
+              name={name}
+            />
           ))}
         </Stack>
       )}
@@ -43,7 +60,11 @@ export default DocsAccordion;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const ExamplePreview = ({ name, Example }: Docs['examples'][0]) => {
+const ExamplePreview = ({
+  name,
+  description,
+  Example,
+}: Docs['examples'][0]) => {
   const [showCode, setShowCode] = React.useState(false);
 
   let jsxString;
@@ -52,10 +73,16 @@ const ExamplePreview = ({ name, Example }: Docs['examples'][0]) => {
   } catch (err) {} // eslint-disable-line no-empty
 
   return (
-    <Stack space="12px">
+    <Stack space="16px">
       <Heading>{name}</Heading>
+      {description && (
+        <div className={sprinkles({ paddingBottom: '8px' })}>{description}</div>
+      )}
       <div
-        className={sprinkles({ borderRadius: '16px', padding: '24px' })}
+        className={sprinkles({
+          borderRadius: '16px',
+          padding: '24px',
+        })}
         style={{
           backgroundColor: 'rgba(0,0,0,0.05)',
         }}
@@ -88,14 +115,18 @@ const ExamplePreview = ({ name, Example }: Docs['examples'][0]) => {
               style={{ textAlign: 'right' }}
               target="_blank"
             >
-              <Text color="action">Playroom</Text>
+              <Text color="action" fontWeight={600}>
+                Playroom
+              </Text>
             </a>
             <button
               onClick={() => setShowCode(showCode => !showCode)}
               style={{ textAlign: 'right' }}
               type="button"
             >
-              <Text color="action">{showCode ? 'Hide' : 'Show'} code</Text>
+              <Text color="action" fontWeight={600}>
+                {showCode ? 'Hide' : 'Show'} code
+              </Text>
             </button>
           </Inline>
         </>

@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 import React from 'react';
 
+import { Text } from '../../components/Text/Text';
 import { Docs } from '../../types';
 import DocsAccordion from '../components/DocsAccordion';
 import Blockquote from '../components/system/Blockquote';
 import Stack from '../components/system/Stack';
-import Text from '../components/system/Text';
 import Title from '../components/system/Title';
 import * as docs from '../docs';
 import { sprinkles } from '../styles/sprinkles.css';
@@ -18,7 +18,7 @@ import { sprinkles } from '../styles/sprinkles.css';
 //   '800': 800,
 // } as const;
 
-const categoryOrder = ['Layout', 'Content'];
+const categoryOrder = ['Layout', 'Typography', 'Content'];
 
 const Home: NextPage = () => {
   const categories = Object.values(docs).reduce(
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
         paddingTop: '48px',
       })}
     >
-      <Stack space="48px">
+      <Stack space="32px">
         <Title fontSize="32px">
           🌈🎨 Rainbow Design System Cheat Sheet 🎨🌈
         </Title>
@@ -64,16 +64,16 @@ const Home: NextPage = () => {
           </Text>
           <Blockquote>
             <Stack space="16px">
-              <Text>
-                This document is not currently intended to be exhaustive,
+              <Text color="action">
+                This cheat sheet is not currently intended to be exhaustive,
                 instead providing an overview of the core parts of the system.
                 This is still a work in progress. APIs are incomplete and likely
                 to change.
               </Text>
-              <Text>
+              <Text color="action">
                 It's recommended that all code importing from
-                `@rainbow-me/design-system` is written in TypeScript so that API
-                changes are picked up.
+                <code> @rainbow-me/design-system </code> is written in
+                TypeScript so that API changes are picked up.
               </Text>
             </Stack>
           </Blockquote>
@@ -81,9 +81,11 @@ const Home: NextPage = () => {
         {categoryOrder.map((categoryName, i) => (
           <Stack key={i} space="16px">
             <Title>{categoryName}</Title>
-            {categories[categoryName].map((docs, i) => {
-              return <DocsAccordion key={i} {...docs} />;
-            })}
+            <div>
+              {categories[categoryName].map((docs, i) => {
+                return <DocsAccordion key={i} {...docs} />;
+              })}
+            </div>
           </Stack>
         ))}
         {/* <Stack space="24px">

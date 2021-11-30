@@ -17,6 +17,20 @@ import { Box } from './Box';
 const docs: Docs = {
   name: 'Box',
   category: 'Layout',
+  description: [
+    <Text key="1">
+      Renders an individual <Text weight="bold">View</Text> element with quick
+      access to the standard padding and negative margin scales, as well as
+      other common layout properties. Ideally you're not supposed to need this
+      component much unless you're building a design system component.
+    </Text>,
+    <Text key="2">
+      If you need to render something other than a{' '}
+      <Text weight="bold">View</Text>, you can pass a component to the{' '}
+      <Text weight="bold">as </Text>
+      prop.
+    </Text>,
+  ],
   examples: [
     {
       name: 'Backgrounds',

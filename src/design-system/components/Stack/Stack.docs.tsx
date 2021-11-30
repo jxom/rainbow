@@ -1,8 +1,10 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import { View } from 'react-native';
+
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
+import { Inset } from '../Inset/Inset';
 import { Text } from '../Text/Text';
 import { Stack } from './Stack';
 
@@ -13,6 +15,19 @@ const MockDivider = () => (
 const docs: Docs = {
   name: 'Stack',
   category: 'Layout',
+  description: (
+    <Stack space="24px">
+      <Text>
+        Arranges children <Text weight="bold">vertically</Text> with equal
+        spacing between them, plus an optional `separator` element. Items can be
+        aligned with `alignHorizontal`.
+      </Text>
+      <Text>
+        If there is only a single child node, no space or separators will be
+        rendered.
+      </Text>
+    </Stack>
+  ),
   examples: [
     {
       name: 'Basic usage',
@@ -32,6 +47,31 @@ const docs: Docs = {
           <Placeholder />
           <Placeholder />
         </Stack>
+      ),
+    },
+    {
+      name: 'Nested',
+      description: (
+        <Text>
+          Stacks can be nested within each other for layouts with differing
+          amounts of space between groups of content.
+        </Text>
+      ),
+      Example: () => (
+        <Inset horizontal="19px" vertical="24px">
+          <Stack space="42px">
+            <Stack space="12px">
+              <Placeholder />
+              <Placeholder />
+              <Placeholder />
+            </Stack>
+            <Stack space="12px">
+              <Placeholder />
+              <Placeholder />
+              <Placeholder />
+            </Stack>
+          </Stack>
+        </Inset>
       ),
     },
     {

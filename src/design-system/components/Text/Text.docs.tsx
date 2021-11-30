@@ -33,7 +33,7 @@ const customTextColor: CustomColor = {
 
 const docs: Docs = {
   name: 'Text',
-  category: 'Content',
+  category: 'Typography',
   examples: [
     ...textExamples.map(({ size, weight }) => ({
       name: `${size} (${weight})`,
