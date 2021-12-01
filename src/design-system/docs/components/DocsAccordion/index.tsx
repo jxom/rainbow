@@ -40,17 +40,19 @@ const DocsAccordion = ({
         </Title>
       </button>
       {open && (
-        <Stack space="24px">
-          {description}
-          {examples.map(({ name, description, Example }, index) => (
-            <ExamplePreview
-              Example={Example}
-              description={description}
-              key={index}
-              name={name}
-            />
-          ))}
-        </Stack>
+        <div className={sprinkles({ paddingBottom: '24px' })}>
+          <Stack space="24px">
+            {description}
+            {examples?.map(({ name, description, Example }, index) => (
+              <ExamplePreview
+                Example={Example}
+                description={description}
+                key={index}
+                name={name}
+              />
+            ))}
+          </Stack>
+        </div>
       )}
     </Stack>
   );

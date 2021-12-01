@@ -49,7 +49,7 @@ const backgroundColors = {
   bodyLight: palettes.light.backgroundColors.body.color,
 };
 
-const fontSize = ['32px', '23px', '18px'];
+const fontSize = ['32px', '23px', '18px', '16px'];
 
 export type FontSize = typeof fontSize[number];
 
@@ -65,40 +65,39 @@ export type Radii = keyof typeof radii;
 
 const properties = defineProperties({
   properties: {
+    backgroundColor: backgroundColors,
+    borderBottomLeftRadius: radii,
+    borderBottomRightRadius: radii,
+    borderTopLeftRadius: radii,
+    borderTopRightRadius: radii,
+    bottom: [0],
+    color: textColors,
     display: ['flex'],
-    position: ['absolute', 'relative', 'sticky'],
-    flexDirection: ['row', 'column'],
     flexBasis: [0] as const,
+    flexDirection: ['row', 'column'],
     flexGrow: [1] as const,
     flexShrink: [1] as const,
     fontSize,
     fontWeight,
-    wordBreak: ['break-word'],
-    borderTopLeftRadius: radii,
-    borderBottomLeftRadius: radii,
-    borderTopRightRadius: radii,
-    borderBottomRightRadius: radii,
-    bottom: [0],
-    top: [0],
-    left: [0],
-    width: ['100%'],
+    gap: space,
     height: ['100%'],
-    maxWidth: ['768px'],
+    left: [0],
+    letterSpacing: ['0.5px'],
     marginLeft: negativeSpace,
     marginRight: negativeSpace,
-    paddingTop: space,
+    maxWidth: ['768px'],
     paddingBottom: space,
     paddingLeft: space,
     paddingRight: space,
-    gap: space,
-    color: textColors,
-    backgroundColor: backgroundColors,
+    paddingTop: space,
+    position: ['absolute', 'relative', 'sticky'],
+    top: [0],
+    width: ['100%'],
+    wordBreak: ['break-word'],
     zIndex: [1],
   },
   shorthands: {
-    padding: ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'],
-    paddingVertical: ['paddingTop', 'paddingBottom'],
-    paddingHorizontal: ['paddingLeft', 'paddingRight'],
+    borderBottomRadius: ['borderBottomLeftRadius', 'borderBottomRightRadius'],
     borderRadius: [
       'borderTopLeftRadius',
       'borderBottomLeftRadius',
@@ -106,7 +105,9 @@ const properties = defineProperties({
       'borderBottomRightRadius',
     ],
     borderTopRadius: ['borderTopLeftRadius', 'borderTopRightRadius'],
-    borderBottomRadius: ['borderBottomLeftRadius', 'borderBottomRightRadius'],
+    padding: ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'],
+    paddingHorizontal: ['paddingLeft', 'paddingRight'],
+    paddingVertical: ['paddingTop', 'paddingBottom'],
   },
 });
 

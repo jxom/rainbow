@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 import React from 'react';
 
-import { Text } from '../../components/Text/Text';
 import { Docs } from '../../types';
 import DocsAccordion from '../components/DocsAccordion';
 import Blockquote from '../components/system/Blockquote';
 import Stack from '../components/system/Stack';
+import Text from '../components/system/Text';
 import Title from '../components/system/Title';
 import * as docs from '../docs';
 import { sprinkles } from '../styles/sprinkles.css';

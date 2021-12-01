@@ -138,6 +138,7 @@ body {
     'Helvetica Neue', Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
   background-color: #e9f2ff;
+  color: rgb(60, 66, 66);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;

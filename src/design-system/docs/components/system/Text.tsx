@@ -9,8 +9,8 @@ import {
 
 const Text = ({
   children,
-  color = 'primary',
-  fontSize = '18px',
+  color,
+  fontSize = '16px',
   fontWeight = 400,
 }: {
   children: ReactNode;
@@ -23,6 +23,7 @@ const Text = ({
       color,
       fontSize,
       fontWeight,
+      letterSpacing: '0.5px',
     })}
   >
     {children}

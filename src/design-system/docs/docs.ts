@@ -1,3 +1,6 @@
+export * as LayoutIntroDocs from '../layout/intro.docs';
+export * as TypographyIntroDocs from '../typography/intro.docs';
+
 export * as BackgroundProviderDocs from '../components/BackgroundProvider/BackgroundProvider.docs';
 export * as BleedDocs from '../components/Bleed/Bleed.docs';
 export * as BoxDocs from '../components/Box/Box.docs';

@@ -13,6 +13,7 @@ const Blockquote = ({
 }) => (
   <div
     className={sprinkles({
+      color: 'action',
       fontSize,
       fontWeight,
       paddingHorizontal: '24px',
