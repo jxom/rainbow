@@ -1,21 +1,12 @@
 import React, { ReactNode } from 'react';
 
-import { FontSize, FontWeight, sprinkles } from '../../styles/sprinkles.css';
+import { sprinkles } from './sprinkles.css';
 
-const Blockquote = ({
-  children,
-  fontSize = '18px',
-  fontWeight = 500,
-}: {
-  children: ReactNode;
-  fontSize?: FontSize;
-  fontWeight?: FontWeight;
-}) => (
+const Blockquote = ({ children }: { children: ReactNode }) => (
   <div
     className={sprinkles({
-      color: 'action',
-      fontSize,
-      fontWeight,
+      backgroundColor: 'actionTint',
+      color: 'actionDark',
       paddingHorizontal: '24px',
       paddingVertical: '16px',
       position: 'relative',
@@ -24,7 +15,7 @@ const Blockquote = ({
     {children}
     <div
       className={sprinkles({
-        backgroundColor: 'actionDark',
+        backgroundColor: 'action',
         bottom: 0,
         left: 0,
         paddingLeft: '4px',

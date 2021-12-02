@@ -68,7 +68,7 @@ export const headingWeights = pick(fonts.SFProRounded, ['heavy', 'bold']);
 export const textWeights = fonts.SFProRounded;
 
 // Sourced from https://seek-oss.github.io/capsize
-const fontMetrics = {
+export const fontMetrics = {
   capHeight: 1443,
   ascent: 1950,
   descent: -494,

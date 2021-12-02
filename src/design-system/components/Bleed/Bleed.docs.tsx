@@ -1,32 +1,33 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
+import DocsText from '../../docs/system/Text';
+import DocsTextLink from '../../docs/system/TextLink';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
 import { Inset } from '../Inset/Inset';
 import { Stack } from '../Stack/Stack';
-import { Text } from '../Text/Text';
-import { TextLink } from '../TextLink/TextLink';
 import { Bleed } from './Bleed';
 
 const docs: Docs = {
   name: 'Bleed',
   category: 'Layout',
   description: [
-    <Text key="1">
-      Renders a <Text weight="bold">container with negative margins</Text>{' '}
+    <DocsText key="1">
+      Renders a{' '}
+      <DocsText weight="bold">container with negative margins</DocsText>{' '}
       allowing content to{' '}
-      <TextLink url="https://en.wikipedia.org/wiki/Bleed_(printing)">
+      <DocsTextLink href="https://en.wikipedia.org/wiki/Bleed_(printing)">
         "bleed"
-      </TextLink>{' '}
+      </DocsTextLink>{' '}
       into the surrounding layout. This effectively works as the opposite of{' '}
-      <Text weight="bold">Inset</Text> and is designed to support visually
-      breaking out of a parent container without having to refactor the entire
-      component tree.
-    </Text>,
-    <Text key="2">
+      <DocsText weight="bold">Inset</DocsText> and is designed to support
+      visually breaking out of a parent container without having to refactor the
+      entire component tree.
+    </DocsText>,
+    <DocsText key="2">
       If there is only a single child node, no space or separators will be
       rendered.
-    </Text>,
+    </DocsText>,
   ],
   examples: [
     {

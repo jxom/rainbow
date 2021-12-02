@@ -1,27 +1,28 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import { View } from 'react-native';
+import DocsCode from '../../docs/system/Code';
+import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
-import { Text } from '../Text/Text';
 import { Row } from './Row';
 
 const docs: Docs = {
   name: 'Row',
   category: 'Layout',
   description: [
-    <Text key="1">
+    <DocsText key="1">
       Arranges child nodes{' '}
-      <Text weight="bold">horizontally without wrapping</Text>, with equal
-      spacing between them, plus an optional{' '}
-      <Text weight="bold">separator</Text> element. Items can be aligned with
-      <Text weight="bold"> alignHorizontal</Text> and{' '}
-      <Text weight="bold">alignVertical</Text>.
-    </Text>,
-    <Text key="2">
+      <DocsText weight="bold">horizontally without wrapping</DocsText>, with
+      equal spacing between them, plus an optional{' '}
+      <DocsCode>separator</DocsCode> element. Items can be aligned with{' '}
+      <DocsCode>alignHorizontal</DocsCode> and{' '}
+      <DocsCode>alignVertical</DocsCode>.
+    </DocsText>,
+    <DocsText key="2">
       If there is only a single child node, no space or separators will be
       rendered.
-    </Text>,
+    </DocsText>,
   ],
   examples: [
     {

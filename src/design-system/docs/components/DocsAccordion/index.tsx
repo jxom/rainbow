@@ -5,12 +5,12 @@ import reactElementToJSXString from 'react-element-to-jsx-string';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { Inline } from '../../../components/Inline/Inline';
-import { Docs } from '../../../types';
-import Heading from '../../components/system/Heading';
-import Stack from '../../components/system/Stack';
-import Text from '../../components/system/Text';
-import Title from '../../components/system/Title';
-import { sprinkles } from '../../styles/sprinkles.css';
+import { Docs, Example } from '../../../types';
+import Heading from '../../system/Heading';
+import Stack from '../../system/Stack';
+import Text from '../../system/Text';
+import Title from '../../system/Title';
+import { sprinkles } from '../../system/sprinkles.css';
 import codeTheme from '../../utils/code-theme';
 
 const DocsAccordion = ({
@@ -43,14 +43,17 @@ const DocsAccordion = ({
         <div className={sprinkles({ paddingBottom: '24px' })}>
           <Stack space="24px">
             {description}
-            {examples?.map(({ name, description, Example }, index) => (
-              <ExamplePreview
-                Example={Example}
-                description={description}
-                key={index}
-                name={name}
-              />
-            ))}
+            {examples?.map(
+              ({ name, description, playroom, Example }, index) => (
+                <ExamplePreview
+                  Example={Example}
+                  description={description}
+                  key={index}
+                  name={name}
+                  playroom={playroom}
+                />
+              )
+            )}
           </Stack>
         </div>
       )}
@@ -65,8 +68,9 @@ export default DocsAccordion;
 const ExamplePreview = ({
   name,
   description,
+  playroom = true,
   Example,
-}: Docs['examples'][0]) => {
+}: Example) => {
   const [showCode, setShowCode] = React.useState(false);
 
   let jsxString;
@@ -109,28 +113,30 @@ const ExamplePreview = ({
             </div>
           )}
           <Inline alignHorizontal="right" space="24px">
-            <a
-              href={`${
-                process.env.NODE_ENV === 'production'
-                  ? `${window.location.href}playroom`
-                  : 'http://localhost:9000/'
-              }?code=${lzString.compressToEncodedURIComponent(
-                JSON.stringify({ code: jsxString })
-              )}`}
-              rel="noreferrer"
-              style={{ textAlign: 'right' }}
-              target="_blank"
-            >
-              <Text color="action" fontWeight={600}>
-                Playroom
-              </Text>
-            </a>
+            {playroom && (
+              <a
+                href={`${
+                  process.env.NODE_ENV === 'production'
+                    ? `${window.location.href}playroom`
+                    : 'http://localhost:9000/'
+                }?code=${lzString.compressToEncodedURIComponent(
+                  JSON.stringify({ code: jsxString })
+                )}`}
+                rel="noreferrer"
+                style={{ textAlign: 'right' }}
+                target="_blank"
+              >
+                <Text color="action" weight="bold">
+                  Playroom
+                </Text>
+              </a>
+            )}
             <button
               onClick={() => setShowCode(showCode => !showCode)}
               style={{ textAlign: 'right' }}
               type="button"
             >
-              <Text color="action" fontWeight={600}>
+              <Text color="action" weight="bold">
                 {showCode ? 'Hide' : 'Show'} code
               </Text>
             </button>

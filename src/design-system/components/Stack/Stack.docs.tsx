@@ -2,6 +2,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
 import { Inset } from '../Inset/Inset';
@@ -17,15 +18,15 @@ const docs: Docs = {
   category: 'Layout',
   description: (
     <Stack space="24px">
-      <Text>
-        Arranges children <Text weight="bold">vertically</Text> with equal
-        spacing between them, plus an optional `separator` element. Items can be
-        aligned with `alignHorizontal`.
-      </Text>
-      <Text>
+      <DocsText>
+        Arranges children <DocsText weight="bold">vertically</DocsText> with
+        equal spacing between them, plus an optional `separator` element. Items
+        can be aligned with `alignHorizontal`.
+      </DocsText>
+      <DocsText>
         If there is only a single child node, no space or separators will be
         rendered.
-      </Text>
+      </DocsText>
     </Stack>
   ),
   examples: [
@@ -52,10 +53,10 @@ const docs: Docs = {
     {
       name: 'Nested',
       description: (
-        <Text>
+        <DocsText>
           Stacks can be nested within each other for layouts with differing
           amounts of space between groups of content.
-        </Text>
+        </DocsText>
       ),
       Example: () => (
         <Inset horizontal="19px" vertical="24px">

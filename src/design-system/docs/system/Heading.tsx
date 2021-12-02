@@ -1,14 +1,14 @@
 import React, { ReactNode } from 'react';
 
-import { sprinkles } from '../../styles/sprinkles.css';
+import { sprinkles } from './sprinkles.css';
+import { headingSizes } from './typography.css';
 
 const Heading = ({ children }: { children: ReactNode }) => (
   <h2
-    className={sprinkles({
+    className={`${sprinkles({
       color: 'secondary',
-      fontSize: '23px',
-      fontWeight: 700,
-    })}
+      fontWeight: 'bold',
+    })} ${headingSizes['23px']}`}
   >
     {children}
   </h2>

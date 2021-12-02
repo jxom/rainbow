@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 
-import { Space, sprinkles } from '../../styles/sprinkles.css';
+import { sprinkles } from './sprinkles.css';
+import { Space } from './tokens.css';
 
 const Stack = ({ space, children }: { space: Space; children: ReactNode }) => (
   <div
