@@ -45,10 +45,10 @@ const Home: NextPage = () => {
           designer would describe them.
         </Text>
         <Text>
-          You ideally shouldn't have to write a bunch of low-level styling or
-          manually adjust padding and margins on individual components to create
-          visual balance. To achieve this, we need to start at the foundations
-          and build up in layers.
+          You ideally shouldn&apos;t have to write a bunch of low-level styling
+          or manually adjust padding and margins on individual components to
+          create visual balance. To achieve this, we need to start at the
+          foundations and build up in layers.
         </Text>
         <Blockquote>
           <Stack space="32px">
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
               to change.
             </Text>
             <Text>
-              It's recommended that all code importing from{' '}
+              It&apos;s recommended that all code importing from{' '}
               <Code>@rainbow-me/design-system</Code> is written in TypeScript so
               that API changes are picked up.
             </Text>

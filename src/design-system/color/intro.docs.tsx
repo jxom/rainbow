@@ -14,7 +14,7 @@ const docs: DocsType = {
       to manually adjust foreground colors.
     </Docs.Text>,
     <Docs.Text key="">
-      For example, let's assume we have the following piece of text:
+      For example, let&apos;s assume we have the following piece of text:
     </Docs.Text>,
     <Docs.CodePreview
       Example={() => <Text color="secondary50">Lorem ipsum</Text>}
@@ -46,12 +46,12 @@ const docs: DocsType = {
       showCode
     />,
     <Docs.Text key="">
-      Typically in this scenario we'd need to alter the text color so that it
-      has sufficient contrast against the background. However, when setting a
+      Typically in this scenario we&apos;d need to alter the text color so that
+      it has sufficient contrast against the background. However, when setting a
       background with <Docs.Code>Box</Docs.Code>, the color mode is
       automatically configured for nested elements based on whether the
-      background is dark or light, meaning that foreground colors usually won't
-      need to be changed.
+      background is dark or light, meaning that foreground colors usually
+      won&apos;t need to be changed.
     </Docs.Text>,
   ],
   name: 'Introduction',

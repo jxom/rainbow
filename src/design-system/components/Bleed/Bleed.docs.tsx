@@ -15,7 +15,7 @@ const docs: DocsType = {
       Renders a <Docs.Strong>container with negative margins</Docs.Strong>{' '}
       allowing content to{' '}
       <Docs.TextLink href="https://en.wikipedia.org/wiki/Bleed_(printing)">
-        "bleed"
+        &quot;bleed&quot;
       </Docs.TextLink>{' '}
       into the surrounding layout. This effectively works as the opposite of{' '}
       <Docs.Strong>Inset</Docs.Strong> and is designed to support visually

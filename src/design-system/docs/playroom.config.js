@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 
 module.exports = {
   baseUrl: '/playroom/',
@@ -7,7 +7,7 @@ module.exports = {
   exampleCode: ``,
   frameComponent: './.playroom/FrameComponent.js',
   iframeSandbox: 'allow-scripts',
-  openBrowser: true,
+  openBrowser: false,
   outputPath: './out/playroom',
   paramType: 'search',
   port: 9000,

@@ -27,10 +27,10 @@ const docs: DocsType = {
     <Docs.Blockquote key="3">
       <Docs.Text>
         Using Capsize in React Native gets us really close, but unfortunately we
-        still see some minor vertical alignment issues, so we're also applying
-        some magic-number corrections for each font size — usually a decimal
-        between 1 and -1. If you have any insight into why we need to do this,
-        please let us know 🙏
+        still see some minor vertical alignment issues, so we&apos;re also
+        applying some magic-number corrections for each font size — usually a
+        decimal between 1 and -1. If you have any insight into why we need to do
+        this, please let us know 🙏
       </Docs.Text>
     </Docs.Blockquote>,
     <Docs.Text key="4">

@@ -22,8 +22,8 @@ const docs: DocsType = {
     <Docs.Text key="1">
       Renders an individual <Docs.Code>View</Docs.Code> element with quick
       access to the standard padding and negative margin scales, as well as
-      other common layout properties. Ideally you're not supposed to need this
-      component much unless you're building a design system component.
+      other common layout properties. Ideally you&apos;re not supposed to need
+      this component much unless you&apos;re building a design system component.
     </Docs.Text>,
     <Docs.Text key="2">
       If you need to render something other than a <Docs.Code>View</Docs.Code>,

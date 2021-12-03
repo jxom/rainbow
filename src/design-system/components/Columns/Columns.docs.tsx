@@ -59,8 +59,8 @@ const docs: DocsType = {
             A common usage of this is to make a column shrink to the width of
             its content. This can be achieved by setting the column{' '}
             <Docs.Code>width</Docs.Code> prop to{' '}
-            <Docs.Code>"content"</Docs.Code>. Any columns without an explicit
-            width will share the remaining space equally.
+            <Docs.Code>&quot;content&quot;</Docs.Code>. Any columns without an
+            explicit width will share the remaining space equally.
           </Docs.Text>
           <Docs.Text>
             The following fractional widths are also available:{' '}
@@ -267,9 +267,9 @@ const docs: DocsType = {
             not the content within them.
           </Text>
           <Text>
-            To align content within a column, you'll need to nest another layout
-            component inside it, such as a <Docs.Code>Stack</Docs.Code> with{' '}
-            <Docs.Code>alignHorizontal</Docs.Code>.
+            To align content within a column, you&apos;ll need to nest another
+            layout component inside it, such as a <Docs.Code>Stack</Docs.Code>{' '}
+            with <Docs.Code>alignHorizontal</Docs.Code>.
           </Text>
         </Stack>
       ),
