@@ -9,12 +9,13 @@ import Animated, {
 import { ColorModeProvider } from '../../color/ColorMode';
 import * as Docs from '../../docs/components';
 import { BackgroundDemo } from '../../playground/BackgroundDemo';
+import { Docs as DocsType } from '../../types';
 import { Columns } from '../Columns/Columns';
 import { Stack } from '../Stack/Stack';
 import { Text } from '../Text/Text';
 import { Box } from './Box';
 
-const docs: Docs = {
+const docs: DocsType = {
   name: 'Box',
   category: 'Layout',
   description: [

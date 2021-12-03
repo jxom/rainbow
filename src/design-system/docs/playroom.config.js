@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   baseUrl: '/playroom/',
@@ -47,6 +48,13 @@ module.exports = {
         },
       ],
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        __DEV__: true,
+        android: false,
+        ios: false,
+      }),
+    ],
     resolve: {
       alias: {
         'react-native$': 'react-native-web',

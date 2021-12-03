@@ -12,6 +12,7 @@ export const space = {
   '16px': '16px',
   '24px': '24px',
   '32px': '32px',
+  '40px': '40px',
   '48px': '48px',
   '64px': '64px',
 };
@@ -28,6 +29,7 @@ export const negativeSpace = {
   '-16px': '-16px',
   '-24px': '-24px',
   '-32px': '-32px',
+  '-40px': '-40px',
   '-48px': '-48px',
   '-64px': '-64px',
 };

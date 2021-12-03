@@ -34,8 +34,8 @@ const Home: NextPage = () => {
         paddingTop: '48px',
       })}
     >
-      <Stack space="32px">
-        <Heading level="1" size="32px">
+      <Stack space="40px">
+        <Heading size="32px">
           🌈🎨 Rainbow Design System Cheat Sheet 🎨🌈
         </Heading>
         <Text>
