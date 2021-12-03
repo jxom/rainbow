@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
 
-const TextLink = ({
+export const TextLink = ({
   children,
   href,
 }: {
@@ -24,5 +24,3 @@ const TextLink = ({
     {children}
   </a>
 );
-
-export default TextLink;

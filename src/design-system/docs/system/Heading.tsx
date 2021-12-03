@@ -7,7 +7,7 @@ import { HeadingSizes, letterSpacings, sizes } from './typography.css';
 
 type Levels = '1' | '2' | '3' | '4';
 
-const Heading = ({
+export const Heading = ({
   children,
   color = 'primary',
   level,
@@ -40,5 +40,3 @@ const Heading = ({
     </Component>
   );
 };
-
-export default Heading;

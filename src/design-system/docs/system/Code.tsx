@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
 
-const Code = ({ children }: { children: ReactNode }) => (
+export const Code = ({ children }: { children: ReactNode }) => (
   <code
     className={classnames([
       sprinkles({
@@ -18,5 +18,3 @@ const Code = ({ children }: { children: ReactNode }) => (
     {children}
   </code>
 );
-
-export default Code;

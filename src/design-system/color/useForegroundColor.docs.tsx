@@ -1,18 +1,16 @@
 import React from 'react';
-import DocsCode from '../docs/system/Code';
-import DocsCodeBlock from '../docs/system/CodeBlock';
-import DocsText from '../docs/system/Text';
-import { Docs } from '../types';
+import * as Docs from '../docs/components';
+import { Docs as DocsType } from '../types';
 
-const docs: Docs = {
+const docs: DocsType = {
   category: 'Color',
   description: [
-    <DocsText key="">
+    <Docs.Text key="">
       Low-level access to the foreground color palette is available via the
-      <DocsCode>useForegroundColor</DocsCode> Hook. This ensures that you get
+      <Docs.Code>useForegroundColor</Docs.Code> Hook. This ensures that you get
       the correct color palette based on the contextual color mode.
-    </DocsText>,
-    <DocsCodeBlock
+    </Docs.Text>,
+    <Docs.CodeBlock
       code={`export default () => {
   const borderColor = useForegroundColor('accent');
 
@@ -24,10 +22,10 @@ const docs: Docs = {
 };`}
       key=""
     />,
-    <DocsText key="">
+    <Docs.Text key="">
       Custom colors can also be passed to this Hook in an object format.
-    </DocsText>,
-    <DocsCodeBlock
+    </Docs.Text>,
+    <Docs.CodeBlock
       code={`export default () => {
   const borderColor = useForegroundColor({
     custom: {

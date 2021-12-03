@@ -1,20 +1,18 @@
 import React from 'react';
 import { Box } from '../components/Box/Box';
 import { Text } from '../components/Text/Text';
-import DocsCodePreview from '../docs/components/CodePreview';
-import DocsCode from '../docs/system/Code';
-import DocsText from '../docs/system/Text';
-import { Docs } from '../types';
+import * as Docs from '../docs/components';
+import { Docs as DocsType } from '../types';
 import { AccentColorProvider } from './AccentColorContext';
 
-const docs: Docs = {
+const docs: DocsType = {
   category: 'Color',
   description: [
-    <DocsText key="">
-      The <DocsCode>"accent"</DocsCode> color can be configured for entire
+    <Docs.Text key="">
+      The <Docs.Code>"accent"</Docs.Code> color can be configured for entire
       subtrees of the app. By default, it will resolve to a pale blue color.
-    </DocsText>,
-    <DocsCodePreview
+    </Docs.Text>,
+    <Docs.CodePreview
       Example={() => (
         <>
           <AccentColorProvider color="#ff0000">
@@ -26,12 +24,12 @@ const docs: Docs = {
       key=""
       showCode
     />,
-    <DocsText key="">
-      <DocsCode>AccentColorProvider</DocsCode> also detects whether the
+    <Docs.Text key="">
+      <Docs.Code>AccentColorProvider</Docs.Code> also detects whether the
       specified accent color is light or dark and sets the appropriate color
       mode for you.
-    </DocsText>,
-    <DocsCodePreview
+    </Docs.Text>,
+    <Docs.CodePreview
       Example={() => (
         <>
           <AccentColorProvider color="#ff0000">

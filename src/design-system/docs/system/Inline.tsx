@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { sprinkles } from './sprinkles.css';
 import { Space } from './tokens.css';
 
-const Inline = ({
+export const Inline = ({
   alignHorizontal = 'left',
   alignVertical,
   space,
@@ -26,5 +26,3 @@ const Inline = ({
     {children}
   </div>
 );
-
-export default Inline;

@@ -5,7 +5,7 @@ import { sprinkles } from './sprinkles.css';
 import { FontWeight, TextColor } from './tokens.css';
 import { letterSpacings, sizes, TextSizes } from './typography.css';
 
-const Text = ({
+export const Text = ({
   children,
   color,
   size = '18px',
@@ -29,5 +29,3 @@ const Text = ({
     {children}
   </span>
 );
-
-export default Text;

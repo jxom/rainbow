@@ -2,13 +2,9 @@ import type { NextPage } from 'next';
 import React from 'react';
 
 import { Docs } from '../../types';
-import DocsAccordion from '../components/DocsAccordion';
+import { DocsAccordion } from '../components/DocsAccordion';
 import * as docs from '../docs';
-import Blockquote from '../system/Blockquote';
-import Code from '../system/Code';
-import Heading from '../system/Heading';
-import Stack from '../system/Stack';
-import Text from '../system/Text';
+import { Blockquote, Code, Heading, Stack, Text } from '../system';
 import { sprinkles } from '../system/sprinkles.css';
 
 const categoryOrder = ['Layout', 'Typography', 'Color'];

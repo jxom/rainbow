@@ -3,7 +3,13 @@ import React, { ReactNode } from 'react';
 import { sprinkles } from './sprinkles.css';
 import { Space } from './tokens.css';
 
-const Stack = ({ space, children }: { space: Space; children: ReactNode }) => (
+export const Stack = ({
+  space,
+  children,
+}: {
+  space: Space;
+  children: ReactNode;
+}) => (
   <div
     className={sprinkles({
       display: 'flex',
@@ -14,5 +20,3 @@ const Stack = ({ space, children }: { space: Space; children: ReactNode }) => (
     {children}
   </div>
 );
-
-export default Stack;

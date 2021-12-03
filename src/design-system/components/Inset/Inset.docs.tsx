@@ -1,19 +1,18 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import DocsStrong from '../../docs/system/Strong';
-import DocsText from '../../docs/system/Text';
+import * as Docs from '../../docs/components';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs } from '../../types';
+import { Docs as DocsType } from '../../types';
 import { Inset } from './Inset';
 
-const docs: Docs = {
+const docs: DocsType = {
   name: 'Inset',
   category: 'Layout',
   description: (
-    <DocsText>
-      Renders a <DocsStrong>container with equal padding</DocsStrong> on all
+    <Docs.Text>
+      Renders a <Docs.Strong>container with equal padding</Docs.Strong> on all
       sides.
-    </DocsText>
+    </Docs.Text>
   ),
   examples: [
     {
@@ -36,7 +35,9 @@ const docs: Docs = {
 
     {
       name: 'Horizontal space',
-      description: <DocsText>Space can also be customized per axis.</DocsText>,
+      description: (
+        <Docs.Text>Space can also be customized per axis.</Docs.Text>
+      ),
       Example: () => (
         <Inset horizontal="19px">
           <Placeholder height={100} />

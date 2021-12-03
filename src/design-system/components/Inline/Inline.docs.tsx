@@ -1,25 +1,24 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import DocsStrong from '../../docs/system/Strong';
-import DocsText from '../../docs/system/Text';
+import * as Docs from '../../docs/components';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs } from '../../types';
+import { Docs as DocsType } from '../../types';
 import { Inline } from './Inline';
 
-const docs: Docs = {
+const docs: DocsType = {
   name: 'Inline',
   category: 'Layout',
   description: [
-    <DocsText key="1">
+    <Docs.Text key="1">
       Arranges child nodes{' '}
-      <DocsStrong>
+      <Docs.Strong>
         horizontally, wrapping to multiple lines if needed
-      </DocsStrong>
+      </Docs.Strong>
       , with equal spacing between items.
-    </DocsText>,
-    <DocsText key="2">
+    </Docs.Text>,
+    <Docs.Text key="2">
       If there is only a single child node, no space will be rendered.
-    </DocsText>,
+    </Docs.Text>,
   ],
   examples: [
     {
@@ -60,7 +59,9 @@ const docs: Docs = {
 
     {
       name: 'Different space on each axis',
-      description: <DocsText>Space can also be customized per axis.</DocsText>,
+      description: (
+        <Docs.Text>Space can also be customized per axis.</Docs.Text>
+      ),
       Example: () => (
         <Inline horizontalSpace="19px" verticalSpace="12px">
           <Placeholder height={40} width={40} />

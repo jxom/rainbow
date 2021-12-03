@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
 
-const Blockquote = ({ children }: { children: ReactNode }) => (
+export const Blockquote = ({ children }: { children: ReactNode }) => (
   <div
     className={sprinkles({
       backgroundColor: 'actionTint',
@@ -25,5 +25,3 @@ const Blockquote = ({ children }: { children: ReactNode }) => (
     />
   </div>
 );
-
-export default Blockquote;

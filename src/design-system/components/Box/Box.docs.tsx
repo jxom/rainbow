@@ -7,10 +7,8 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { ColorModeProvider } from '../../color/ColorMode';
-import DocsCode from '../../docs/system/Code';
-import DocsText from '../../docs/system/Text';
+import * as Docs from '../../docs/components';
 import { BackgroundDemo } from '../../playground/BackgroundDemo';
-import { Docs } from '../../types';
 import { Columns } from '../Columns/Columns';
 import { Stack } from '../Stack/Stack';
 import { Text } from '../Text/Text';
@@ -20,16 +18,16 @@ const docs: Docs = {
   name: 'Box',
   category: 'Layout',
   description: [
-    <DocsText key="1">
-      Renders an individual <DocsCode>View</DocsCode> element with quick access
-      to the standard padding and negative margin scales, as well as other
-      common layout properties. Ideally you're not supposed to need this
+    <Docs.Text key="1">
+      Renders an individual <Docs.Code>View</Docs.Code> element with quick
+      access to the standard padding and negative margin scales, as well as
+      other common layout properties. Ideally you're not supposed to need this
       component much unless you're building a design system component.
-    </DocsText>,
-    <DocsText key="2">
-      If you need to render something other than a <DocsCode>View</DocsCode>,
-      you can pass a component to the <DocsCode>as</DocsCode> prop.
-    </DocsText>,
+    </Docs.Text>,
+    <Docs.Text key="2">
+      If you need to render something other than a <Docs.Code>View</Docs.Code>,
+      you can pass a component to the <Docs.Code>as</Docs.Code> prop.
+    </Docs.Text>,
   ],
   examples: [
     {

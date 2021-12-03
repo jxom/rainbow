@@ -2,10 +2,9 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import DocsStrong from '../../docs/system/Strong';
-import DocsText from '../../docs/system/Text';
+import * as Docs from '../../docs/components';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs } from '../../types';
+import { Docs as DocsType } from '../../types';
 import { Inset } from '../Inset/Inset';
 import { Text } from '../Text/Text';
 import { Stack } from './Stack';
@@ -14,20 +13,20 @@ const MockDivider = () => (
   <View style={{ backgroundColor: '#999', height: 1, width: '50%' }} />
 );
 
-const docs: Docs = {
+const docs: DocsType = {
   name: 'Stack',
   category: 'Layout',
   description: (
     <Stack space="24px">
-      <DocsText>
-        Arranges children <DocsStrong>vertically</DocsStrong> with equal spacing
-        between them, plus an optional `separator` element. Items can be aligned
-        with `alignHorizontal`.
-      </DocsText>
-      <DocsText>
+      <Docs.Text>
+        Arranges children <Docs.Strong>vertically</Docs.Strong> with equal
+        spacing between them, plus an optional `separator` element. Items can be
+        aligned with `alignHorizontal`.
+      </Docs.Text>
+      <Docs.Text>
         If there is only a single child node, no space or separators will be
         rendered.
-      </DocsText>
+      </Docs.Text>
     </Stack>
   ),
   examples: [
@@ -54,10 +53,10 @@ const docs: Docs = {
     {
       name: 'Nested',
       description: (
-        <DocsText>
+        <Docs.Text>
           Stacks can be nested within each other for layouts with differing
           amounts of space between groups of content.
-        </DocsText>
+        </Docs.Text>
       ),
       Example: () => (
         <Inset horizontal="19px" vertical="24px">

@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
 
-const Strong = ({ children }: { children: ReactNode }) => (
+export const Strong = ({ children }: { children: ReactNode }) => (
   <span
     className={classnames([
       sprinkles({
@@ -14,5 +14,3 @@ const Strong = ({ children }: { children: ReactNode }) => (
     {children}
   </span>
 );
-
-export default Strong;

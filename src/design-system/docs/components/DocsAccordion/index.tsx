@@ -1,19 +1,11 @@
-import lzString from 'lz-string';
 import React from 'react';
-import reactElementToJSXString from 'react-element-to-jsx-string';
-// @ts-expect-error
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
-import { Inline } from '../../../components/Inline/Inline';
 import { Docs, Example } from '../../../types';
-import CodePreview from '../CodePreview';
-import Heading from '../../system/Heading';
-import Stack from '../../system/Stack';
-import Text from '../../system/Text';
+import { Heading, Stack } from '../../system';
 import { sprinkles } from '../../system/sprinkles.css';
-import codeTheme from '../../utils/code-theme';
+import { CodePreview } from '../CodePreview';
 
-const DocsAccordion = ({
+export const DocsAccordion = ({
   name: componentName,
   description,
   examples,
@@ -67,8 +59,6 @@ const DocsAccordion = ({
     </Stack>
   );
 };
-
-export default DocsAccordion;
 
 ////////////////////////////////////////////////////////////////////////////////
 

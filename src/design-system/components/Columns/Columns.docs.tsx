@@ -1,10 +1,8 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import DocsCode from '../../docs/system/Code';
-import DocsStrong from '../../docs/system/Strong';
-import DocsText from '../../docs/system/Text';
+import * as Docs from '../../docs/components';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs } from '../../types';
+import { Docs as DocsType } from '../../types';
 import { Stack } from '../Stack/Stack';
 import { Text } from '../Text/Text';
 import { Column, Columns } from './Columns';
@@ -12,18 +10,18 @@ import { Column, Columns } from './Columns';
 const loremIpsum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-const docs: Docs = {
+const docs: DocsType = {
   name: 'Columns',
   category: 'Layout',
   description: (
     <Stack space="24px">
-      <DocsText>
-        Renders children <DocsStrong>horizontally</DocsStrong> in equal-width
+      <Docs.Text>
+        Renders children <Docs.Strong>horizontally</Docs.Strong> in equal-width
         columns by default, with consistent spacing between them.
-      </DocsText>
-      <DocsText>
+      </Docs.Text>
+      <Docs.Text>
         If there is only a single column, no space will be rendered.
-      </DocsText>
+      </Docs.Text>
     </Stack>
   ),
   examples: [
@@ -51,27 +49,27 @@ const docs: Docs = {
       name: 'Custom widths',
       description: (
         <Stack space="24px">
-          <DocsText>
+          <Docs.Text>
             You can optionally control column widths by manually rendering a{' '}
-            <DocsCode>Column</DocsCode> as a direct child of{' '}
-            <DocsCode>Columns</DocsCode>, which allows you to set an explicit{' '}
-            <DocsCode>width</DocsCode> prop.
-          </DocsText>
-          <DocsText>
+            <Docs.Code>Column</Docs.Code> as a direct child of{' '}
+            <Docs.Code>Columns</Docs.Code>, which allows you to set an explicit{' '}
+            <Docs.Code>width</Docs.Code> prop.
+          </Docs.Text>
+          <Docs.Text>
             A common usage of this is to make a column shrink to the width of
             its content. This can be achieved by setting the column{' '}
-            <DocsCode>width</DocsCode> prop to <DocsCode>"content"</DocsCode>.
-            Any columns without an explicit width will share the remaining space
-            equally.
-          </DocsText>
-          <DocsText>
+            <Docs.Code>width</Docs.Code> prop to{' '}
+            <Docs.Code>"content"</Docs.Code>. Any columns without an explicit
+            width will share the remaining space equally.
+          </Docs.Text>
+          <Docs.Text>
             The following fractional widths are also available:{' '}
-            <DocsCode>1/2</DocsCode>, <DocsCode>1/3</DocsCode>,{' '}
-            <DocsCode>2/3</DocsCode>, <DocsCode>1/4</DocsCode>,{' '}
-            <DocsCode>3/4</DocsCode>, <DocsCode>1/5</DocsCode>,{' '}
-            <DocsCode>2/5</DocsCode>, <DocsCode>3/5</DocsCode>,{' '}
-            <DocsCode>4/5</DocsCode>.
-          </DocsText>
+            <Docs.Code>1/2</Docs.Code>, <Docs.Code>1/3</Docs.Code>,{' '}
+            <Docs.Code>2/3</Docs.Code>, <Docs.Code>1/4</Docs.Code>,{' '}
+            <Docs.Code>3/4</Docs.Code>, <Docs.Code>1/5</Docs.Code>,{' '}
+            <Docs.Code>2/5</Docs.Code>, <Docs.Code>3/5</Docs.Code>,{' '}
+            <Docs.Code>4/5</Docs.Code>.
+          </Docs.Text>
         </Stack>
       ),
       Example: () => (
@@ -270,8 +268,8 @@ const docs: Docs = {
           </Text>
           <Text>
             To align content within a column, you'll need to nest another layout
-            component inside it, such as a <DocsCode>Stack</DocsCode> with{' '}
-            <DocsCode>alignHorizontal</DocsCode>.
+            component inside it, such as a <Docs.Code>Stack</Docs.Code> with{' '}
+            <Docs.Code>alignHorizontal</Docs.Code>.
           </Text>
         </Stack>
       ),

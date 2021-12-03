@@ -2,13 +2,10 @@ import lzString from 'lz-string';
 import React from 'react';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
-import CodeBlock from '../../system/CodeBlock';
-import Inline from '../../system/Inline';
-import Stack from '../../system/Stack';
-import Text from '../../system/Text';
+import { CodeBlock, Inline, Stack, Text } from '../../system';
 import { sprinkles } from '../../system/sprinkles.css';
 
-const CodePreview = ({
+export const CodePreview = ({
   disableActions = false,
   showCode: defaultShowCode = false,
   showPlayroomButton = true,
@@ -78,5 +75,3 @@ const CodePreview = ({
     </Stack>
   );
 };
-
-export default CodePreview;

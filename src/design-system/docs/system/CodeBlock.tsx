@@ -5,7 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import codeTheme from '../utils/code-theme';
 import { sprinkles } from './sprinkles.css';
 
-const CodeBlock = ({ code }: { code: string }) => {
+export const CodeBlock = ({ code }: { code: string }) => {
   return (
     <div
       className={sprinkles({
@@ -21,5 +21,3 @@ const CodeBlock = ({ code }: { code: string }) => {
     </div>
   );
 };
-
-export default CodeBlock;
