@@ -11,6 +11,7 @@ module.exports = {
   outputPath: './out/playroom',
   paramType: 'search',
   port: 9000,
+  themes: './.playroom/themes.ts',
   title: 'Rainbow Playroom',
   webpackConfig: () => ({
     module: {
@@ -62,5 +63,5 @@ module.exports = {
       extensions: ['.web.js', '.web.ts', '.web.tsx', '.js', '.ts', '.tsx'],
     },
   }),
-  widths: [320, 768, 1024],
+  widths: [320],
 };

@@ -30,6 +30,7 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Basic usage',
+      showFrame: true,
       Example: () => (
         <Inset space="19px">
           <Stack space="19px">
@@ -45,6 +46,7 @@ const docs: DocsType = {
 
     {
       name: 'Custom space',
+      showFrame: true,
       Example: () => (
         <Inset space={{ custom: 17 }}>
           <Stack space={{ custom: 17 }}>
@@ -60,6 +62,7 @@ const docs: DocsType = {
 
     {
       name: 'Right',
+      showFrame: true,
       Example: () => (
         <Inset space="19px">
           <Stack space="19px">
@@ -75,6 +78,7 @@ const docs: DocsType = {
 
     {
       name: 'Left',
+      showFrame: true,
       Example: () => (
         <Inset space="19px">
           <Stack space="19px">
@@ -90,6 +94,7 @@ const docs: DocsType = {
 
     {
       name: 'Top',
+      showFrame: true,
       Example: () => (
         <Inset space="19px">
           <Stack space="19px">
@@ -105,6 +110,7 @@ const docs: DocsType = {
 
     {
       name: 'Bottom',
+      showFrame: true,
       Example: () => (
         <Inset space="19px">
           <Stack space="19px">

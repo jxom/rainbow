@@ -21,6 +21,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   webpack: config => {
+    config.optimization.minimize = false;
     config.plugins.push(
       new webpack.DefinePlugin({
         __DEV__: true,

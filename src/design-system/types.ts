@@ -2,6 +2,7 @@ export type Example = {
   name: string;
   description?: JSX.Element;
   playroom?: boolean;
+  showFrame?: boolean;
   Example: () => JSX.Element;
 };
 

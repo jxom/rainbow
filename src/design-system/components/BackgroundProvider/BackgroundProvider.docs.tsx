@@ -2,7 +2,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { AccentColorProvider } from '../../color/AccentColorContext';
-import { ColorModeProvider, useColorMode } from '../../color/ColorMode';
+import { ColorModeProvider } from '../../color/ColorMode';
+import { BackgroundDemo } from '../../playground/BackgroundDemo';
 import { Docs } from '../../types';
 import { Columns } from '../Columns/Columns';
 import { Inset } from '../Inset/Inset';
@@ -12,35 +13,6 @@ import { BackgroundProvider } from './BackgroundProvider';
 
 const darkAccentColor = 'green';
 const lightAccentColor = 'yellow';
-
-function BackgroundProviderDemo() {
-  const { backgroundColors } = useColorMode();
-
-  return (
-    <>
-      {(Object.keys(backgroundColors) as (keyof typeof backgroundColors)[])
-        .sort()
-        .map(color => (
-          <BackgroundProvider color={color} key={color}>
-            {backgroundStyle => (
-              <View style={backgroundStyle}>
-                <Inset space="19px">
-                  <Stack space="10px">
-                    <Text color="primary" weight="bold">
-                      {color}
-                    </Text>
-                    <Text color="secondary50" weight="bold">
-                      {color}
-                    </Text>
-                  </Stack>
-                </Inset>
-              </View>
-            )}
-          </BackgroundProvider>
-        ))}
-    </>
-  );
-}
 
 const docs: Docs = {
   name: 'BackgroundProvider',
@@ -53,13 +25,13 @@ const docs: Docs = {
           <Stack space="10px">
             <Text weight="bold">Light mode</Text>
             <ColorModeProvider value="light">
-              <BackgroundProviderDemo />
+              <BackgroundDemo />
             </ColorModeProvider>
           </Stack>
           <Stack space="10px">
             <Text weight="bold">Dark mode</Text>
             <ColorModeProvider value="dark">
-              <BackgroundProviderDemo />
+              <BackgroundDemo />
             </ColorModeProvider>
           </Stack>
         </Columns>

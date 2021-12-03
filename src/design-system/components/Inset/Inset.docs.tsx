@@ -17,6 +17,7 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Basic usage',
+      showFrame: true,
       Example: () => (
         <Inset space="19px">
           <Placeholder height={100} />
@@ -26,6 +27,7 @@ const docs: DocsType = {
 
     {
       name: 'Custom space',
+      showFrame: true,
       Example: () => (
         <Inset space={{ custom: 12 }}>
           <Placeholder height={100} />
@@ -38,6 +40,7 @@ const docs: DocsType = {
       description: (
         <Docs.Text>Space can also be customized per axis.</Docs.Text>
       ),
+      showFrame: true,
       Example: () => (
         <Inset horizontal="19px">
           <Placeholder height={100} />
@@ -47,6 +50,7 @@ const docs: DocsType = {
 
     {
       name: 'Vertical space',
+      showFrame: true,
       Example: () => (
         <Inset vertical="19px">
           <Placeholder height={100} />

@@ -9,18 +9,20 @@ export const CodePreview = ({
   disableActions = false,
   showCode: defaultShowCode = false,
   showPlayroomButton = true,
+  showFrame = false,
   Example,
 }: {
   disableActions?: boolean;
   showCode?: boolean;
   showPlayroomButton?: boolean;
+  showFrame?: boolean;
   Example: () => JSX.Element;
 }) => {
   const [showCode, setShowCode] = React.useState(Boolean(defaultShowCode));
 
   let jsxString;
   try {
-    jsxString = reactElementToJSXString(Example());
+    jsxString = reactElementToJSXString(Example()).replace(/(\w*)_/g, '');
   } catch (err) {} // eslint-disable-line no-empty
 
   return (
@@ -31,10 +33,19 @@ export const CodePreview = ({
           padding: '24px',
         })}
         style={{
-          backgroundColor: 'rgba(0,0,0,0.05)',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
         }}
       >
-        <Example />
+        <div
+          className={sprinkles({
+            borderRadius: '16px',
+          })}
+          style={
+            showFrame ? { backgroundColor: 'rgba(255, 255, 255, 0.5)' } : {}
+          }
+        >
+          <Example />
+        </div>
       </div>
       {jsxString && (
         <>

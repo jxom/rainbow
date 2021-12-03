@@ -1,3 +1,4 @@
+import '../styles/fonts.css';
 import '../styles/globals.css';
 import '../shims';
 import type { AppProps } from 'next/app';

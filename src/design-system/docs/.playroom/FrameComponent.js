@@ -1,4 +1,16 @@
 import React, { Fragment } from 'react';
-import '../styles/globals.css'
+import './fonts.css';
+import './global.css';
 
-export default ({ children }) => <Fragment>{children}</Fragment>;
+import { ColorModeProvider } from '../../color/ColorMode';
+import { Box } from '../../components/Box/Box';
+
+export default ({ children, themeName }) => (
+  <ColorModeProvider value={themeName}>
+    <div id="root">
+      <Box background="body">
+        {children}
+      </Box>
+    </div>
+  </ColorModeProvider>
+);

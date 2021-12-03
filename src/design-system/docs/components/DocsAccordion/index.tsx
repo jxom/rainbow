@@ -43,13 +43,14 @@ export const DocsAccordion = ({
           <Stack space="32px">
             {description}
             {examples?.map(
-              ({ name, description, playroom, Example }, index) => (
+              ({ name, description, playroom, showFrame, Example }, index) => (
                 <ExamplePreview
                   Example={Example}
                   description={description}
                   key={index}
                   name={name}
                   playroom={playroom}
+                  showFrame={showFrame}
                 />
               )
             )}
@@ -65,6 +66,7 @@ export const DocsAccordion = ({
 const ExamplePreview = ({
   name,
   description,
+  showFrame = false,
   playroom = true,
   Example,
 }: Example) => {
@@ -76,7 +78,11 @@ const ExamplePreview = ({
       {description && (
         <div className={sprinkles({ paddingBottom: '8px' })}>{description}</div>
       )}
-      <CodePreview Example={Example} showPlayroomButton={playroom} />
+      <CodePreview
+        Example={Example}
+        showFrame={showFrame}
+        showPlayroomButton={playroom}
+      />
     </Stack>
   );
 };
