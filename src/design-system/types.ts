@@ -7,7 +7,7 @@ export type Example = {
 
 export type Docs = {
   name?: string;
-  category: 'Content' | 'Layout' | 'Typography';
+  category: 'Color' | 'Layout' | 'Typography';
   description?: JSX.Element | JSX.Element[];
   examples?: Example[];
 };

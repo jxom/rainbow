@@ -1,6 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import DocsCode from '../../docs/system/Code';
+import DocsStrong from '../../docs/system/Strong';
 import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
@@ -17,8 +18,8 @@ const docs: Docs = {
   description: (
     <Stack space="24px">
       <DocsText>
-        Renders children <DocsText weight="bold">horizontally</DocsText> in
-        equal-width columns by default, with consistent spacing between them.
+        Renders children <DocsStrong>horizontally</DocsStrong> in equal-width
+        columns by default, with consistent spacing between them.
       </DocsText>
       <DocsText>
         If there is only a single column, no space will be rendered.

@@ -1,5 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
+import merge from 'lodash/merge';
 import { palettes } from '../../color/palettes';
+import { typeHierarchy as appTypeHierarchy } from '../../typography/typeHierarchy';
 
 export const space = {
   none: '0', // eslint-disable-line prettier/prettier
@@ -35,10 +37,9 @@ export type NegativeSpace = keyof typeof negativeSpace;
 export const textColors = {
   white: 'white',
   action: palettes.light.foregroundColors.action,
-  actionDark: '#024397',
+  actionShade: '#024397',
   primary: palettes.light.foregroundColors.primary,
   secondary: palettes.light.foregroundColors.secondary60,
-  secondaryDark: palettes.dark.foregroundColors.secondary80,
 };
 
 export type TextColor = keyof typeof textColors;
@@ -49,7 +50,6 @@ export const backgroundColors = {
   actionTint: '#c7e0ff',
   action: palettes.light.backgroundColors.action.color,
   bodyDark: palettes.dark.backgroundColors.body.color,
-  bodyLight: palettes.light.backgroundColors.body.color,
 };
 
 export const fontWeight = {
@@ -61,6 +61,18 @@ export const fontWeight = {
 } as const;
 
 export type FontWeight = keyof typeof fontWeight;
+
+const docsTypeHierarchy = {
+  heading: {
+    '32px': {
+      fontSize: 32,
+      letterSpacing: 0.6,
+      lineHeight: 36,
+    },
+  },
+} as const;
+
+export const typeHierarchy = merge(appTypeHierarchy, docsTypeHierarchy);
 
 export const radii = {
   '4px': '4px',

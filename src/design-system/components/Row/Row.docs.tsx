@@ -2,6 +2,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import DocsCode from '../../docs/system/Code';
+import DocsStrong from '../../docs/system/Strong';
 import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
@@ -13,10 +14,9 @@ const docs: Docs = {
   description: [
     <DocsText key="1">
       Arranges child nodes{' '}
-      <DocsText weight="bold">horizontally without wrapping</DocsText>, with
-      equal spacing between them, plus an optional{' '}
-      <DocsCode>separator</DocsCode> element. Items can be aligned with{' '}
-      <DocsCode>alignHorizontal</DocsCode> and{' '}
+      <DocsStrong>horizontally without wrapping</DocsStrong>, with equal spacing
+      between them, plus an optional <DocsCode>separator</DocsCode> element.
+      Items can be aligned with <DocsCode>alignHorizontal</DocsCode> and{' '}
       <DocsCode>alignVertical</DocsCode>.
     </DocsText>,
     <DocsText key="2">

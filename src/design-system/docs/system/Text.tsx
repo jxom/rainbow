@@ -1,8 +1,9 @@
+import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
 import { FontWeight, TextColor } from './tokens.css';
-import { textSizes } from './typography.css';
+import { letterSpacings, sizes, TextSizes } from './typography.css';
 
 const Text = ({
   children,
@@ -12,15 +13,18 @@ const Text = ({
 }: {
   children: ReactNode;
   color?: TextColor;
-  size?: keyof typeof textSizes;
+  size?: TextSizes;
   weight?: FontWeight;
 }) => (
   <span
-    className={`${sprinkles({
-      color,
-      fontWeight: weight,
-      letterSpacing: '0.5px',
-    })} ${textSizes[size]}`}
+    className={classnames([
+      sprinkles({
+        color,
+        fontWeight: weight,
+        letterSpacing: letterSpacings.text[size],
+      }),
+      sizes.text[size],
+    ])}
   >
     {children}
   </span>

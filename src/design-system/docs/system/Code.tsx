@@ -1,25 +1,19 @@
+import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
-import { textSizes } from './typography.css';
 
-const Code = ({
-  children,
-  fontSize = '18px',
-}: {
-  children: ReactNode;
-  fontSize?: keyof typeof textSizes;
-}) => (
+const Code = ({ children }: { children: ReactNode }) => (
   <code
-    className={`${sprinkles({
-      backgroundColor: 'actionTint',
-      borderRadius: '4px',
-      color: 'action',
-      fontWeight: 'medium',
-      letterSpacing: '0.5px',
-      paddingHorizontal: '2px',
-    })}`}
-    style={{ fontSize }}
+    className={classnames([
+      sprinkles({
+        backgroundColor: 'actionTint',
+        borderRadius: '4px',
+        color: 'action',
+        fontWeight: 'medium',
+        paddingHorizontal: '2px',
+      }),
+    ])}
   >
     {children}
   </code>

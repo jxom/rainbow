@@ -2,6 +2,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+import DocsStrong from '../../docs/system/Strong';
 import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
@@ -19,9 +20,9 @@ const docs: Docs = {
   description: (
     <Stack space="24px">
       <DocsText>
-        Arranges children <DocsText weight="bold">vertically</DocsText> with
-        equal spacing between them, plus an optional `separator` element. Items
-        can be aligned with `alignHorizontal`.
+        Arranges children <DocsStrong>vertically</DocsStrong> with equal spacing
+        between them, plus an optional `separator` element. Items can be aligned
+        with `alignHorizontal`.
       </DocsText>
       <DocsText>
         If there is only a single child node, no space or separators will be

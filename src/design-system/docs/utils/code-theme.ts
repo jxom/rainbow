@@ -4,7 +4,7 @@ const tag = 'rgb(96, 165, 255)';
 const attribute = palettes.dark.foregroundColors.secondary;
 const value = 'rgb(144, 147, 255)';
 const punctuation = 'rgb(96, 165, 255)';
-const plainText = 'rgb(144, 147, 255)';
+const plainText = 'white';
 const meta = 'rgb(96, 165, 255)';
 const other = 'rgb(96, 165, 255)';
 const inserted = 'rgb(96, 165, 255)';
@@ -51,6 +51,9 @@ export default {
   'entity': {
     color: other,
     cursor: 'help',
+  },
+  'function': {
+    color: tag,
   },
   'important': {
     color: other,

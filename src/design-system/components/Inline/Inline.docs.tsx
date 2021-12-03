@@ -1,5 +1,6 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
+import DocsStrong from '../../docs/system/Strong';
 import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
@@ -11,9 +12,9 @@ const docs: Docs = {
   description: [
     <DocsText key="1">
       Arranges child nodes{' '}
-      <DocsText weight="bold">
+      <DocsStrong>
         horizontally, wrapping to multiple lines if needed
-      </DocsText>
+      </DocsStrong>
       , with equal spacing between items.
     </DocsText>,
     <DocsText key="2">

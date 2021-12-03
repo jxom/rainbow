@@ -44,7 +44,7 @@ function BackgroundProviderDemo() {
 
 const docs: Docs = {
   name: 'BackgroundProvider',
-  category: 'Content',
+  category: 'Color',
   examples: [
     {
       name: 'Standard backgrounds',

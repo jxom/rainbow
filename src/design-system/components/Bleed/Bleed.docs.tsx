@@ -1,5 +1,6 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
+import DocsStrong from '../../docs/system/Strong';
 import DocsText from '../../docs/system/Text';
 import DocsTextLink from '../../docs/system/TextLink';
 import { Placeholder } from '../../playground/Placeholder';
@@ -13,16 +14,15 @@ const docs: Docs = {
   category: 'Layout',
   description: [
     <DocsText key="1">
-      Renders a{' '}
-      <DocsText weight="bold">container with negative margins</DocsText>{' '}
+      Renders a <DocsStrong>container with negative margins</DocsStrong>{' '}
       allowing content to{' '}
       <DocsTextLink href="https://en.wikipedia.org/wiki/Bleed_(printing)">
         "bleed"
       </DocsTextLink>{' '}
       into the surrounding layout. This effectively works as the opposite of{' '}
-      <DocsText weight="bold">Inset</DocsText> and is designed to support
-      visually breaking out of a parent container without having to refactor the
-      entire component tree.
+      <DocsStrong>Inset</DocsStrong> and is designed to support visually
+      breaking out of a parent container without having to refactor the entire
+      component tree.
     </DocsText>,
     <DocsText key="2">
       If there is only a single child node, no space or separators will be

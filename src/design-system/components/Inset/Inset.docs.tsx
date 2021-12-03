@@ -1,5 +1,6 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
+import DocsStrong from '../../docs/system/Strong';
 import DocsText from '../../docs/system/Text';
 import { Placeholder } from '../../playground/Placeholder';
 import { Docs } from '../../types';
@@ -10,8 +11,8 @@ const docs: Docs = {
   category: 'Layout',
   description: (
     <DocsText>
-      Renders a <DocsText weight="bold">container with equal padding</DocsText>{' '}
-      on all sides.
+      Renders a <DocsStrong>container with equal padding</DocsStrong> on all
+      sides.
     </DocsText>
   ),
   examples: [

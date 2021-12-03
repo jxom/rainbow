@@ -6,12 +6,12 @@ import DocsAccordion from '../components/DocsAccordion';
 import * as docs from '../docs';
 import Blockquote from '../system/Blockquote';
 import Code from '../system/Code';
+import Heading from '../system/Heading';
 import Stack from '../system/Stack';
 import Text from '../system/Text';
-import Title from '../system/Title';
 import { sprinkles } from '../system/sprinkles.css';
 
-const categoryOrder = ['Layout', 'Typography', 'Content'];
+const categoryOrder = ['Layout', 'Typography', 'Color'];
 
 const Home: NextPage = () => {
   const categories = Object.values(docs).reduce(
@@ -39,41 +39,39 @@ const Home: NextPage = () => {
       })}
     >
       <Stack space="32px">
-        <Title fontSize="32px">
+        <Heading level="1" size="32px">
           🌈🎨 Rainbow Design System Cheat Sheet 🎨🌈
-        </Title>
-        <Stack space="24px">
-          <Text>
-            The goal of Rainbow Design System is to make it fast and easy to
-            build and maintain standard Rainbow designs. As much as possible,
-            component APIs at the screen level should be high level, reading the
-            way a designer would describe them.
-          </Text>
-          <Text>
-            You ideally shouldn't have to write a bunch of low-level styling or
-            manually adjust padding and margins on individual components to
-            create visual balance. To achieve this, we need to start at the
-            foundations and build up in layers.
-          </Text>
-          <Blockquote>
-            <Stack space="16px">
-              <Text>
-                This cheat sheet is not currently intended to be exhaustive,
-                instead providing an overview of the core parts of the system.
-                This is still a work in progress. APIs are incomplete and likely
-                to change.
-              </Text>
-              <Text>
-                It's recommended that all code importing from{' '}
-                <Code>@rainbow-me/design-system</Code> is written in TypeScript
-                so that API changes are picked up.
-              </Text>
-            </Stack>
-          </Blockquote>
-        </Stack>
+        </Heading>
+        <Text>
+          The goal of Rainbow Design System is to make it fast and easy to build
+          and maintain standard Rainbow designs. As much as possible, component
+          APIs at the screen level should be high level, reading the way a
+          designer would describe them.
+        </Text>
+        <Text>
+          You ideally shouldn't have to write a bunch of low-level styling or
+          manually adjust padding and margins on individual components to create
+          visual balance. To achieve this, we need to start at the foundations
+          and build up in layers.
+        </Text>
+        <Blockquote>
+          <Stack space="32px">
+            <Text>
+              This cheat sheet is not currently intended to be exhaustive,
+              instead providing an overview of the core parts of the system.
+              This is still a work in progress. APIs are incomplete and likely
+              to change.
+            </Text>
+            <Text>
+              It's recommended that all code importing from{' '}
+              <Code>@rainbow-me/design-system</Code> is written in TypeScript so
+              that API changes are picked up.
+            </Text>
+          </Stack>
+        </Blockquote>
         {categoryOrder.map((categoryName, i) => (
           <Stack key={i} space="16px">
-            <Title>{categoryName}</Title>
+            <Heading>{categoryName}</Heading>
             <div>
               {categories[categoryName].map((docs, i) => {
                 return <DocsAccordion key={i} {...docs} />;

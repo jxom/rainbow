@@ -1,6 +1,7 @@
 import React from 'react';
 import DocsBlockquote from '../docs/system/Blockquote';
 import DocsCode from '../docs/system/Code';
+import DocsStrong from '../docs/system/Strong';
 import DocsText from '../docs/system/Text';
 import { Docs } from '../types';
 
@@ -10,10 +11,10 @@ const docs: Docs = {
     <DocsText key="1">
       In a component system, the role of layout components is to apply space
       within containers and between sibling elements. For this model to work,
-      individual components should <DocsText weight="bold">not</DocsText> have
-      any surrounding space. If components have margins built into them, it
-      becomes difficult to compose them into a layout because space will be
-      unbalanced by default.
+      individual components should <DocsStrong>not</DocsStrong> have any
+      surrounding space. If components have margins built into them, it becomes
+      difficult to compose them into a layout because space will be unbalanced
+      by default.
     </DocsText>,
     <DocsText key="2">
       To better understand layout, let's step through the available layout
@@ -32,7 +33,6 @@ const docs: Docs = {
         </DocsCode>
         .
       </DocsText>
-      ,
     </DocsBlockquote>,
   ],
   name: 'Introduction',

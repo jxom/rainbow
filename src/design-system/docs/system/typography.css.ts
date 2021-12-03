@@ -1,8 +1,8 @@
 import { createTextStyle } from '@capsizecss/vanilla-extract';
 import mapValues from 'lodash/mapValues';
 
-import { typeHierarchy } from '../../typography/typeHierarchy';
 import { fontMetrics } from '../../typography/typography';
+import { typeHierarchy } from './tokens.css';
 
 function createTextSize({
   fontSize,
@@ -18,5 +18,18 @@ function createTextSize({
   });
 }
 
-export const textSizes = mapValues(typeHierarchy.text, createTextSize);
-export const headingSizes = mapValues(typeHierarchy.heading, createTextSize);
+export const sizes = {
+  heading: mapValues(typeHierarchy.heading, createTextSize),
+  text: mapValues(typeHierarchy.text, createTextSize),
+};
+
+export type HeadingSizes = keyof typeof sizes['heading'];
+export type TextSizes = keyof typeof sizes['text'];
+
+export const letterSpacings = {
+  heading: mapValues(
+    typeHierarchy.heading,
+    ({ letterSpacing }) => letterSpacing
+  ),
+  text: mapValues(typeHierarchy.text, ({ letterSpacing }) => letterSpacing),
+};

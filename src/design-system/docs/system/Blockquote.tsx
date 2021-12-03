@@ -6,9 +6,9 @@ const Blockquote = ({ children }: { children: ReactNode }) => (
   <div
     className={sprinkles({
       backgroundColor: 'actionTint',
-      color: 'actionDark',
+      color: 'actionShade',
       paddingHorizontal: '24px',
-      paddingVertical: '16px',
+      paddingVertical: '24px',
       position: 'relative',
     })}
   >

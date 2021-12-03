@@ -1,17 +1,44 @@
+import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 
 import { sprinkles } from './sprinkles.css';
-import { headingSizes } from './typography.css';
+import { FontWeight, TextColor } from './tokens.css';
+import { HeadingSizes, letterSpacings, sizes } from './typography.css';
 
-const Heading = ({ children }: { children: ReactNode }) => (
-  <h2
-    className={`${sprinkles({
-      color: 'secondary',
-      fontWeight: 'bold',
-    })} ${headingSizes['23px']}`}
-  >
-    {children}
-  </h2>
-);
+type Levels = '1' | '2' | '3' | '4';
+
+const Heading = ({
+  children,
+  color = 'primary',
+  level,
+  size = '23px',
+  weight = 'heavy',
+}: {
+  children: ReactNode;
+  color?: TextColor;
+  level?: Levels;
+  size?: HeadingSizes;
+  weight?: FontWeight;
+}) => {
+  let Component: any = 'span';
+  if (level) {
+    Component = `h${level}`;
+  }
+
+  return (
+    <Component
+      className={classnames([
+        sprinkles({
+          color,
+          fontWeight: weight,
+          letterSpacing: letterSpacings.heading[size],
+        }),
+        sizes.heading[size],
+      ])}
+    >
+      {children}
+    </Component>
+  );
+};
 
 export default Heading;

@@ -11,6 +11,11 @@ import {
 
 const properties = defineProperties({
   properties: {
+    alignItems: {
+      bottom: 'flex-end',
+      center: 'center',
+      top: 'flex-start',
+    },
     backgroundColor: backgroundColors,
     borderBottomLeftRadius: radii,
     borderBottomRightRadius: radii,
@@ -26,8 +31,13 @@ const properties = defineProperties({
     fontWeight,
     gap: space,
     height: ['100%'],
+    justifyContent: {
+      center: 'center',
+      left: 'flex-start',
+      right: 'flex-end',
+    },
     left: [0],
-    letterSpacing: ['0.5px'],
+    letterSpacing: [0.5, 0.6],
     marginLeft: negativeSpace,
     marginRight: negativeSpace,
     maxWidth: ['768px'],
@@ -56,4 +66,15 @@ const properties = defineProperties({
   },
 });
 
-export const sprinkles = createSprinkles(properties);
+const pseudoProperties = defineProperties({
+  conditions: {
+    default: {},
+    hover: { selector: '&:hover' },
+  },
+  defaultCondition: 'default',
+  properties: {
+    textDecoration: ['underline'],
+  },
+});
+
+export const sprinkles = createSprinkles(properties, pseudoProperties);

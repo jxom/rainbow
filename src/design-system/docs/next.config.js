@@ -1,13 +1,14 @@
 const path = require('path');
 const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
 const withPlugins = require('next-compose-plugins');
+const createTM = require('next-transpile-modules');
+const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 
-const withVanillaExtract = createVanillaExtractPlugin();
-
-const withTM = require('next-transpile-modules')([
+const withTM = createTM([
   'react-native-reanimated',
   'react-native-markdown-display',
 ]);
+const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,6 +19,16 @@ const nextConfig = {
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
+  },
+  webpack: config => {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        __DEV__: true,
+        android: false,
+        ios: false,
+      })
+    );
+    return config;
   },
 };
 
