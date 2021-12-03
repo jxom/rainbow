@@ -1,18 +1,5 @@
-diff --git a/node_modules/react-native-reanimated/lib/reanimated2/js-reanimated/Mapper.js b/node_modules/react-native-reanimated/lib/reanimated2/js-reanimated/Mapper.js
-index 36fb265..cdbdc04 100644
---- a/node_modules/react-native-reanimated/lib/reanimated2/js-reanimated/Mapper.js
-+++ b/node_modules/react-native-reanimated/lib/reanimated2/js-reanimated/Mapper.js
-@@ -29,7 +29,7 @@ export default class Mapper {
-             else if (Array.isArray(value)) {
-                 value.forEach((v) => extractMutables(v));
-             }
--            else if (typeof value === 'object') {
-+            else if (value && typeof value === 'object') {
-                 Object.keys(value).forEach((key) => {
-                     extractMutables(value[key]);
-                 });
 diff --git a/node_modules/react-native-reanimated/plugin.js b/node_modules/react-native-reanimated/plugin.js
-index 1bf9f1d..e8d3503 100644
+index 1bf9f1d..f15b18d 100644
 --- a/node_modules/react-native-reanimated/plugin.js
 +++ b/node_modules/react-native-reanimated/plugin.js
 @@ -1,11 +1,8 @@
@@ -44,7 +31,12 @@ index 1bf9f1d..e8d3503 100644
    'Date',
    'HermesInternal',
    'JSON',
-@@ -67,6 +73,9 @@ const globals = new Set([
+@@ -63,10 +69,14 @@ const globals = new Set([
+   'global',
+   '_measure',
+   '_scrollTo',
++  '_setGestureState',
+   '_getCurrentTime',
    '_eventTimestamp',
    '_frameTimestamp',
    'isNaN',
@@ -54,7 +46,7 @@ index 1bf9f1d..e8d3503 100644
  ]);
  
  // leaving way to avoid deep capturing by adding 'stopCapturing' to the blacklist
-@@ -121,6 +130,31 @@ const blacklistedFunctions = new Set([
+@@ -121,6 +131,36 @@ const blacklistedFunctions = new Set([
    'apply',
    'call',
    '__callAsync',
@@ -73,20 +65,25 @@ index 1bf9f1d..e8d3503 100644
 +  'LongPress',
 +  'ForceTouch',
 +  'Native',
++  'Custom',
 +  'Race',
 +  'Simultaneous',
 +  'Exclusive',
 +]);
 +
-+const gestureHandlerCallbackMethods = new Set([
-+  'onBegan',
++const gestureHandlerBuilderMethods = new Set([
++  'onBegin',
 +  'onStart',
 +  'onEnd',
 +  'onUpdate',
++  'onTouchesDown',
++  'onTouchesMove',
++  'onTouchesUp',
++  'onTouchesCancelled',
  ]);
  
  class ClosureGenerator {
-@@ -255,7 +289,7 @@ function buildWorkletString(t, fun, closureVariables, name) {
+@@ -255,7 +295,7 @@ function buildWorkletString(t, fun, closureVariables, name) {
      ]);
    }
  
@@ -95,7 +92,7 @@ index 1bf9f1d..e8d3503 100644
      enter(path) {
        t.removeComments(path.node);
      },
-@@ -263,29 +297,77 @@ function buildWorkletString(t, fun, closureVariables, name) {
+@@ -263,29 +303,77 @@ function buildWorkletString(t, fun, closureVariables, name) {
  
    const workletFunction = t.functionExpression(
      t.identifier(name),
@@ -181,7 +178,7 @@ index 1bf9f1d..e8d3503 100644
      ReferencedIdentifier(path) {
        const name = path.node.name;
        if (globals.has(name) || (fun.node.id && fun.node.id.name === name)) {
-@@ -296,7 +378,8 @@ function processWorkletFunction(t, fun, fileName) {
+@@ -296,7 +384,8 @@ function processWorkletFunction(t, fun, fileName) {
  
        if (
          parentNode.type === 'MemberExpression' &&
@@ -191,7 +188,7 @@ index 1bf9f1d..e8d3503 100644
        ) {
          return;
        }
-@@ -321,7 +404,7 @@ function processWorkletFunction(t, fun, fileName) {
+@@ -321,7 +410,7 @@ function processWorkletFunction(t, fun, fileName) {
        closureGenerator.addPath(name, path);
      },
      AssignmentExpression(path) {
@@ -200,7 +197,7 @@ index 1bf9f1d..e8d3503 100644
        const left = path.node.left;
        if (
          t.isMemberExpression(left) &&
-@@ -333,24 +416,22 @@ function processWorkletFunction(t, fun, fileName) {
+@@ -333,24 +422,22 @@ function processWorkletFunction(t, fun, fileName) {
      },
    });
  
@@ -237,7 +234,7 @@ index 1bf9f1d..e8d3503 100644
    const workletHash = hash(funString);
  
    const loc = fun && fun.node && fun.node.loc && fun.node.loc.start;
-@@ -361,77 +442,100 @@ function processWorkletFunction(t, fun, fileName) {
+@@ -361,77 +448,100 @@ function processWorkletFunction(t, fun, fileName) {
      }
    }
  
@@ -394,7 +391,7 @@ index 1bf9f1d..e8d3503 100644
    const needDeclaration =
      t.isScopable(fun.parent) || t.isExportNamedDeclaration(fun.parent);
    fun.replaceWith(
-@@ -443,6 +547,23 @@ function processWorkletFunction(t, fun, fileName) {
+@@ -443,6 +553,23 @@ function processWorkletFunction(t, fun, fileName) {
    );
  }
  
@@ -418,7 +415,7 @@ index 1bf9f1d..e8d3503 100644
  function processIfWorkletNode(t, fun, fileName) {
    fun.traverse({
      DirectiveLiteral(path) {
-@@ -468,6 +589,115 @@ function processIfWorkletNode(t, fun, fileName) {
+@@ -468,6 +595,115 @@ function processIfWorkletNode(t, fun, fileName) {
    });
  }
  
@@ -485,7 +482,7 @@ index 1bf9f1d..e8d3503 100644
 +  return (
 +    t.isMemberExpression(node) &&
 +    t.isIdentifier(node.property) &&
-+    gestureHandlerCallbackMethods.has(node.property.name) &&
++    gestureHandlerBuilderMethods.has(node.property.name) &&
 +    containsGestureObject(t, node.object)
 +  );
 +}
@@ -534,7 +531,7 @@ index 1bf9f1d..e8d3503 100644
  function processWorklets(t, path, fileName) {
    const name =
      path.node.callee.type === 'MemberExpression'
-@@ -477,17 +707,14 @@ function processWorklets(t, path, fileName) {
+@@ -477,17 +713,14 @@ function processWorklets(t, path, fileName) {
      objectHooks.has(name) &&
      path.get('arguments.0').type === 'ObjectExpression'
    ) {
@@ -560,7 +557,7 @@ index 1bf9f1d..e8d3503 100644
      }
    } else {
      const indexes = functionArgsToWorkletize.get(name);
-@@ -499,86 +726,55 @@ function processWorklets(t, path, fileName) {
+@@ -499,86 +732,55 @@ function processWorklets(t, path, fileName) {
    }
  }
  
@@ -676,3 +673,4 @@ index 1bf9f1d..e8d3503 100644
 -    },
    };
  };
+\ No newline at end of file
