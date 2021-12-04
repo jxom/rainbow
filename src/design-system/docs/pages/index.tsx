@@ -1,3 +1,4 @@
+import uniqBy from 'lodash/uniqBy';
 import type { NextPage } from 'next';
 import React from 'react';
 
@@ -7,10 +8,14 @@ import * as docs from '../docs';
 import { Blockquote, Code, Heading, Stack, Text } from '../system';
 import { sprinkles } from '../system/sprinkles.css';
 
-const categoryOrder = ['Layout', 'Typography', 'Color'];
+const categoryOrder: [string, string[]][] = [
+  ['Layout', ['Introduction', 'Box']],
+  ['Typography', ['Introduction']],
+  ['Color', ['Introduction']],
+];
 
 const Home: NextPage = () => {
-  const categories = Object.values(docs).reduce(
+  const docsByCategory = Object.values(docs).reduce(
     (currentCategories: { [key: string]: Docs[] }, { default: doc }) => {
       return {
         ...currentCategories,
@@ -19,6 +24,22 @@ const Home: NextPage = () => {
     },
     {}
   );
+  const orderedDocsByCategory: [string, Docs[]][] = categoryOrder.map(order => {
+    const [category, subCategoryNames] = order;
+    const subCategories = uniqBy(
+      [
+        ...subCategoryNames.map(
+          subCategoryName =>
+            docsByCategory[category].find(
+              subCategory => subCategory.name === subCategoryName
+            ) as Docs
+        ),
+        ...docsByCategory[category],
+      ],
+      'name'
+    );
+    return [category, subCategories];
+  });
 
   return (
     <div
@@ -65,11 +86,11 @@ const Home: NextPage = () => {
             </Text>
           </Stack>
         </Blockquote>
-        {categoryOrder.map((categoryName, i) => (
+        {orderedDocsByCategory.map(([categoryName, subCategories], i) => (
           <Stack key={i} space="16px">
             <Heading>{categoryName}</Heading>
             <div>
-              {categories[categoryName].map((docs, i) => {
+              {subCategories.map((docs, i) => {
                 return <DocsAccordion key={i} {...docs} />;
               })}
             </div>

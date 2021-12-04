@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css'; // eslint-disable-line import/no-extraneous-dependencies
+import { globalStyle } from '@vanilla-extract/css';
 
 globalStyle('*', {
   boxSizing: 'border-box',
