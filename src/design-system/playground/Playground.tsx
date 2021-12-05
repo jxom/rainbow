@@ -20,7 +20,7 @@ import rowDocs from '../components/Row/Row.docs';
 import stackDocs from '../components/Stack/Stack.docs';
 import textDocs from '../components/Text/Text.docs';
 import textLinkDocs from '../components/TextLink/TextLink.docs';
-import { Docs } from './Docs';
+import { Docs } from '../types';
 
 const allDocs = [
   backgroundDocs,
@@ -64,22 +64,24 @@ const DocsRow = ({ name, category, examples }: Docs) => {
         </Inline>
       </TouchableOpacity>
       {open
-        ? examples.map(({ name, Example }, index) => (
-            <Stack key={index} space="12px">
-              <Heading size="18px" weight="bold">
-                {name}
-              </Heading>
-              <View
-                style={
-                  category === 'Layout' && name !== 'Box'
-                    ? styles.layoutContainer
-                    : undefined
-                }
-              >
-                <Example />
-              </View>
-            </Stack>
-          ))
+        ? examples?.map(({ name, Example }, index) =>
+            Example ? (
+              <Stack key={index} space="12px">
+                <Heading size="18px" weight="bold">
+                  {name}
+                </Heading>
+                <View
+                  style={
+                    category === 'Layout' && name !== 'Box'
+                      ? styles.layoutContainer
+                      : undefined
+                  }
+                >
+                  <Example />
+                </View>
+              </Stack>
+            ) : null
+          )
         : null}
     </Stack>
   );

@@ -129,6 +129,8 @@ export const textColors = selectForegroundColors(
   'action',
   'primary',
   'secondary',
+  'secondary10',
+  'secondary20',
   'secondary30',
   'secondary40',
   'secondary50',

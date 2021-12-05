@@ -1,9 +1,10 @@
 export type Example = {
   name: string;
-  description?: JSX.Element;
-  playroom?: boolean;
+  description?: JSX.Element | JSX.Element[];
+  Example?: () => JSX.Element;
+  enablePlayroom?: boolean;
+  enableCodeSnippet?: boolean;
   showFrame?: boolean;
-  Example: () => JSX.Element;
 };
 
 export type Docs = {

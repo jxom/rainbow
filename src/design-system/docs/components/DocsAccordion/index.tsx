@@ -43,13 +43,24 @@ export const DocsAccordion = ({
           <Stack space="32px">
             {description}
             {examples?.map(
-              ({ name, description, playroom, showFrame, Example }, index) => (
+              (
+                {
+                  name,
+                  description,
+                  enablePlayroom,
+                  enableCodeSnippet,
+                  showFrame,
+                  Example,
+                },
+                index
+              ) => (
                 <ExamplePreview
                   Example={Example}
                   description={description}
+                  enableCodeSnippet={enableCodeSnippet}
+                  enablePlayroom={enablePlayroom}
                   key={index}
                   name={name}
-                  playroom={playroom}
                   showFrame={showFrame}
                 />
               )
@@ -66,8 +77,9 @@ export const DocsAccordion = ({
 const ExamplePreview = ({
   name,
   description,
+  enableCodeSnippet = true,
   showFrame = false,
-  playroom = true,
+  enablePlayroom = true,
   Example,
 }: Example) => {
   return (
@@ -76,13 +88,18 @@ const ExamplePreview = ({
         {name}
       </Heading>
       {description && (
-        <div className={sprinkles({ paddingBottom: '8px' })}>{description}</div>
+        <div className={sprinkles({ paddingBottom: '8px' })}>
+          <Stack space="24px">{description}</Stack>
+        </div>
       )}
-      <CodePreview
-        Example={Example}
-        showFrame={showFrame}
-        showPlayroomButton={playroom}
-      />
+      {Example && (
+        <CodePreview
+          Example={Example}
+          enableCodeSnippet={enableCodeSnippet}
+          enablePlayroom={enablePlayroom}
+          showFrame={showFrame}
+        />
+      )}
     </Stack>
   );
 };

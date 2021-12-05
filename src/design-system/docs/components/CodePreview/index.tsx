@@ -1,4 +1,6 @@
 import lzString from 'lz-string';
+import babel from 'prettier/parser-babel';
+import prettier from 'prettier/standalone';
 import React from 'react';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
@@ -7,14 +9,16 @@ import { sprinkles } from '../../system/sprinkles.css';
 
 export const CodePreview = ({
   disableActions = false,
+  enableCodeSnippet = true,
+  enablePlayroom = true,
   showCode: defaultShowCode = false,
-  showPlayroomButton = true,
   showFrame = false,
   Example,
 }: {
   disableActions?: boolean;
+  enableCodeSnippet?: boolean;
   showCode?: boolean;
-  showPlayroomButton?: boolean;
+  enablePlayroom?: boolean;
   showFrame?: boolean;
   Example: () => JSX.Element;
 }) => {
@@ -23,6 +27,11 @@ export const CodePreview = ({
   let jsxString;
   try {
     jsxString = reactElementToJSXString(Example()).replace(/(\w*)_/g, '');
+    jsxString = prettier.format(jsxString, {
+      parser: 'babel',
+      plugins: [babel],
+      printWidth: 60,
+    });
   } catch (err) {} // eslint-disable-line no-empty
 
   return (
@@ -52,7 +61,7 @@ export const CodePreview = ({
           {showCode && <CodeBlock code={jsxString} />}
           {!disableActions && (
             <Inline alignHorizontal="right" space="24px">
-              {showPlayroomButton && (
+              {enablePlayroom && (
                 <a
                   href={`${
                     process.env.NODE_ENV === 'production'
@@ -70,15 +79,17 @@ export const CodePreview = ({
                   </Text>
                 </a>
               )}
-              <button
-                onClick={() => setShowCode(showCode => !showCode)}
-                style={{ textAlign: 'right' }}
-                type="button"
-              >
-                <Text color="action" weight="bold">
-                  {showCode ? 'Hide' : 'Show'} code
-                </Text>
-              </button>
+              {enableCodeSnippet && (
+                <button
+                  onClick={() => setShowCode(showCode => !showCode)}
+                  style={{ textAlign: 'right' }}
+                  type="button"
+                >
+                  <Text color="action" weight="bold">
+                    {showCode ? 'Hide' : 'Show'} code
+                  </Text>
+                </button>
+              )}
             </Inline>
           )}
         </>

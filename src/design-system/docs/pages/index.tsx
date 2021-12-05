@@ -10,8 +10,8 @@ import { sprinkles } from '../system/sprinkles.css';
 
 const categoryOrder: [string, string[]][] = [
   ['Layout', ['Introduction', 'Box']],
-  ['Typography', ['Introduction']],
-  ['Color', ['Introduction']],
+  ['Typography', ['Introduction', 'Font weights', 'Font sizes']],
+  ['Color', ['Introduction', 'Colors']],
 ];
 
 const Home: NextPage = () => {

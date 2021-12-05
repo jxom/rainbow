@@ -9,8 +9,9 @@ const docs: DocsType = {
   category: 'Color',
   description: [
     <Docs.Text key="">
-      The <Docs.Code>"accent"</Docs.Code> color can be configured for entire
-      subtrees of the app. By default, it will resolve to a pale blue color.
+      The <Docs.Code>&quot;accent&quot;</Docs.Code> color can be configured for
+      entire subtrees of the app. By default, it will resolve to a pale blue
+      color.
     </Docs.Text>,
     <Docs.CodePreview
       Example={() => (

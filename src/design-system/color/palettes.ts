@@ -1,6 +1,6 @@
 import { mapValues } from 'lodash';
 
-const colors = {
+export const colors = {
   appleBlue: '#0E76FD',
   black: '#000000',
   grey: 'rgb(60, 66, 66)',
