@@ -1,7 +1,6 @@
 export * as ColorIntroDocs from '../color/intro.docs';
 export * as LayoutIntroDocs from '../layout/intro.docs';
 export * as TypographyIntroDocs from '../typography/intro.docs';
-
 export * as AccentColorContextDocs from '../color/AccentColorContext.docs';
 export * as BackgroundProviderDocs from '../components/BackgroundProvider/BackgroundProvider.docs';
 export * as BleedDocs from '../components/Bleed/Bleed.docs';

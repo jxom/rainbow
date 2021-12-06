@@ -27,11 +27,13 @@ export const CodePreview = ({
   let jsxString;
   try {
     jsxString = reactElementToJSXString(Example()).replace(/(\w*)_/g, '');
-    jsxString = prettier.format(jsxString, {
-      parser: 'babel',
-      plugins: [babel],
-      printWidth: 60,
-    });
+    jsxString = prettier
+      .format(jsxString, {
+        parser: 'babel',
+        plugins: [babel],
+        printWidth: 60,
+      })
+      .replace(/;\s$/, '');
   } catch (err) {} // eslint-disable-line no-empty
 
   return (

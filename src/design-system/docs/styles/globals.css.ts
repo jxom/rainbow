@@ -18,6 +18,14 @@ globalStyle('html, body', {
   WebkitTextSizeAdjust: '100%',
 });
 
+globalStyle('body', {
+  '@media': {
+    'screen and (max-width: 768px)': {
+      padding: '0 1rem',
+    },
+  },
+});
+
 globalStyle('button', {
   background: 'none',
   border: 'none',
