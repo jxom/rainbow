@@ -55,7 +55,8 @@ export const CodePreview = ({
                 <a
                   href={`${
                     process.env.NODE_ENV === 'production'
-                      ? `${window.location.href}playroom`
+                      ? // @ts-ignore
+                        `${window.location.href}playroom`
                       : 'http://localhost:9000/'
                   }?code=${lzString.compressToEncodedURIComponent(
                     JSON.stringify({ code: jsxString })

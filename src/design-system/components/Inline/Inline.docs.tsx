@@ -2,6 +2,7 @@
 import React from 'react';
 import * as Docs from '../../docs/components';
 import { Docs as DocsType } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Placeholder } from '../../playground/Placeholder';
 import { Inline } from './Inline';
 
@@ -23,38 +24,40 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Basic usage',
-      Example: () => (
-        <Inline space="12px">
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline space="12px">
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+          </Inline>
+        ),
     },
 
     {
       name: 'Custom space',
-      Example: () => (
-        <Inline space={{ custom: 8 }}>
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline space={{ custom: 8 }}>
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+          </Inline>
+        ),
     },
 
     {
@@ -62,38 +65,43 @@ const docs: DocsType = {
       description: (
         <Docs.Text>Space can also be customized per axis.</Docs.Text>
       ),
-      Example: () => (
-        <Inline horizontalSpace="19px" verticalSpace="12px">
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline horizontalSpace="19px" verticalSpace="12px">
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+          </Inline>
+        ),
     },
 
     {
       name: 'Custom space on each axis',
-      Example: () => (
-        <Inline horizontalSpace={{ custom: 17 }} verticalSpace={{ custom: 8 }}>
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline
+            horizontalSpace={{ custom: 17 }}
+            verticalSpace={{ custom: 8 }}
+          >
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+          </Inline>
+        ),
     },
 
     {
@@ -104,34 +112,36 @@ const docs: DocsType = {
           <Docs.Code>alignHorizontal</Docs.Code> prop.
         </Docs.Text>
       ),
-      Example: () => (
-        <Inline alignHorizontal="center" space="19px">
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline alignHorizontal="center" space="19px">
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+          </Inline>
+        ),
     },
 
     {
       name: 'Right-aligned horizontally',
-      Example: () => (
-        <Inline alignHorizontal="right" space="19px">
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={40} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline alignHorizontal="right" space="19px">
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={40} width={40} />
+          </Inline>
+        ),
     },
     {
       name: 'Center-aligned vertically',
@@ -141,53 +151,56 @@ const docs: DocsType = {
           <Docs.Code>alignVertical</Docs.Code> prop.
         </Docs.Text>
       ),
-      Example: () => (
-        <Inline alignVertical="center" space="19px">
-          <Placeholder height={20} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={60} width={40} />
-          <Placeholder height={30} width={40} />
-          <Placeholder height={50} width={40} />
-          <Placeholder height={20} width={40} />
-          <Placeholder height={70} width={40} />
-          <Placeholder height={10} width={40} />
-          <Placeholder height={50} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline alignVertical="center" space="19px">
+            <Placeholder height={20} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={60} width={40} />
+            <Placeholder height={30} width={40} />
+            <Placeholder height={50} width={40} />
+            <Placeholder height={20} width={40} />
+            <Placeholder height={70} width={40} />
+            <Placeholder height={10} width={40} />
+            <Placeholder height={50} width={40} />
+          </Inline>
+        ),
     },
 
     {
       name: 'Bottom-aligned vertically',
-      Example: () => (
-        <Inline alignVertical="bottom" space="19px">
-          <Placeholder height={20} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={60} width={40} />
-          <Placeholder height={30} width={40} />
-          <Placeholder height={50} width={40} />
-          <Placeholder height={20} width={40} />
-          <Placeholder height={70} width={40} />
-          <Placeholder height={10} width={40} />
-          <Placeholder height={50} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline alignVertical="bottom" space="19px">
+            <Placeholder height={20} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={60} width={40} />
+            <Placeholder height={30} width={40} />
+            <Placeholder height={50} width={40} />
+            <Placeholder height={20} width={40} />
+            <Placeholder height={70} width={40} />
+            <Placeholder height={10} width={40} />
+            <Placeholder height={50} width={40} />
+          </Inline>
+        ),
     },
 
     {
       name: 'Center-aligned horizontally and vertically',
-      Example: () => (
-        <Inline alignHorizontal="center" alignVertical="center" space="19px">
-          <Placeholder height={20} width={40} />
-          <Placeholder height={40} width={40} />
-          <Placeholder height={60} width={40} />
-          <Placeholder height={30} width={40} />
-          <Placeholder height={50} width={40} />
-          <Placeholder height={20} width={40} />
-          <Placeholder height={70} width={40} />
-          <Placeholder height={10} width={40} />
-          <Placeholder height={50} width={40} />
-        </Inline>
-      ),
+      Example: () =>
+        source(
+          <Inline alignHorizontal="center" alignVertical="center" space="19px">
+            <Placeholder height={20} width={40} />
+            <Placeholder height={40} width={40} />
+            <Placeholder height={60} width={40} />
+            <Placeholder height={30} width={40} />
+            <Placeholder height={50} width={40} />
+            <Placeholder height={20} width={40} />
+            <Placeholder height={70} width={40} />
+            <Placeholder height={10} width={40} />
+            <Placeholder height={50} width={40} />
+          </Inline>
+        ),
     },
   ],
 };

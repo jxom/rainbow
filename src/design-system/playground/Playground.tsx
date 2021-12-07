@@ -20,7 +20,8 @@ import rowDocs from '../components/Row/Row.docs';
 import stackDocs from '../components/Stack/Stack.docs';
 import textDocs from '../components/Text/Text.docs';
 import textLinkDocs from '../components/TextLink/TextLink.docs';
-import { Docs } from '../docs/types';
+import { useSourceFromExample } from '../docs/hooks/useSourceFromExample';
+import { Docs, DocsExample } from '../docs/types';
 
 const allDocs = [
   backgroundDocs,
@@ -47,6 +48,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.05)',
   },
 });
+
+const CodePreview = ({ Example }: { Example: DocsExample['Example'] }) => {
+  const { element } = useSourceFromExample({ Example });
+  return <>{element}</>;
+};
 
 const DocsRow = ({ name, category, examples }: Docs) => {
   const [open, setOpen] = useState(false);
@@ -77,7 +83,7 @@ const DocsRow = ({ name, category, examples }: Docs) => {
                       : undefined
                   }
                 >
-                  <Example />
+                  <CodePreview Example={Example} />
                 </View>
               </Stack>
             ) : null

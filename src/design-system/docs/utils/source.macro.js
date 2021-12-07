@@ -1,4 +1,4 @@
-// eslint-disable import/no-commonjs
+/* eslint-disable import/no-commonjs */
 const { default: generate } = require('@babel/generator');
 const { createMacro } = require('babel-plugin-macros');
 
