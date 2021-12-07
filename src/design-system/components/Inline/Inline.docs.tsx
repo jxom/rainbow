@@ -98,6 +98,12 @@ const docs: DocsType = {
 
     {
       name: 'Center-aligned horizontally',
+      description: (
+        <Docs.Text>
+          To align content horizontally within the component, use the{' '}
+          <Docs.Code>alignHorizontal</Docs.Code> prop.
+        </Docs.Text>
+      ),
       Example: () => (
         <Inline alignHorizontal="center" space="19px">
           <Placeholder height={40} width={40} />
@@ -127,9 +133,14 @@ const docs: DocsType = {
         </Inline>
       ),
     },
-
     {
       name: 'Center-aligned vertically',
+      description: (
+        <Docs.Text>
+          To align content vertically within the component, use the{' '}
+          <Docs.Code>alignVertical</Docs.Code> prop.
+        </Docs.Text>
+      ),
       Example: () => (
         <Inline alignVertical="center" space="19px">
           <Placeholder height={20} width={40} />

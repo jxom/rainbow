@@ -12,13 +12,13 @@ const docs: DocsType = {
   name: 'Box',
   category: 'Layout',
   description: [
-    <Docs.Text key="1">
+    <Docs.Text key="">
       Renders an individual <Docs.Code>View</Docs.Code> element with quick
       access to the standard padding and negative margin scales, as well as
       other common layout properties. Ideally you&apos;re not supposed to need
       this component much unless you&apos;re building a design system component.
     </Docs.Text>,
-    <Docs.Text key="2">
+    <Docs.Text key="">
       If you need to render something other than a <Docs.Code>View</Docs.Code>,
       you can pass a component to the <Docs.Code>as</Docs.Code> prop.
     </Docs.Text>,
@@ -26,6 +26,20 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Background',
+      description: [
+        <Docs.Text key="">
+          To apply a background color, pass the{' '}
+          <Docs.Code>background</Docs.Code> prop. If this prop is provided, the
+          foreground colour compatible children (e.g.{' '}
+          <Docs.Code>Text</Docs.Code>) will render a foreground color that has
+          sufficient contrast with the background color of Box.
+        </Docs.Text>,
+        <Docs.Text key="">
+          Below, you can see that the foreground color of{' '}
+          <Docs.Code>body</Docs.Code> is dark grey, however, for{' '}
+          <Docs.Code>accent</Docs.Code> it is light.
+        </Docs.Text>,
+      ],
       Example: () => (
         <>
           <Box background="body" padding="19px">
@@ -53,6 +67,13 @@ const docs: DocsType = {
     },
     {
       name: 'Padding',
+      description: [
+        <Docs.Text key="">
+          To apply padding to the bounds of Box, pass the{' '}
+          <Docs.Code>padding</Docs.Code> prop. The system also supports margin a
+          particular direction or side, as seen below.
+        </Docs.Text>,
+      ],
       Example: () => (
         <Stack space="12px">
           <Box background="body" padding="19px">
@@ -81,6 +102,13 @@ const docs: DocsType = {
     },
     {
       name: 'Margin',
+      description: [
+        <Docs.Text key="">
+          To apply margin to the bounds of Box, pass the{' '}
+          <Docs.Code>margin</Docs.Code> prop. The system also supports margin a
+          particular direction or side, as seen below.
+        </Docs.Text>,
+      ],
       Example: () => (
         <Stack space="12px">
           <Box background="body" margin="-19px">
@@ -115,6 +143,14 @@ const docs: DocsType = {
     },
     {
       name: 'Border radius',
+      description: [
+        <Docs.Text key="">
+          To apply a border radius, supply the{' '}
+          <Docs.Code>borderRadius</Docs.Code> prop with a numerical pixel value.
+          The system also supports border radius on directional or specific
+          corners as seen below.
+        </Docs.Text>,
+      ],
       Example: () => (
         <Stack space="24px">
           <Box background="accent" borderRadius={16} padding="19px" />
@@ -135,6 +171,13 @@ const docs: DocsType = {
     },
     {
       name: 'Widths',
+      description: [
+        <Docs.Text key="">
+          To apply a width, fractional values (e.g. <Docs.Code>1/3</Docs.Code>)
+          or <Docs.Code>full</Docs.Code> can be supplied to the{' '}
+          <Docs.Code>width</Docs.Code> prop.
+        </Docs.Text>,
+      ],
       Example: () => (
         <Stack space="12px">
           <Box background="accent" padding="24px" width="1/3" />

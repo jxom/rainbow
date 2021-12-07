@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Docs, Example } from '../../../types';
+import { Docs, DocsExample } from '../../../types';
 import { Heading, Stack } from '../../system';
 import { sprinkles } from '../../system/sprinkles.css';
 import { CodePreview } from '../CodePreview';
@@ -40,8 +40,8 @@ export const DocsAccordion = ({
       </button>
       {open && (
         <div className={sprinkles({ paddingBottom: '24px' })}>
-          <Stack space="32px">
-            {description}
+          <Stack space="48px">
+            {description && <Stack space="32px">{description}</Stack>}
             {examples?.map(
               (
                 {
@@ -81,7 +81,7 @@ const ExamplePreview = ({
   showFrame = false,
   enablePlayroom = true,
   Example,
-}: Example) => {
+}: DocsExample) => {
   return (
     <Stack space="24px">
       <Heading color="secondary" weight="bold">
@@ -89,7 +89,7 @@ const ExamplePreview = ({
       </Heading>
       {description && (
         <div className={sprinkles({ paddingBottom: '8px' })}>
-          <Stack space="24px">{description}</Stack>
+          <Stack space="32px">{description}</Stack>
         </div>
       )}
       {Example && (

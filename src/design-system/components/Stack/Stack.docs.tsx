@@ -20,8 +20,9 @@ const docs: DocsType = {
     <Stack space="24px">
       <Docs.Text>
         Arranges children <Docs.Strong>vertically</Docs.Strong> with equal
-        spacing between them, plus an optional `separator` element. Items can be
-        aligned with `alignHorizontal`.
+        spacing between them, plus an optional <Docs.Code>separator</Docs.Code>{' '}
+        element. Items can be aligned with{' '}
+        <Docs.Code>alignHorizontal</Docs.Code>.
       </Docs.Text>
       <Docs.Text>
         If there is only a single child node, no space or separators will be
