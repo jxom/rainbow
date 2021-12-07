@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Docs, DocsExample } from '../../../types';
 import { Heading, Stack } from '../../system';
 import { sprinkles } from '../../system/sprinkles.css';
+import { Docs, DocsExample } from '../../types';
 import { CodePreview } from '../CodePreview';
 
 export const DocsAccordion = ({

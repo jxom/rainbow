@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Docs from '../docs/components';
-import { Docs as DocsType } from '../types';
+import { Docs as DocsType } from '../docs/types';
 
 const docs: DocsType = {
   category: 'Color',

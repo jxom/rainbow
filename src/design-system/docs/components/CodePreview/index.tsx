@@ -1,11 +1,10 @@
 import lzString from 'lz-string';
-import babel from 'prettier/parser-babel';
-import prettier from 'prettier/standalone';
 import React from 'react';
-import reactElementToJSXString from 'react-element-to-jsx-string';
 
+import { useSourceFromExample } from '../../hooks/useSourceFromExample';
 import { CodeBlock, Inline, Stack, Text } from '../../system';
 import { sprinkles } from '../../system/sprinkles.css';
+import { Source } from '../../utils/source.macro';
 
 export const CodePreview = ({
   disableActions = false,
@@ -20,21 +19,10 @@ export const CodePreview = ({
   showCode?: boolean;
   enablePlayroom?: boolean;
   showFrame?: boolean;
-  Example: () => JSX.Element;
+  Example: () => Source<React.ReactChild>;
 }) => {
   const [showCode, setShowCode] = React.useState(Boolean(defaultShowCode));
-
-  let jsxString;
-  try {
-    jsxString = reactElementToJSXString(Example()).replace(/(\w*)_/g, '');
-    jsxString = prettier
-      .format(jsxString, {
-        parser: 'babel',
-        plugins: [babel],
-        printWidth: 60,
-      })
-      .replace(/;\s$/, '');
-  } catch (err) {} // eslint-disable-line no-empty
+  const { jsxString, element } = useSourceFromExample({ Example });
 
   return (
     <Stack space="16px">
@@ -55,7 +43,7 @@ export const CodePreview = ({
             showFrame ? { backgroundColor: 'rgba(255, 255, 255, 0.5)' } : {}
           }
         >
-          <Example />
+          {element}
         </div>
       </div>
       {jsxString && (

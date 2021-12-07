@@ -3,8 +3,9 @@ import React from 'react';
 import { View } from 'react-native';
 
 import * as Docs from '../../docs/components';
+import { Docs as DocsType } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs as DocsType } from '../../types';
 import { Inset } from '../Inset/Inset';
 import { Text } from '../Text/Text';
 import { Stack } from './Stack';
@@ -33,23 +34,25 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Basic usage',
-      Example: () => (
-        <Stack space="12px">
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="12px">
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+          </Stack>
+        ),
     },
     {
       name: 'Custom space',
-      Example: () => (
-        <Stack space={{ custom: 5 }}>
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space={{ custom: 5 }}>
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+          </Stack>
+        ),
     },
     {
       name: 'Nested',
@@ -59,86 +62,97 @@ const docs: DocsType = {
           amounts of space between groups of content.
         </Docs.Text>
       ),
-      Example: () => (
-        <Inset horizontal="19px" vertical="24px">
-          <Stack space="42px">
-            <Stack space="12px">
-              <Placeholder />
-              <Placeholder />
-              <Placeholder />
+      Example: () =>
+        source(
+          <Inset horizontal="19px" vertical="24px">
+            <Stack space="42px">
+              <Stack space="12px">
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+              </Stack>
+              <Stack space="12px">
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+              </Stack>
             </Stack>
-            <Stack space="12px">
-              <Placeholder />
-              <Placeholder />
-              <Placeholder />
-            </Stack>
-          </Stack>
-        </Inset>
-      ),
+          </Inset>
+        ),
     },
     {
       name: 'With text',
-      Example: () => (
-        <Stack space="15px">
-          <Text>Lorem ipsum</Text>
-          <Text>Lorem ipsum</Text>
-          <Text>Lorem ipsum</Text>
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="15px">
+            <Text>Lorem ipsum</Text>
+            <Text>Lorem ipsum</Text>
+            <Text>Lorem ipsum</Text>
+          </Stack>
+        ),
     },
     {
       name: 'With center alignment',
-      Example: () => (
-        <Stack alignHorizontal="center" space="19px">
-          <Placeholder width={30} />
-          <Placeholder width={90} />
-          <Placeholder width={60} />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack alignHorizontal="center" space="19px">
+            <Placeholder width={30} />
+            <Placeholder width={90} />
+            <Placeholder width={60} />
+          </Stack>
+        ),
     },
     {
       name: 'With separators',
-      Example: () => (
-        <Stack separator={<MockDivider />} space="19px">
-          <Placeholder />
-          <Placeholder />
-          <Placeholder />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack separator={<MockDivider />} space="19px">
+            <Placeholder />
+            <Placeholder />
+            <Placeholder />
+          </Stack>
+        ),
     },
     {
       name: 'With center alignment and dividers',
-      Example: () => (
-        <Stack
-          alignHorizontal="center"
-          separator={<MockDivider />}
-          space="19px"
-        >
-          <Placeholder width={30} />
-          <Placeholder width={90} />
-          <Placeholder width={60} />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack
+            alignHorizontal="center"
+            separator={<MockDivider />}
+            space="19px"
+          >
+            <Placeholder width={30} />
+            <Placeholder width={90} />
+            <Placeholder width={60} />
+          </Stack>
+        ),
     },
     {
       name: 'With right alignment and dividers',
-      Example: () => (
-        <Stack alignHorizontal="right" separator={<MockDivider />} space="19px">
-          <Placeholder width={30} />
-          <Placeholder width={90} />
-          <Placeholder width={60} />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack
+            alignHorizontal="right"
+            separator={<MockDivider />}
+            space="19px"
+          >
+            <Placeholder width={30} />
+            <Placeholder width={90} />
+            <Placeholder width={60} />
+          </Stack>
+        ),
     },
     {
       name: 'With no space and separators',
-      Example: () => (
-        <Stack alignHorizontal="center" separator={<MockDivider />}>
-          <Placeholder width={30} />
-          <Placeholder width={90} />
-          <Placeholder width={60} />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack alignHorizontal="center" separator={<MockDivider />}>
+            <Placeholder width={30} />
+            <Placeholder width={90} />
+            <Placeholder width={60} />
+          </Stack>
+        ),
     },
   ],
 };

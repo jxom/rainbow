@@ -1,3 +1,6 @@
+import React from 'react';
+import { Source } from './utils/source.macro';
+
 export type Docs = {
   name?: string;
   category: 'Color' | 'Content' | 'Layout' | 'Typography';
@@ -8,7 +11,7 @@ export type Docs = {
 export type DocsExample = {
   name: string;
   description?: JSX.Element | JSX.Element[];
-  Example?: () => JSX.Element;
+  Example?: () => Source<React.ReactChild>;
   enablePlayroom?: boolean;
   enableCodeSnippet?: boolean;
   showFrame?: boolean;

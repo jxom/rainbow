@@ -1,8 +1,9 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import * as Docs from '../../docs/components';
+import { Docs as DocsType } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs as DocsType } from '../../types';
 import { Inset } from './Inset';
 
 const docs: DocsType = {
@@ -18,21 +19,23 @@ const docs: DocsType = {
     {
       name: 'Basic usage',
       showFrame: true,
-      Example: () => (
-        <Inset space="19px">
-          <Placeholder height={100} />
-        </Inset>
-      ),
+      Example: () =>
+        source(
+          <Inset space="19px">
+            <Placeholder height={100} />
+          </Inset>
+        ),
     },
 
     {
       name: 'Custom space',
       showFrame: true,
-      Example: () => (
-        <Inset space={{ custom: 12 }}>
-          <Placeholder height={100} />
-        </Inset>
-      ),
+      Example: () =>
+        source(
+          <Inset space={{ custom: 12 }}>
+            <Placeholder height={100} />
+          </Inset>
+        ),
     },
 
     {
@@ -41,21 +44,23 @@ const docs: DocsType = {
         <Docs.Text>Space can also be customized per axis.</Docs.Text>
       ),
       showFrame: true,
-      Example: () => (
-        <Inset horizontal="19px">
-          <Placeholder height={100} />
-        </Inset>
-      ),
+      Example: () =>
+        source(
+          <Inset horizontal="19px">
+            <Placeholder height={100} />
+          </Inset>
+        ),
     },
 
     {
       name: 'Vertical space',
       showFrame: true,
-      Example: () => (
-        <Inset vertical="19px">
-          <Placeholder height={100} />
-        </Inset>
-      ),
+      Example: () =>
+        source(
+          <Inset vertical="19px">
+            <Placeholder height={100} />
+          </Inset>
+        ),
     },
   ],
 };

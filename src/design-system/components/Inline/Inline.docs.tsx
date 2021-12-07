@@ -1,8 +1,8 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import * as Docs from '../../docs/components';
+import { Docs as DocsType } from '../../docs/types';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs as DocsType } from '../../types';
 import { Inline } from './Inline';
 
 const docs: DocsType = {

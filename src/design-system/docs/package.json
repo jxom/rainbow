@@ -25,10 +25,14 @@
     "react-element-to-jsx-string": "14.3.4"
   },
   "devDependencies": {
+    "@babel/generator": "^7.16.0",
     "@babel/preset-typescript": "7.16.0",
+    "@types/babel-plugin-macros": "^2.8.5",
     "@vanilla-extract/next-plugin": "1.0.1",
     "babel-loader": "8.2.3",
+    "babel-plugin-macros": "^3.1.0",
     "babel-plugin-react-native-web": "0.17.5",
+    "babel-plugin-tester": "^10.1.0",
     "classnames": "2.3.1",
     "eslint-config-next": "12.0.4",
     "next-compose-plugins": "2.2.1",

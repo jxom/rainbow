@@ -1,8 +1,9 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import * as Docs from '../../docs/components';
+import { Docs as DocsType } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs as DocsType } from '../../types';
 import { Inset } from '../Inset/Inset';
 import { Stack } from '../Stack/Stack';
 import { Text } from '../Text/Text';
@@ -40,30 +41,31 @@ const docs: DocsType = {
           <Docs.Code>accent</Docs.Code> it is light.
         </Docs.Text>,
       ],
-      Example: () => (
-        <>
-          <Box background="body" padding="19px">
-            <Text size="18px" weight="bold">
-              Body
-            </Text>
-          </Box>
-          <Box background="accent" padding="19px">
-            <Text size="18px" weight="bold">
-              Accent
-            </Text>
-          </Box>
-          <Box background="action" padding="19px">
-            <Text size="18px" weight="bold">
-              Action
-            </Text>
-          </Box>
-          <Box background="swap" padding="19px">
-            <Text size="18px" weight="bold">
-              Swap
-            </Text>
-          </Box>
-        </>
-      ),
+      Example: () =>
+        source(
+          <>
+            <Box background="body" padding="19px">
+              <Text size="18px" weight="bold">
+                Body
+              </Text>
+            </Box>
+            <Box background="accent" padding="19px">
+              <Text size="18px" weight="bold">
+                Accent
+              </Text>
+            </Box>
+            <Box background="action" padding="19px">
+              <Text size="18px" weight="bold">
+                Action
+              </Text>
+            </Box>
+            <Box background="swap" padding="19px">
+              <Text size="18px" weight="bold">
+                Swap
+              </Text>
+            </Box>
+          </>
+        ),
     },
     {
       name: 'Padding',
@@ -74,31 +76,32 @@ const docs: DocsType = {
           particular direction or side, as seen below.
         </Docs.Text>,
       ],
-      Example: () => (
-        <Stack space="12px">
-          <Box background="body" padding="19px">
-            <Placeholder />
-          </Box>
-          <Box background="body" paddingHorizontal="19px">
-            <Placeholder />
-          </Box>
-          <Box background="body" paddingVertical="19px">
-            <Placeholder />
-          </Box>
-          <Box background="body" paddingLeft="19px">
-            <Placeholder />
-          </Box>
-          <Box background="body" paddingRight="19px">
-            <Placeholder />
-          </Box>
-          <Box background="body" paddingTop="19px">
-            <Placeholder />
-          </Box>
-          <Box background="body" paddingBottom="19px">
-            <Placeholder />
-          </Box>
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="12px">
+            <Box background="body" padding="19px">
+              <Placeholder />
+            </Box>
+            <Box background="body" paddingHorizontal="19px">
+              <Placeholder />
+            </Box>
+            <Box background="body" paddingVertical="19px">
+              <Placeholder />
+            </Box>
+            <Box background="body" paddingLeft="19px">
+              <Placeholder />
+            </Box>
+            <Box background="body" paddingRight="19px">
+              <Placeholder />
+            </Box>
+            <Box background="body" paddingTop="19px">
+              <Placeholder />
+            </Box>
+            <Box background="body" paddingBottom="19px">
+              <Placeholder />
+            </Box>
+          </Stack>
+        ),
     },
     {
       name: 'Margin',
@@ -109,37 +112,38 @@ const docs: DocsType = {
           particular direction or side, as seen below.
         </Docs.Text>,
       ],
-      Example: () => (
-        <Stack space="12px">
-          <Box background="body" margin="-19px">
-            <Placeholder />
-          </Box>
-          <Inset vertical="19px">
-            <Box background="body" marginHorizontal="-19px">
+      Example: () =>
+        source(
+          <Stack space="12px">
+            <Box background="body" margin="-19px">
               <Placeholder />
             </Box>
-          </Inset>
-          <Box background="body" marginVertical="-19px">
-            <Placeholder />
-          </Box>
-          <Inset vertical="19px">
-            <Box background="body" marginLeft="-19px">
+            <Inset vertical="19px">
+              <Box background="body" marginHorizontal="-19px">
+                <Placeholder />
+              </Box>
+            </Inset>
+            <Box background="body" marginVertical="-19px">
               <Placeholder />
             </Box>
-          </Inset>
-          <Box background="body" marginRight="-19px">
-            <Placeholder />
-          </Box>
-          <Inset vertical="19px">
-            <Box background="body" marginTop="-19px">
+            <Inset vertical="19px">
+              <Box background="body" marginLeft="-19px">
+                <Placeholder />
+              </Box>
+            </Inset>
+            <Box background="body" marginRight="-19px">
               <Placeholder />
             </Box>
-          </Inset>
-          <Box background="body" marginBottom="-19px">
-            <Placeholder />
-          </Box>
-        </Stack>
-      ),
+            <Inset vertical="19px">
+              <Box background="body" marginTop="-19px">
+                <Placeholder />
+              </Box>
+            </Inset>
+            <Box background="body" marginBottom="-19px">
+              <Placeholder />
+            </Box>
+          </Stack>
+        ),
     },
     {
       name: 'Border radius',
@@ -151,23 +155,28 @@ const docs: DocsType = {
           corners as seen below.
         </Docs.Text>,
       ],
-      Example: () => (
-        <Stack space="24px">
-          <Box background="accent" borderRadius={16} padding="19px" />
-          <Box background="accent" borderLeftRadius={16} padding="19px" />
-          <Box background="accent" borderRightRadius={16} padding="19px" />
-          <Box background="accent" borderTopRadius={16} padding="19px" />
-          <Box background="accent" borderBottomRadius={16} padding="19px" />
-          <Box background="accent" borderBottomLeftRadius={16} padding="19px" />
-          <Box
-            background="accent"
-            borderBottomRightRadius={16}
-            padding="19px"
-          />
-          <Box background="accent" borderTopLeftRadius={16} padding="19px" />
-          <Box background="accent" borderTopRightRadius={16} padding="19px" />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="24px">
+            <Box background="accent" borderRadius={16} padding="19px" />
+            <Box background="accent" borderLeftRadius={16} padding="19px" />
+            <Box background="accent" borderRightRadius={16} padding="19px" />
+            <Box background="accent" borderTopRadius={16} padding="19px" />
+            <Box background="accent" borderBottomRadius={16} padding="19px" />
+            <Box
+              background="accent"
+              borderBottomLeftRadius={16}
+              padding="19px"
+            />
+            <Box
+              background="accent"
+              borderBottomRightRadius={16}
+              padding="19px"
+            />
+            <Box background="accent" borderTopLeftRadius={16} padding="19px" />
+            <Box background="accent" borderTopRightRadius={16} padding="19px" />
+          </Stack>
+        ),
     },
     {
       name: 'Widths',
@@ -178,12 +187,13 @@ const docs: DocsType = {
           <Docs.Code>width</Docs.Code> prop.
         </Docs.Text>,
       ],
-      Example: () => (
-        <Stack space="12px">
-          <Box background="accent" padding="24px" width="1/3" />
-          <Box background="accent" padding="24px" width="full" />
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="12px">
+            <Box background="accent" padding="24px" width="1/3" />
+            <Box background="accent" padding="24px" width="full" />
+          </Stack>
+        ),
     },
     {
       name: 'Composition',

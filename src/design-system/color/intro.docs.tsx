@@ -2,7 +2,8 @@ import React from 'react';
 import { Box } from '../components/Box/Box';
 import { Text } from '../components/Text/Text';
 import * as Docs from '../docs/components';
-import { Docs as DocsType } from '../types';
+import { Docs as DocsType } from '../docs/types';
+import source from '../docs/utils/source.macro';
 
 const docs: DocsType = {
   category: 'Color',
@@ -17,7 +18,7 @@ const docs: DocsType = {
       For example, let&apos;s assume we have the following piece of text:
     </Docs.Text>,
     <Docs.CodePreview
-      Example={() => <Text color="secondary50">Lorem ipsum</Text>}
+      Example={() => source(<Text color="secondary50">Lorem ipsum</Text>)}
       disableActions
       key=""
       showCode
@@ -31,16 +32,18 @@ const docs: DocsType = {
       both light and dark modes:
     </Docs.Text>,
     <Docs.CodePreview
-      Example={() => (
-        <>
-          <Box background="swap" padding="19px">
-            <Text color="secondary50">Lorem ipsum</Text>
-          </Box>
-          <Box background="action" padding="19px">
-            <Text color="secondary50">Lorem ipsum</Text>
-          </Box>
-        </>
-      )}
+      Example={() =>
+        source(
+          <>
+            <Box background="swap" padding="19px">
+              <Text color="secondary50">Lorem ipsum</Text>
+            </Box>
+            <Box background="action" padding="19px">
+              <Text color="secondary50">Lorem ipsum</Text>
+            </Box>
+          </>
+        )
+      }
       disableActions
       key=""
       showCode

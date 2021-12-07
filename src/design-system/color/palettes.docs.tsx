@@ -5,7 +5,8 @@ import { Box } from '../components/Box/Box';
 import { Columns } from '../components/Columns/Columns';
 import { Stack } from '../components/Stack/Stack';
 import { Text } from '../components/Text/Text';
-import { Docs as DocsType } from '../types';
+import { Docs as DocsType } from '../docs/types';
+import source from '../docs/utils/source.macro';
 import { ColorModeProvider } from './ColorMode';
 import {
   BackgroundColor,
@@ -93,33 +94,36 @@ const docs: DocsType = {
       name: 'Background colors',
       enableCodeSnippet: false,
       enablePlayroom: false,
-      Example: () => (
-        <Columns space="24px">
-          <BackgroundColors mode="light" />
-          <BackgroundColors mode="dark" />
-        </Columns>
-      ),
+      Example: () =>
+        source(
+          <Columns space="24px">
+            <BackgroundColors mode="light" />
+            <BackgroundColors mode="dark" />
+          </Columns>
+        ),
     },
     {
       name: 'Foreground colors',
       enableCodeSnippet: false,
       enablePlayroom: false,
-      Example: () => (
-        <Columns space="24px">
-          <ForegroundColors mode="light" />
-          <ForegroundColors mode="dark" />
-        </Columns>
-      ),
+      Example: () =>
+        source(
+          <Columns space="24px">
+            <ForegroundColors mode="light" />
+            <ForegroundColors mode="dark" />
+          </Columns>
+        ),
     },
     {
       name: 'Global palette',
       enableCodeSnippet: false,
       enablePlayroom: false,
-      Example: () => (
-        <Columns space="24px">
-          <PaletteColors />
-        </Columns>
-      ),
+      Example: () =>
+        source(
+          <Columns space="24px">
+            <PaletteColors />
+          </Columns>
+        ),
     },
   ],
 };

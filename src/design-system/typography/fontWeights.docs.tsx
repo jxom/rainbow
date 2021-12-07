@@ -4,7 +4,8 @@ import { Stack } from '../components/Stack/Stack';
 import { Text } from '../components/Text/Text';
 import * as Docs from '../docs/components';
 import { FontWeight } from '../docs/system/tokens.css';
-import { Docs as DocsType } from '../types';
+import { Docs as DocsType } from '../docs/types';
+import source from '../docs/utils/source.macro';
 import { fontWeights } from './fontWeights';
 
 const docs: DocsType = {
@@ -19,15 +20,16 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Weights',
-      Example: () => (
-        <Stack space="12px">
-          {Object.keys(fontWeights).map(weight => (
-            <Text key={weight} weight={weight as FontWeight}>
-              {weight}
-            </Text>
-          ))}
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="12px">
+            {Object.keys(fontWeights).map(weight => (
+              <Text key={weight} weight={weight as FontWeight}>
+                {weight}
+              </Text>
+            ))}
+          </Stack>
+        ),
     },
   ],
 };

@@ -2,15 +2,16 @@ import React from 'react';
 import { Box } from '../components/Box/Box';
 import { Text } from '../components/Text/Text';
 import * as Docs from '../docs/components';
-import { Docs as DocsType } from '../types';
+import { Docs as DocsType } from '../docs/types';
+import source from '../docs/utils/source.macro';
 import { ColorModeProvider } from './ColorMode';
 
 const docs: DocsType = {
   category: 'Color',
   description: [
     <Docs.Text key="">
-      If you're rendering a custom background color, you can take control of the
-      color mode by manually rendering a ColorModeProvider.
+      If you&apos;re rendering a custom background color, you can take control
+      of the color mode by manually rendering a ColorModeProvider.
     </Docs.Text>,
     <Docs.Text key="">
       Beyond the usual light and dark modes, there are also lightTinted and
@@ -18,20 +19,22 @@ const docs: DocsType = {
       where foreground colors should be desaturated.
     </Docs.Text>,
     <Docs.CodePreview
-      Example={() => (
-        <>
-          <Box padding="24px" style={{ backgroundColor: 'black' }}>
-            <ColorModeProvider value="dark">
-              <Text>Hi Mom!</Text>
-            </ColorModeProvider>
-          </Box>
-          <Box padding="24px" style={{ backgroundColor: 'white' }}>
-            <ColorModeProvider value="light">
-              <Text>Hi Rainbow!</Text>
-            </ColorModeProvider>
-          </Box>
-        </>
-      )}
+      Example={() =>
+        source(
+          <>
+            <Box padding="24px" style={{ backgroundColor: 'black' }}>
+              <ColorModeProvider value="dark">
+                <Text>Hi Mom!</Text>
+              </ColorModeProvider>
+            </Box>
+            <Box padding="24px" style={{ backgroundColor: 'white' }}>
+              <ColorModeProvider value="light">
+                <Text>Hi Rainbow!</Text>
+              </ColorModeProvider>
+            </Box>
+          </>
+        )
+      }
       disableActions
       key=""
       showCode

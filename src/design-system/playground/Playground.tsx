@@ -20,7 +20,7 @@ import rowDocs from '../components/Row/Row.docs';
 import stackDocs from '../components/Stack/Stack.docs';
 import textDocs from '../components/Text/Text.docs';
 import textLinkDocs from '../components/TextLink/TextLink.docs';
-import { Docs } from '../types';
+import { Docs } from '../docs/types';
 
 const allDocs = [
   backgroundDocs,

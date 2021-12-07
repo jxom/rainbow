@@ -1,6 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
-import { Docs } from '../../types';
+import { Docs } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Text } from '../Text/Text';
 import { TextLink } from './TextLink';
 
@@ -10,12 +11,13 @@ const docs: Docs = {
   examples: [
     {
       name: 'Basic usage',
-      Example: () => (
-        <Text>
-          This text contains a{' '}
-          <TextLink url="https://rainbow.me">link</TextLink>
-        </Text>
-      ),
+      Example: () =>
+        source(
+          <Text>
+            This text contains a{' '}
+            <TextLink url="https://rainbow.me">link</TextLink>
+          </Text>
+        ),
     },
   ],
 };

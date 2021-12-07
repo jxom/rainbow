@@ -4,7 +4,8 @@ import { Heading } from '../components/Heading/Heading';
 import { Stack } from '../components/Stack/Stack';
 import { Text } from '../components/Text/Text';
 import * as Docs from '../docs/components';
-import { Docs as DocsType } from '../types';
+import { Docs as DocsType } from '../docs/types';
+import source from '../docs/utils/source.macro';
 import { typeHierarchy } from './typeHierarchy';
 
 const docs: DocsType = {
@@ -19,30 +20,32 @@ const docs: DocsType = {
   examples: [
     {
       name: 'Heading sizes',
-      Example: () => (
-        <Stack space="12px">
-          {Object.keys(typeHierarchy.heading).map(size => (
-            <Heading
-              key={size}
-              size={size as keyof typeof typeHierarchy.heading}
-            >
-              Hello world ({size})
-            </Heading>
-          ))}
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="12px">
+            {Object.keys(typeHierarchy.heading).map(size => (
+              <Heading
+                key={size}
+                size={size as keyof typeof typeHierarchy.heading}
+              >
+                Hello world ({size})
+              </Heading>
+            ))}
+          </Stack>
+        ),
     },
     {
       name: 'Text sizes',
-      Example: () => (
-        <Stack space="12px">
-          {Object.keys(typeHierarchy.text).map(size => (
-            <Text key={size} size={size as keyof typeof typeHierarchy.text}>
-              Hello world ({size})
-            </Text>
-          ))}
-        </Stack>
-      ),
+      Example: () =>
+        source(
+          <Stack space="12px">
+            {Object.keys(typeHierarchy.text).map(size => (
+              <Text key={size} size={size as keyof typeof typeHierarchy.text}>
+                Hello world ({size})
+              </Text>
+            ))}
+          </Stack>
+        ),
     },
   ],
 };

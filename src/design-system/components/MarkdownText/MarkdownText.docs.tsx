@@ -1,7 +1,8 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
+import { Docs } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Guide } from '../../playground/Guide';
-import { Docs } from '../../types';
 import { MarkdownText } from './MarkdownText';
 
 const loremIpsum =
@@ -97,26 +98,28 @@ const docs: Docs = {
   examples: [
     {
       name: 'Basic usage',
-      Example: () => (
-        <>
-          <Guide />
-          <MarkdownText>{markdown}</MarkdownText>
-          <Guide />
-        </>
-      ),
+      Example: () =>
+        source(
+          <>
+            <Guide />
+            <MarkdownText>{markdown}</MarkdownText>
+            <Guide />
+          </>
+        ),
     },
 
     {
       name: 'Custom space',
-      Example: () => (
-        <>
-          <Guide />
-          <MarkdownText nestedSpace={{ custom: 30 }} space="42px">
-            {customSpaceMarkdown}
-          </MarkdownText>
-          <Guide />
-        </>
-      ),
+      Example: () =>
+        source(
+          <>
+            <Guide />
+            <MarkdownText nestedSpace={{ custom: 30 }} space="42px">
+              {customSpaceMarkdown}
+            </MarkdownText>
+            <Guide />
+          </>
+        ),
     },
   ],
 };

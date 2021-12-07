@@ -2,11 +2,11 @@ import uniqBy from 'lodash/uniqBy';
 import type { NextPage } from 'next';
 import React from 'react';
 
-import { Docs } from '../../types';
 import { DocsAccordion } from '../components/DocsAccordion';
 import * as docs from '../docs';
 import { Blockquote, Code, Heading, Stack, Text } from '../system';
 import { sprinkles } from '../system/sprinkles.css';
+import { Docs } from '../types';
 
 const categoryOrder: [string, string[]][] = [
   ['Layout', ['Introduction', 'Box']],

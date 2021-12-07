@@ -1,8 +1,9 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 import React from 'react';
 import * as Docs from '../../docs/components';
+import { Docs as DocsType } from '../../docs/types';
+import source from '../../docs/utils/source.macro';
 import { Placeholder } from '../../playground/Placeholder';
-import { Docs as DocsType } from '../../types';
 import { Inset } from '../Inset/Inset';
 import { Stack } from '../Stack/Stack';
 import { Bleed } from './Bleed';
@@ -31,97 +32,103 @@ const docs: DocsType = {
     {
       name: 'Basic usage',
       showFrame: true,
-      Example: () => (
-        <Inset space="19px">
-          <Stack space="19px">
-            <Placeholder height={100} />
-            <Bleed horizontal="19px">
+      Example: () =>
+        source(
+          <Inset space="19px">
+            <Stack space="19px">
               <Placeholder height={100} />
-            </Bleed>
-            <Placeholder height={100} />
-          </Stack>
-        </Inset>
-      ),
+              <Bleed horizontal="19px">
+                <Placeholder height={100} />
+              </Bleed>
+              <Placeholder height={100} />
+            </Stack>
+          </Inset>
+        ),
     },
 
     {
       name: 'Custom space',
       showFrame: true,
-      Example: () => (
-        <Inset space={{ custom: 17 }}>
-          <Stack space={{ custom: 17 }}>
-            <Placeholder height={100} />
-            <Bleed horizontal={{ custom: 17 }}>
+      Example: () =>
+        source(
+          <Inset space={{ custom: 17 }}>
+            <Stack space={{ custom: 17 }}>
               <Placeholder height={100} />
-            </Bleed>
-            <Placeholder height={100} />
-          </Stack>
-        </Inset>
-      ),
+              <Bleed horizontal={{ custom: 17 }}>
+                <Placeholder height={100} />
+              </Bleed>
+              <Placeholder height={100} />
+            </Stack>
+          </Inset>
+        ),
     },
 
     {
       name: 'Right',
       showFrame: true,
-      Example: () => (
-        <Inset space="19px">
-          <Stack space="19px">
-            <Placeholder height={100} />
-            <Bleed right="19px">
+      Example: () =>
+        source(
+          <Inset space="19px">
+            <Stack space="19px">
               <Placeholder height={100} />
-            </Bleed>
-            <Placeholder height={100} />
-          </Stack>
-        </Inset>
-      ),
+              <Bleed right="19px">
+                <Placeholder height={100} />
+              </Bleed>
+              <Placeholder height={100} />
+            </Stack>
+          </Inset>
+        ),
     },
 
     {
       name: 'Left',
       showFrame: true,
-      Example: () => (
-        <Inset space="19px">
-          <Stack space="19px">
-            <Placeholder height={100} />
-            <Bleed left="19px">
+      Example: () =>
+        source(
+          <Inset space="19px">
+            <Stack space="19px">
               <Placeholder height={100} />
-            </Bleed>
-            <Placeholder height={100} />
-          </Stack>
-        </Inset>
-      ),
+              <Bleed left="19px">
+                <Placeholder height={100} />
+              </Bleed>
+              <Placeholder height={100} />
+            </Stack>
+          </Inset>
+        ),
     },
 
     {
       name: 'Top',
       showFrame: true,
-      Example: () => (
-        <Inset space="19px">
-          <Stack space="19px">
-            <Bleed top="19px">
+      Example: () =>
+        source(
+          <Inset space="19px">
+            <Stack space="19px">
+              <Bleed top="19px">
+                <Placeholder height={100} />
+              </Bleed>
               <Placeholder height={100} />
-            </Bleed>
-            <Placeholder height={100} />
-            <Placeholder height={100} />
-          </Stack>
-        </Inset>
-      ),
+              <Placeholder height={100} />
+            </Stack>
+          </Inset>
+        ),
     },
 
     {
       name: 'Bottom',
       showFrame: true,
-      Example: () => (
-        <Inset space="19px">
-          <Stack space="19px">
-            <Placeholder height={100} />
-            <Placeholder height={100} />
-            <Bleed bottom="19px">
+      Example: () =>
+        source(
+          <Inset space="19px">
+            <Stack space="19px">
               <Placeholder height={100} />
-            </Bleed>
-          </Stack>
-        </Inset>
-      ),
+              <Placeholder height={100} />
+              <Bleed bottom="19px">
+                <Placeholder height={100} />
+              </Bleed>
+            </Stack>
+          </Inset>
+        ),
     },
   ],
 };
