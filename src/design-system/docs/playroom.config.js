@@ -29,10 +29,16 @@ module.exports = {
               cwd: path.join(__dirname, '..'),
               extends: path.resolve(
                 __dirname,
-                '../../../node_modules/playroom/.babelrc'
+                './node_modules/playroom/.babelrc'
               ),
               plugins: [
-                ['react-native-web', { commonjs: true }],
+                [
+                  path.resolve(
+                    __dirname,
+                    './node_modules/babel-plugin-react-native-web'
+                  ),
+                  { commonjs: true },
+                ],
                 'react-native-reanimated/plugin',
               ],
             },
@@ -61,6 +67,7 @@ module.exports = {
         'react-native$': 'react-native-web',
       },
       extensions: ['.web.js', '.web.ts', '.web.tsx', '.js', '.ts', '.tsx'],
+      modules: [path.join(__dirname, './node_modules'), 'node_modules'],
     },
   }),
   widths: [320],

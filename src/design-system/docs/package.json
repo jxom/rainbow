@@ -10,21 +10,21 @@
     "build:docs": "next build && next export",
     "build:playroom": "playroom build",
     "start": "next start",
-    "lint": "next lint"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "lint": "next lint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@capsizecss/vanilla-extract": "1.0.0",
     "@vanilla-extract/css": "1.6.3",
     "@vanilla-extract/sprinkles": "1.3.1",
+    "classnames": "2.3.1",
     "lodash": "4.17.21",
     "lz-string": "1.4.4",
     "next": "12.0.4",
     "prettier": "2.5.1",
-    "react-element-to-jsx-string": "14.3.4"
+    "react-dom": "17.0.2",
+    "react-native-web": "0.17.5",
+    "react-syntax-highlighter": "15.4.5"
   },
   "devDependencies": {
     "@babel/generator": "7.16.0",
@@ -35,13 +35,11 @@
     "babel-plugin-macros": "3.1.0",
     "babel-plugin-react-native-web": "0.17.5",
     "babel-plugin-tester": "10.1.0",
-    "classnames": "2.3.1",
     "eslint-config-next": "12.0.4",
     "next-compose-plugins": "2.2.1",
     "next-transpile-modules": "9.0.0",
     "npm-run-all": "4.1.5",
-    "playroom": "0.27.7",
-    "react-native-web": "0.17.5",
-    "react-syntax-highlighter": "15.4.5"
+    "patch-package": "6.4.7",
+    "playroom": "0.27.7"
   }
 }

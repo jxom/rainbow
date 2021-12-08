@@ -21,6 +21,10 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   webpack: config => {
+    config.resolve.modules = [
+      path.join(__dirname, './node_modules'),
+      'node_modules',
+    ];
     config.plugins.push(
       new webpack.DefinePlugin({
         __DEV__: true,
