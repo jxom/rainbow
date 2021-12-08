@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useHideSplashScreen } from '../../hooks';
+import useHideSplashScreen from '../../hooks/useHideSplashScreen';
 import { Heading, Inline, Inset, Stack } from '../';
 import backgroundDocs from '../components/BackgroundProvider/BackgroundProvider.docs';
 import bleedDocs from '../components/Bleed/Bleed.docs';

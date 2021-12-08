@@ -469,10 +469,5 @@
       "postinstall-postinstall": false,
       "core-js-pure": false
     }
-  },
-  "workspaces": {
-    "packages": [
-      "src/design-system/*"
-    ]
   }
 }
