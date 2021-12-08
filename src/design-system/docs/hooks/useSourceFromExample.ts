@@ -12,7 +12,9 @@ export const useSourceFromExample = ({
   }
 
   return {
+    code: '',
+    displayCode: '',
     element,
-    jsxString: '',
+    playroomCode: '',
   };
 };

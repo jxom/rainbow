@@ -22,7 +22,9 @@ export const CodePreview = ({
   Example: () => Source<React.ReactChild>;
 }) => {
   const [showCode, setShowCode] = React.useState(Boolean(defaultShowCode));
-  const { jsxString, element } = useSourceFromExample({ Example });
+  const { displayCode, playroomCode, element } = useSourceFromExample({
+    Example,
+  });
 
   return (
     <Stack space="16px">
@@ -46,9 +48,9 @@ export const CodePreview = ({
           {element}
         </div>
       </div>
-      {jsxString && (
+      {displayCode && (
         <>
-          {showCode && <CodeBlock code={jsxString} />}
+          {showCode && <CodeBlock code={displayCode} />}
           {!disableActions && (
             <Inline alignHorizontal="right" space="24px">
               {enablePlayroom && (
@@ -59,7 +61,7 @@ export const CodePreview = ({
                         `${window.location.href}playroom`
                       : 'http://localhost:9000/'
                   }?code=${lzString.compressToEncodedURIComponent(
-                    JSON.stringify({ code: jsxString })
+                    JSON.stringify({ code: playroomCode })
                   )}`}
                   rel="noreferrer"
                   style={{ textAlign: 'right' }}

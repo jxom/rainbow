@@ -6,7 +6,6 @@ import { Text } from '../components/Text/Text';
 import * as Docs from '../docs/components';
 import { Docs as DocsType } from '../docs/types';
 import source from '../docs/utils/source.macro';
-import { typeHierarchy } from './typeHierarchy';
 
 const docs: DocsType = {
   name: 'Font sizes',
@@ -23,14 +22,15 @@ const docs: DocsType = {
       Example: () =>
         source(
           <Stack space="12px">
-            {Object.keys(typeHierarchy.heading).map(size => (
-              <Heading
-                key={size}
-                size={size as keyof typeof typeHierarchy.heading}
-              >
-                Hello world ({size})
-              </Heading>
-            ))}
+            <Heading size="23px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Heading>
+            <Heading size="20px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Heading>
+            <Heading size="18px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Heading>
           </Stack>
         ),
     },
@@ -39,11 +39,18 @@ const docs: DocsType = {
       Example: () =>
         source(
           <Stack space="12px">
-            {Object.keys(typeHierarchy.text).map(size => (
-              <Text key={size} size={size as keyof typeof typeHierarchy.text}>
-                Hello world ({size})
-              </Text>
-            ))}
+            <Text size="18px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Text>
+            <Text size="16px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Text>
+            <Text size="14px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Text>
+            <Text size="11px">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </Text>
           </Stack>
         ),
     },
